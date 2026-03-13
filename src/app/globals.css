@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gis-green: #0e6930;
+  --gis-green-dark: #0a4f24;
+  --gis-green-light: #1a8f42;
+  --gis-gold: #c9a033;
+  --gis-dark: #333333;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 15%;
+    --primary: 145 75% 23%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 145 15% 95%;
+    --secondary-foreground: 145 75% 23%;
+    --muted: 145 10% 96%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 42 60% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 145 75% 23%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-rubik antialiased;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .text-gis-green {
+    color: var(--gis-green);
+  }
+  .bg-gis-green {
+    background-color: var(--gis-green);
+  }
+  .bg-gis-green-dark {
+    background-color: var(--gis-green-dark);
+  }
+  .border-gis-green {
+    border-color: var(--gis-green);
+  }
+  .text-gis-gold {
+    color: var(--gis-gold);
+  }
+}
+
+/* Rubik font */
+.font-rubik {
+  font-family: 'Rubik', system-ui, -apple-system, sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gis-green);
+  border-radius: 4px;
+}
+
+/* Section title with left border */
+.section-title {
+  position: relative;
+  padding-left: 1rem;
+  border-left: 4px solid var(--gis-green);
+}
+
+/* Event card hover */
+.event-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Smooth transitions */
+.transition-smooth {
+  transition: all 0.3s ease;
+}
