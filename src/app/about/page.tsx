@@ -63,8 +63,7 @@ const navItems = [
     href: "#",
     submenu: [
       { name: "Parent Portal", href: "/portals" },
-      { name: "Student Portal", href: "/portals" },
-      { name: "Alumni", href: "#" }
+      { name: "Student Portal", href: "/portals/student" }
     ]
   },
   { 
@@ -75,7 +74,7 @@ const navItems = [
 ];
 
 const secondaryNavItems = [
-  { name: "Staff Portal", href: "#" },
+  { name: "Staff Portal", href: "/portals/staff" },
   { name: "Parent Portal", href: "/portals" },
 ];
 
@@ -403,7 +402,7 @@ export default function AboutPage() {
         <div className="relative z-10 text-center text-white px-4">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">About ADJIS</h1>
           <p className="text-lg md:text-xl max-w-2xl mx-auto opacity-90">
-            Understanding of Each Other
+            Nurturing Little Steps to Big Steps
           </p>
         </div>
       </section>
@@ -425,7 +424,7 @@ export default function AboutPage() {
         <section className="py-16 bg-gray-100">
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-3xl md:text-4xl font-bold mb-4">OUR MOTTO</h1>
-            <h2 className="text-2xl md:text-3xl font-semibold text-gray-700">"Understanding of Each Other"</h2>
+            <h2 className="text-2xl md:text-3xl font-semibold text-gray-700">"Nurturing Little Steps to Big Steps"</h2>
           </div>
         </section>
 
@@ -532,7 +531,7 @@ export default function AboutPage() {
               <p className="text-gray-400 mb-4">
                 Providing internationally diverse education that instills understanding of each other and promotes holistic development.
               </p>
-              <p className="text-sm text-gray-500">"Understanding of Each Other"</p>
+              <p className="text-sm text-gray-500">"Nurturing Little Steps to Big Steps"</p>
             </div>
 
             {/* Quick Links */}
@@ -552,8 +551,10 @@ export default function AboutPage() {
               <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>📍 Accra, Ghana</li>
-                <li>📞 +233 XXX XXX XXX</li>
-                <li>✉️ info@jis.edu.gh</li>
+                <li>📞 +233 245 894 229</li>
+                <li>📞 +233 244 330 890</li>
+                <li>✉️ admission@josemariaschoolgh.org</li>
+                <li>✉️ info@josemariaschoolgh.org</li>
                 <li>🌐 www.jis.edu.gh</li>
               </ul>
             </div>

@@ -56,13 +56,12 @@ const navItems = [
     href: "#",
     subItems: [{ name: "PTA", href: "#" }],
   },
-  { name: "Alumni", href: "#" },
   { name: "Contact Us", href: "/contact" },
 ];
 
 // Stats data
 const stats = [
-  { label: "Established", value: "1955" },
+  { label: "Established", value: "2010" },
   { label: "Students", value: "1,200+" },
   { label: "Nationalities", value: "60+" },
   { label: "After-school programs", value: "50+" },
@@ -80,20 +79,20 @@ const events = [
 // News data
 const newsItems = [
   {
-    title: "ADJIS@70 Mid-Term Adventures!",
-    excerpt: "This week, members of the ADJIS Community are experiencing an unforgettable blend of tourism,...",
+    title: "ADJIS Celebrates Excellence in Cambridge Results",
+    excerpt: "Our students have achieved outstanding results in the recent Cambridge International examinations, with several students earning top honors and distinctions across various subjects.",
     image: "/images/hero.jpg",
     href: "#",
   },
   {
-    title: "Congratulations to the Infant School Student Council (ADJISSC)",
-    excerpt: "Introduced in November 2022, the Infant School Student Council (ADJISSC) is an impactful initiative...",
+    title: "New STEM Laboratory Complex Opens",
+    excerpt: "ADJIS proudly inaugurates its state-of-the-art STEM laboratory complex, providing students with cutting-edge facilities for science, technology, engineering, and mathematics education.",
     image: "/images/hero.jpg",
     href: "#",
   },
   {
-    title: "ADJIS Shines at PaGya Literary Festival!",
-    excerpt: "We are thrilled to celebrate FOUR published authors from the ADJIS community presenting at this...",
+    title: "Cultural Diversity Week 2026",
+    excerpt: "Our annual Cultural Diversity Week showcases the rich heritage of our 60+ nationalities through traditional performances, cuisine fairs, and cultural exchange programs.",
     image: "/images/hero.jpg",
     href: "#",
   },
@@ -102,7 +101,7 @@ const newsItems = [
 // Join ADJIS cards
 const joinCards = [
   { title: "A Student", image: "/images/hero.jpg", href: "/admissions" },
-  { title: "A Staff Member", image: "/images/hero.jpg", href: "/about" },
+  { title: "A Staff Member", image: "/images/hero.jpg", href: "/careers" },
 ];
 
 // University logos
@@ -242,12 +241,6 @@ export default function Home() {
                 />
               </Link>
               <div className="h-10 w-px bg-white/40 hidden md:block" />
-              <Link
-                href="#"
-                className="hidden md:inline-flex bg-gis-green hover:bg-gis-green-dark text-white text-sm font-medium px-5 py-2.5 rounded-full transition-colors shadow-md"
-              >
-                Join Our Giving Campaigns
-              </Link>
             </div>
 
             {/* Desktop Navigation */}
@@ -293,6 +286,20 @@ export default function Home() {
                   )}
                 </div>
               ))}
+              
+              {/* Portal Links */}
+              <div className="flex items-center gap-4 ml-4 border-l border-white/20 pl-4">
+                <Link href="/portals" className="text-white text-sm hover:text-gis-gold transition-colors">
+                  Parent Portal
+                </Link>
+                <Link href="/portals/staff" className="text-white text-sm hover:text-gis-gold transition-colors">
+                  Staff Portal
+                </Link>
+                <Link href="/portals/student" className="text-white text-sm hover:text-gis-gold transition-colors">
+                  Student Portal
+                </Link>
+              </div>
+              
               <button type="button" className="text-white p-2 ml-2 hover:text-gis-gold transition-colors" aria-label="Search">
                 <Search className="w-5 h-5" />
               </button>
@@ -474,10 +481,10 @@ export default function Home() {
               <AnimatedSection delay={100}>
                 <div className="space-y-4 text-gray-600 leading-relaxed">
                   <p>
-                    Adorable Babies & Josemaria International School is a not-for-profit, private, non-sectarian, co-educational day and boarding school. It was established in September 1955 to provide international education to students of all races and creeds, at a time when Ghana was yet to achieve full independence, and international schools were a rarity. Almost 70 years on, ADJIS continues to provide quality education to both international and local students in a completely different and more competitive educational setting.
+                    Adorable Babies & Josemaria International School is a not-for-profit, private, non-sectarian, co-educational day and boarding school. Established in 2010, ADJIS was founded to provide innovative international education to students of all races and creeds. We offer a unique blended curriculum that combines the best of the Ghana Education Service (GES), Montessori, and Cambridge International systems, providing students with a comprehensive and globally-relevant learning experience.
                   </p>
                   <p>
-                    ADJIS offers a curriculum based on the Cambridge International Early Years, Cambridge Primary and Secondary program leading to the IGCSE and Advanced level examination, with English language as the medium of instruction. We also have a Pearson BTEC Pathway in Music and Creative Media for students aged 14 years and above. These are complemented by local content offerings especially in the pre-examination classes.
+                    Our blended curriculum approach integrates the structured framework of Cambridge International programs with the child-centered philosophy of Montessori and the cultural relevance of the Ghana Education Service curriculum. This unique combination ensures that students receive both international standards and local educational context, preparing them for global opportunities while maintaining strong connections to their heritage. English language serves as the primary medium of instruction, with additional support for local languages and cultural studies.
                   </p>
                 </div>
               </AnimatedSection>
@@ -645,7 +652,6 @@ export default function Home() {
                 <Link href="mailto:info@josemariaschoolgh.org" className="block hover:text-white">info@josemariaschoolgh.org</Link>
                 <p>+233 245 894 229</p>
                 <p>+233 244 330 890</p>
-                <p>+233 (0)30 397 9588</p>
               </div>
             </div>
 
@@ -714,24 +720,13 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Portals */}
-              <div>
-                <h3 className="text-lg font-bold uppercase tracking-wider mb-4">Portals</h3>
-                <div className="space-y-2">
-                  <Link href="#" className="block text-gray-300 hover:text-white">Alumni</Link>
-                  <Link href="#" className="block text-gray-300 hover:text-white">Parent</Link>
-                  <Link href="#" className="block text-gray-300 hover:text-white">Staff</Link>
-                  <Link href="#" className="block text-gray-300 hover:text-white">Student</Link>
-                </div>
-              </div>
-
               {/* Quick Links */}
               <div>
                 <h3 className="text-lg font-bold uppercase tracking-wider mb-4">Quick Links</h3>
                 <div className="space-y-2">
                   <Link href="/about" className="block text-gray-300 hover:text-white">Student Life</Link>
-                  <Link href="/about" className="block text-gray-300 hover:text-white">SEN Program</Link>
-                  <Link href="/about" className="block text-gray-300 hover:text-white">Careers</Link>
+                  <Link href="/principal" className="block text-gray-300 hover:text-white">Principal's Message</Link>
+                  <Link href="/careers" className="block text-gray-300 hover:text-white">Careers</Link>
                   <Link href="/about" className="block text-gray-300 hover:text-white">Boarding Program</Link>
                 </div>
               </div>

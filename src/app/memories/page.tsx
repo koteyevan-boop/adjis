@@ -3,13 +3,16 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, Calendar, Heart, Download, Share2, Filter, Grid, List, Camera, Users, Trophy } from 'lucide-react';
+import { ArrowLeft, Calendar, Heart, Download, Share2, Filter, Grid, List, Camera, Users, Trophy, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import PageLayout from '@/components/PageLayout';
 
 export default function MemoriesPage() {
   const [selectedYear, setSelectedYear] = useState('all');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [galleryOpen, setGalleryOpen] = useState(false);
+  const [currentGallery, setCurrentGallery] = useState<string[]>([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const memories = [
     {
@@ -114,6 +117,26 @@ export default function MemoriesPage() {
     const categoryMatch = selectedCategory === 'all' || memory.category === selectedCategory;
     return yearMatch && categoryMatch;
   });
+
+  const openGallery = (gallery: string[], index: number = 0) => {
+    setCurrentGallery(gallery);
+    setCurrentImageIndex(index);
+    setGalleryOpen(true);
+  };
+
+  const closeGallery = () => {
+    setGalleryOpen(false);
+    setCurrentGallery([]);
+    setCurrentImageIndex(0);
+  };
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % currentGallery.length);
+  };
+
+  const previousImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + currentGallery.length) % currentGallery.length);
+  };
 
   return (
     <PageLayout title="ADJIS - Memories" hideHero>
@@ -281,7 +304,11 @@ export default function MemoriesPage() {
                       {filteredMemories.find(m => m.featured)?.description}
                     </p>
                     <div className="flex items-center gap-4">
-                      <button className="bg-white text-green-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                      <button 
+                        onClick={() => openGallery(filteredMemories.find(m => m.featured)?.gallery || [])}
+                        className="bg-green-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors shadow-lg"
+                      >
+                        <Camera className="w-5 h-5 mr-2 inline" />
                         View Gallery
                       </button>
                     </div>
@@ -324,8 +351,12 @@ export default function MemoriesPage() {
                       </div>
                       <h3 className="text-lg font-bold text-gray-800 mb-3">{memory.title}</h3>
                       <p className="text-gray-600 mb-4 line-clamp-2">{memory.description}</p>
-                      <div className="flex items-center gap-2">
-                        <button className="bg-white text-green-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                      <div className="flex items-center justify-center">
+                        <button 
+                          onClick={() => openGallery(memory.gallery)}
+                          className="bg-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors shadow-md"
+                        >
+                          <Camera className="w-4 h-4 mr-2 inline" />
                           View Gallery
                         </button>
                       </div>
@@ -356,8 +387,11 @@ export default function MemoriesPage() {
                         </div>
                         <h3 className="text-xl font-bold text-gray-800 mb-3">{memory.title}</h3>
                         <p className="text-gray-600 mb-4">{memory.description}</p>
-                        <div className="flex items-center gap-2">
-                          <button className="bg-green-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-green-600 transition-colors">
+                        <div className="flex items-center justify-center">
+                          <button 
+                            onClick={() => openGallery(memory.gallery)}
+                            className="bg-green-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-600 transition-colors shadow-md"
+                          >
                             <Camera className="w-4 h-4 mr-2 inline" />
                             View Gallery ({memory.gallery.length} photos)
                           </button>
@@ -389,6 +423,47 @@ export default function MemoriesPage() {
             </div>
           </div>
         </section>
+
+        {/* Gallery Popup */}
+        {galleryOpen && (
+          <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4">
+            <button
+              onClick={closeGallery}
+              className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-10"
+            >
+              <X className="w-8 h-8" />
+            </button>
+            
+            <button
+              onClick={previousImage}
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 transition-colors z-10"
+            >
+              <ChevronLeft className="w-8 h-8" />
+            </button>
+            
+            <button
+              onClick={nextImage}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 transition-colors z-10"
+            >
+              <ChevronRight className="w-8 h-8" />
+            </button>
+            
+            <div className="max-w-6xl max-h-full">
+              <Image
+                src={currentGallery[currentImageIndex]}
+                alt={`Gallery image ${currentImageIndex + 1}`}
+                width={1200}
+                height={800}
+                className="max-w-full max-h-full object-contain"
+              />
+              <div className="text-center mt-4 text-white">
+                <p className="text-sm">
+                  {currentImageIndex + 1} / {currentGallery.length}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </PageLayout>
   );

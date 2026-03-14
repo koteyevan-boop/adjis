@@ -70,7 +70,6 @@ const navItems: NavItem[] = [
     href: "#",
     submenu: [{ name: "PTA", href: "#" }],
   },
-  { name: "Alumni", href: "#" },
   { name: "Contact Us", href: "/contact" },
 ];
 
@@ -97,12 +96,6 @@ export default function PageLayout({ children, title, subtitle, backgroundImage,
                 />
               </Link>
               <div className="h-10 w-px bg-white/40 hidden md:block" />
-              <Link
-                href="#"
-                className="hidden md:inline-flex bg-gis-green hover:bg-gis-green-dark text-white text-sm font-medium px-5 py-2.5 rounded-full transition-colors shadow-md"
-              >
-                Join Our Giving Campaigns
-              </Link>
             </div>
 
             {/* Desktop Navigation */}

@@ -3,7 +3,8 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, X, ChevronRight, Check, CheckCircle, Phone, Mail, MapPin, Clock, Users, BookOpen, Award, ChevronDown, FileText, ArrowRight } from "lucide-react";
+import { ChevronRight, Check, CheckCircle, Phone, Mail, MapPin, Clock, Users, BookOpen, Award, ChevronDown, FileText, ArrowRight } from "lucide-react";
+import PageLayout from "@/components/PageLayout";
 
 function useScrollAnimation() {
   const ref = useRef<HTMLDivElement>(null);
@@ -47,89 +48,20 @@ function AnimatedSection({ children, className = "", delay = 0 }: { children: Re
   );
 }
 
-const navItems = [
-  { 
-    name: "Home", 
-    href: "/",
-    submenu: []
-  },
-  { 
-    name: "About", 
-    href: "/about",
-    submenu: [
-      { name: "About ADJIS", href: "/about" },
-      { name: "Our History", href: "/about/our-history" },
-      { name: "Careers", href: "/about" },
-      { name: "Principal's Message", href: "/about" },
-      { name: "ADJIS Attributes", href: "/about/jis-attributes" }
-    ]
-  },
-  { name: "Careers", href: "#" },
-  { 
-    name: "Admissions", 
-    href: "/admissions",
-    submenu: [
-      { name: "View Admissions", href: "/admissions" },
-      { name: "Apply", href: "/admissions/apply" },
-      { name: "FAQ", href: "/admissions#faq" }
-    ]
-  },
-  { 
-    name: "Life In ADJIS", 
-    href: "/life",
-    submenu: [
-      { name: "News & Updates", href: "/news" },
-      { name: "Memories", href: "/memories" },
-      { name: "Activities", href: "/activities" },
-      { name: "Calendar", href: "/calendar" }
-    ]
-  },
-  { 
-    name: "Academics", 
-    href: "/academics",
-    submenu: [
-      { name: "Departments", href: "/academics/departments", submenu: [
-        { name: "Pre-School", href: "/academics/preschool" },
-        { name: "Primary School", href: "/academics/primary" }
-      ]},
-      { name: "Curriculum", href: "/academics/curriculum" }
-    ]
-  },
-  { 
-    name: "Community", 
-    href: "#",
-    submenu: [
-      { name: "Parent Portal", href: "/portals" },
-      { name: "Student Portal", href: "/portals" },
-      { name: "Alumni", href: "#" }
-    ]
-  },
-  { 
-    name: "Contact Us", 
-    href: "/contact",
-    submenu: []
-  },
-];
-
-const secondaryNavItems = [
-  { name: "Staff Portal", href: "#" },
-  { name: "Parent Portal", href: "/portals" },
-];
-
 const schoolLevels = [
   {
     title: "Infant School",
-    ages: "Ages 3-6",
+    ages: "Ages 0-5",
     description: "Our Infant School provides a nurturing environment for our youngest learners with the Cambridge Early Years curriculum.",
     features: ["Play-based learning", "Small class sizes", "Dedicated infant facilities"],
-    image: "/images/students-bg.jpg",
+    image: "/images/hero.jpg",
   },
   {
-    title: "Junior School",
-    ages: "Ages 6-11",
-    description: "The Junior School builds foundational skills through the Cambridge Primary programme.",
+    title: "Primary School",
+    ages: "Ages 6-13",
+    description: "The Primary School builds foundational skills through the Cambridge Primary programme.",
     features: ["Cambridge Primary", "Specialist teachers", "Extra-curricular activities"],
-    image: "/images/hero-bg.jpg",
+    image: "/images/hero.jpg",
   },
 ];
 
@@ -137,7 +69,7 @@ const admissionSteps = [
   { step: 1, title: "Submit Application", description: "Complete the online application form with required documents." },
   { step: 2, title: "Assessment", description: "Students undergo academic assessment and interview." },
   { step: 3, title: "Admission Decision", description: "Receive admission decision within 2 weeks." },
-  { step: 4, title: "Enrollment", description: "Complete enrollment and welcome to GIS!" },
+  { step: 4, title: "Enrollment", description: "Complete enrollment and welcome to ADJIS!" },
 ];
 
 const requirements = [
@@ -156,253 +88,29 @@ const faqs = [
   },
   {
     question: "Is financial aid available?",
-    answer: "Yes, GIS offers merit-based scholarships and need-based financial assistance to qualified students. Contact our admissions office for more information.",
+    answer: "Yes, ADJIS offers merit-based scholarships and need-based financial assistance to qualified students. Contact our admissions office for more information.",
   },
   {
     question: "What language is used for instruction?",
-    answer: "English is the primary language of instruction at GIS. We offer additional language classes in French and other languages.",
+    answer: "English is the primary language of instruction at ADJIS. We offer additional language classes in French and other languages.",
   },
   {
     question: "Do you offer boarding facilities?",
-    answer: "Yes, GIS has boarding facilities available for students from Year 7 onwards. Our boarding program offers a supportive home-away-from-home environment.",
+    answer: "No, ADJIS does not offer boarding facilities. We are a day school serving students from ages 0 to 13 years.",
   },
 ];
 
 export default function AdmissionsPage() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setDropdownOpen(null);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Top Header - Secondary Navigation */}
-      <div id="top-header" className="bg-gray-900 text-white py-2">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-end items-center">
-            <nav id="et-secondary-nav">
-              <ul className="flex items-center gap-6 text-sm">
-                {secondaryNavItems.map((item) => (
-                  <li key={item.name}>
-                    <Link 
-                      href={item.href} 
-                      className="hover:text-gray-300 transition-colors"
-                    >
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Header */}
-      <header id="main-header" className="bg-white shadow-lg sticky top-0 z-50">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between py-4">
-            <div className="logo_container">
-              <Link href="/" className="flex items-center gap-2">
-                <Image
-                  src="/images/logo1.jpg"
-                  alt="ADJIS"
-                  width={100}
-                  height={50}
-                  className="h-16 w-auto"
-                />
-              </Link>
-            </div>
-
-            {/* Desktop Navigation */}
-            <nav id="top-navigation" className="hidden lg:flex items-center" ref={dropdownRef}>
-              <ul className="flex items-center">
-                {navItems.map((item) => (
-                  <li 
-                    key={item.name} 
-                    className="relative group"
-                    onMouseEnter={() => setDropdownOpen(item.name)}
-                    onMouseLeave={() => setDropdownOpen(null)}
-                  >
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (item.name === "Admissions") {
-                          // For Admissions, always toggle dropdown
-                          setDropdownOpen(dropdownOpen === item.name ? null : item.name);
-                        } else if (item.submenu && item.submenu.length > 0) {
-                          setDropdownOpen(dropdownOpen === item.name ? null : item.name);
-                        } else {
-                          window.location.href = item.href;
-                        }
-                      }}
-                      className={`flex items-center gap-1 px-4 py-2 text-gray-700 hover:text-gis-green transition-colors font-medium bg-transparent border-none cursor-pointer ${
-                        item.name === "Admissions" ? "text-gis-green" : ""
-                      }`}
-                    >
-                      {item.name}
-                      {item.submenu && item.submenu.length > 0 && (
-                        <ChevronDown className="w-4 h-4" />
-                      )}
-                    </button>
-                    
-                    {/* Dropdown Menu */}
-                    {item.submenu && item.submenu.length > 0 && dropdownOpen === item.name && (
-                      <ul 
-                        className="absolute top-full left-0 bg-white shadow-lg rounded-lg min-w-[200px] py-2 mt-1 z-[9999]"
-                        onMouseEnter={() => setDropdownOpen(item.name)}
-                        onMouseLeave={() => setDropdownOpen(null)}
-                      >
-                        {item.submenu.map((subitem) => (
-                          <li 
-                            key={subitem.name}
-                            className="relative"
-                          >
-                            <Link
-                              href={subitem.href}
-                              className="block px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-gis-green transition-colors"
-                            >
-                              {subitem.name}
-                            </Link>
-                            
-                            {/* Sub-submenu */}
-                            {subitem.submenu && subitem.submenu.length > 0 && dropdownOpen === `${item.name}-${subitem.name}` && (
-                              <ul className="absolute top-0 left-full bg-white shadow-lg rounded-lg min-w-[180px] py-2 ml-1">
-                                {subitem.submenu.map((subsubitem) => (
-                                  <li key={subsubitem.name}>
-                                    <Link
-                                      href={subsubitem.href}
-                                      className="block px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-gis-green transition-colors"
-                                    >
-                                      {subsubitem.name}
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            )}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
-            {/* Mobile Menu Button */}
-            <button
-              type="button"
-              className="lg:hidden text-gray-700 p-2"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-
-          {/* Mobile Menu */}
-          {mobileMenuOpen && (
-            <div className="lg:hidden bg-white border-t">
-              <nav className="py-4">
-                {navItems.map((item) => (
-                  <div key={item.name} className="border-b">
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (item.submenu && item.submenu.length > 0) {
-                          setDropdownOpen(dropdownOpen === item.name ? null : item.name);
-                        } else {
-                          window.location.href = item.href;
-                          setMobileMenuOpen(false);
-                        }
-                      }}
-                      className="w-full block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-gis-green transition-colors font-medium text-left bg-transparent border-none cursor-pointer"
-                    >
-                      <div className="flex items-center justify-between">
-                        {item.name}
-                        {item.submenu && item.submenu.length > 0 && (
-                          <ChevronDown className={`w-4 h-4 transition-transform ${
-                            dropdownOpen === item.name ? 'rotate-180' : ''
-                          }`} />
-                        )}
-                      </div>
-                    </button>
-                    
-                    {/* Mobile Submenu */}
-                    {item.submenu && item.submenu.length > 0 && dropdownOpen === item.name && (
-                      <div className="bg-gray-50">
-                        {item.submenu.map((subitem) => (
-                          <div key={subitem.name} className="border-b border-gray-200">
-                            <button
-                              onClick={(e) => {
-                                e.preventDefault();
-                                if (subitem.submenu && subitem.submenu.length > 0) {
-                                  setDropdownOpen(dropdownOpen === `${item.name}-${subitem.name}` ? item.name : `${item.name}-${subitem.name}`);
-                                } else {
-                                  window.location.href = subitem.href;
-                                  setMobileMenuOpen(false);
-                                }
-                              }}
-                              className="w-full block px-8 py-2 text-gray-600 hover:bg-gray-100 hover:text-gis-green transition-colors text-left bg-transparent border-none cursor-pointer"
-                            >
-                              <div className="flex items-center justify-between">
-                                {subitem.name}
-                                {subitem.submenu && subitem.submenu.length > 0 && (
-                                  <ChevronDown className={`w-3 h-3 transition-transform ${
-                                    dropdownOpen === `${item.name}-${subitem.name}` ? 'rotate-180' : ''
-                                  }`} />
-                                )}
-                              </div>
-                            </button>
-                            
-                            {/* Mobile Sub-submenu */}
-                            {subitem.submenu && subitem.submenu.length > 0 && dropdownOpen === `${item.name}-${subitem.name}` && (
-                              <div className="bg-gray-100">
-                                {subitem.submenu.map((subsubitem) => (
-                                  <button
-                                    key={subsubitem.name}
-                                    onClick={(e) => {
-                                      e.preventDefault();
-                                      window.location.href = subsubitem.href;
-                                      setMobileMenuOpen(false);
-                                    }}
-                                    className="w-full block px-12 py-2 text-gray-600 hover:bg-gray-200 hover:text-gis-green transition-colors text-sm text-left bg-transparent border-none cursor-pointer"
-                                  >
-                                    {subsubitem.name}
-                                  </button>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </nav>
-            </div>
-          )}
-        </div>
-      </header>
-
+    <PageLayout title="Admissions - ADJIS" hideHero>
       {/* Hero Section */}
       <section className="relative h-[400px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/images/hero.jpg"
-            alt="GIS Students"
+            alt="ADJIS Students"
             fill
             className="object-cover"
             priority
@@ -437,12 +145,12 @@ export default function AdmissionsPage() {
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
               <AnimatedSection>
-                <h2 className="section-title text-3xl font-bold text-gray-800 mb-6 inline-block">Welcome to GIS Admissions</h2>
+                <h2 className="section-title text-3xl font-bold text-gray-800 mb-6 inline-block">Welcome to ADJIS Admissions</h2>
                 <p className="text-gray-600 leading-relaxed mb-6">
-                  Thank you for considering Adorable Babies & Josemaria International School for your child&apos;s education. We welcome students from all backgrounds and nationalities, united by our commitment to academic excellence and &quot;Understanding of Each Other.&quot;
+                  Thank you for considering Adorable Babies & Josemaria International School for your child&apos;s education. We welcome students from all backgrounds and nationalities, united by our commitment to academic excellence and &quot;Nurturing Little Steps to Big Steps.&quot;
                 </p>
                 <p className="text-gray-600 leading-relaxed">
-                  Our admissions process is designed to be straightforward and supportive. We look forward to learning about your child and sharing how GIS can help them achieve their full potential.
+                  Our admissions process is designed to be straightforward and supportive. We look forward to learning about your child and sharing how ADJIS can help them achieve their full potential.
                 </p>
               </AnimatedSection>
             </div>
@@ -455,7 +163,7 @@ export default function AdmissionsPage() {
             <AnimatedSection>
               <h2 className="section-title text-3xl font-bold text-gray-800 mb-4 text-center">Our Schools</h2>
               <p className="text-gray-600 text-center max-w-2xl mx-auto mb-12">
-                GIS offers comprehensive education from ages 3 to 18.
+                ADJIS offers comprehensive education from ages 0 to 13.
               </p>
             </AnimatedSection>
             <div className="grid md:grid-cols-2 gap-8">
@@ -499,7 +207,7 @@ export default function AdmissionsPage() {
             <AnimatedSection>
               <h2 className="section-title text-3xl font-bold text-gray-800 mb-4 text-center">Admission Process</h2>
               <p className="text-gray-600 text-center max-w-2xl mx-auto mb-12">
-                Our straightforward 4-step process makes joining GIS easy.
+                Our straightforward 4-step process makes joining ADJIS easy.
               </p>
             </AnimatedSection>
             <div className="max-w-4xl mx-auto">
@@ -627,25 +335,6 @@ export default function AdmissionsPage() {
           </div>
         </section>
       </main>
-
-      {/* Footer */}
-      <footer className="bg-gis-green-dark text-white py-8">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <Image
-                src="/images/logo1.jpg"
-                alt="ADJIS"
-                width={100}
-                height={50}
-                className="h-14 w-auto"
-              />
-              <p className="text-sm opacity-80">Adorable Babies & Josemaria International School</p>
-            </div>
-            <p className="text-sm opacity-80">All rights reserved &copy; Adorable Babies & Josemaria International School</p>
-          </div>
-        </div>
-      </footer>
-    </div>
+    </PageLayout>
   );
 }

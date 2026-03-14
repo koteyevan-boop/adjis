@@ -214,7 +214,7 @@ export default function AboutContent() {
         </div>
         <div className="relative z-10 text-center text-white px-4">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">About GIS</h1>
-          <p className="text-xl text-white/80">Understanding of Each Other</p>
+          <p className="text-xl text-white/80">Nurturing Little Steps to Big Steps</p>
         </div>
       </section>
 
@@ -222,7 +222,7 @@ export default function AboutContent() {
       <section className="py-16 bg-gray-100">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-3xl md:text-4xl font-bold mb-4">OUR MOTTO</h1>
-          <h2 className="text-2xl md:text-3xl font-semibold text-gray-700">"Understanding of Each Other"</h2>
+          <h2 className="text-2xl md:text-3xl font-semibold text-gray-700">"Nurturing Little Steps to Big Steps"</h2>
         </div>
       </section>
 

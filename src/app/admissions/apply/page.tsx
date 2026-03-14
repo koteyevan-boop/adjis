@@ -58,8 +58,7 @@ const navItems = [
     href: "#",
     submenu: [
       { name: "Parent Portal", href: "/portals" },
-      { name: "Student Portal", href: "/portals" },
-      { name: "Alumni", href: "#" }
+      { name: "Student Portal", href: "/portals/student" }
     ]
   },
   { 
@@ -70,7 +69,7 @@ const navItems = [
 ];
 
 const secondaryNavItems = [
-  { name: "Staff Portal", href: "#" },
+  { name: "Staff Portal", href: "/portals/staff" },
   { name: "Parent Portal", href: "/portals" },
 ];
 
@@ -754,7 +753,7 @@ export default function ApplyPage() {
               <p className="text-gray-400 mb-4">
                 Providing internationally diverse education that instills understanding of each other and promotes holistic development.
               </p>
-              <p className="text-sm text-gray-500">"Understanding of Each Other"</p>
+              <p className="text-sm text-gray-500">"Nurturing Little Steps to Big Steps"</p>
             </div>
 
             {/* Quick Links */}

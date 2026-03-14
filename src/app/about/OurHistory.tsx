@@ -52,7 +52,6 @@ const navItems = [
   { name: "About", href: "/about" },
   { name: "Admissions", href: "/admissions" },
   { name: "ADJIS Boarding", href: "#" },
-  { name: "Alumni", href: "#" },
   { name: "Contact Us", href: "/contact" },
 ];
 
@@ -291,7 +290,7 @@ export default function OurHistory() {
                 <div className="bg-white p-8 rounded-xl shadow-lg">
                   <h3 className="text-2xl font-bold text-gray-800 mb-4">Founding Principles</h3>
                   <p className="text-gray-600 mb-4">
-                    Established in 1955, Adorable Babies & Josemaria International School was founded on the principle of "Understanding of Each Other" - a motto that continues to guide our educational philosophy today.
+                    Established in 2010, Adorable Babies & Josemaria International School was founded on the principle of "Nurturing Little Steps to Big Steps" - a motto that continues to guide our educational philosophy today.
                   </p>
                   <p className="text-gray-600">
                     Our founders envisioned a school where students from diverse backgrounds could come together to learn, grow, and develop into responsible global citizens.

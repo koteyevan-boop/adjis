@@ -4,8 +4,8 @@ export const CHATBOT_CONFIG = {
   school: {
     name: "Adorable Babies & Josemaria International School",
     abbreviation: "ADJIS",
-    motto: "Understanding of Each Other",
-    founded: "1955",
+    motto: "Nurturing Little Steps to Big Steps",
+    founded: "2010",
     
     // Contact Information
     contact: {
@@ -19,7 +19,7 @@ export const CHATBOT_CONFIG = {
   // Chatbot Settings
   chatbot: {
     name: "ADJIS Assistant",
-    welcomeMessage: "Hello! Welcome to Adorable Babies & Josemaria International School (ADJIS). I'm here to help you with any questions about admissions, programs, or school information. How can I assist you today?",
+    welcomeMessage: "Hello! Welcome to Adorable Babies & Josemaria International School (ADJIS). Established in 2010, we offer a blended curriculum combining GES, Montessori, and Cambridge systems. I'm here to help you with any questions about admissions, programs, or school information. How can I assist you today?",
     typingDelay: 1000, // milliseconds
     maxMessages: 50, // Maximum messages to keep in chat history
     

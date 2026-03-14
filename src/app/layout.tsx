@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "GIS | Understanding of each other",
-  description: "Adorable Babies & Josemaria International School - A not-for-profit, private, non-sectarian, co-educational day and boarding school established in September 1955.",
+  title: "ADJIS | Nurturing Little Steps to Big Steps",
+  description: "Adorable Babies & Josemaria International School - A not-for-profit, private, non-sectarian, co-educational day and boarding school established in 2010.",
   icons: {
-    icon: "https://ext.same-assets.com/1957532446/2937842182.png",
+    icon: "/images/logo1.jpg",
   },
 };
 

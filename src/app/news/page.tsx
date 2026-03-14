@@ -12,8 +12,8 @@ export default function NewsUpdatesPage() {
   const newsItems = [
     {
       id: 1,
-      title: "ADJIS Celebrates 70th Anniversary",
-      excerpt: "Join us as we celebrate seven decades of educational excellence at Adorable Babies & Josemaria International School.",
+      title: "ADJIS Celebrates Excellence in Cambridge Results",
+      excerpt: "Our students have achieved outstanding results in the recent Cambridge International examinations, with several students earning top honors and distinctions across various subjects.",
       date: "March 15, 2026",
       category: "announcements",
       image: "/images/yh.png",

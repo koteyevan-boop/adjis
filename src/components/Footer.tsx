@@ -70,11 +70,10 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-bold uppercase tracking-wider mb-4">Email & Number</h3>
             <div className="space-y-2 text-gray-300">
-              <Link href="mailto:prinoffice@gis.edu.gh" className="block hover:text-white">prinoffice@gis.edu.gh</Link>
-              <p>+233 (0)30 397 9198</p>
-              <p>+233 (0)30 277 3299</p>
-              <p>+233 (0)30 277 5143</p>
-              <p>+233 (0)30 397 9588</p>
+              <Link href="mailto:admission@josemariaschoolgh.org" className="block hover:text-white">admission@josemariaschoolgh.org</Link>
+              <Link href="mailto:info@josemariaschoolgh.org" className="block hover:text-white">info@josemariaschoolgh.org</Link>
+              <p>+233 245 894 229</p>
+              <p>+233 244 330 890</p>
             </div>
           </div>
 
@@ -148,10 +147,9 @@ export default function Footer() {
             <div>
               <h3 className="text-lg font-bold uppercase tracking-wider mb-4">Portals</h3>
               <div className="space-y-2">
-                <Link href="#" className="block text-gray-300 hover:text-white">Alumni</Link>
                 <Link href="#" className="block text-gray-300 hover:text-white">Parent</Link>
-                <Link href="#" className="block text-gray-300 hover:text-white">Staff</Link>
-                <Link href="#" className="block text-gray-300 hover:text-white">Student</Link>
+                <Link href="/portals/staff" className="block text-gray-300 hover:text-white">Staff</Link>
+                <Link href="/portals/student" className="block text-gray-300 hover:text-white">Student</Link>
               </div>
             </div>
 
@@ -159,10 +157,10 @@ export default function Footer() {
             <div>
               <h3 className="text-lg font-bold uppercase tracking-wider mb-4">Quick Links</h3>
               <div className="space-y-2">
-                <Link href="/about" className="block text-gray-300 hover:text-white">About Us</Link>
-                <Link href="/admissions" className="block text-gray-300 hover:text-white">Admissions</Link>
-                <Link href="/contact" className="block text-gray-300 hover:text-white">Contact Us</Link>
-                <Link href="#" className="block text-gray-300 hover:text-white">Boarding Program</Link>
+                <Link href="/about" className="block text-gray-300 hover:text-white">Student Life</Link>
+                <Link href="/principal" className="block text-gray-300 hover:text-white">Principal's Message</Link>
+                <Link href="/careers" className="block text-gray-300 hover:text-white">Careers</Link>
+                <Link href="/about" className="block text-gray-300 hover:text-white">Boarding Program</Link>
               </div>
             </div>
           </div>
