@@ -6,6 +6,7 @@
     "dev": "next dev -H 0.0.0.0 --turbopack",
     "build": "next build",
     "start": "next start",
+    "export": "next build && next export",
     "lint": "bunx tsc --noEmit && next lint",
     "format": "bunx biome format --write"
   },
