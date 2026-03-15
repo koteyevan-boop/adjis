@@ -1,12 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import { Users, BookOpen, Calendar, FileText, Award, BarChart3, Bell, Settings, Plus, Search, Filter, Download, Upload, Edit, Eye, Trash2, CheckCircle, AlertCircle, Clock, TrendingUp } from 'lucide-react';
+import { Users, BookOpen, Calendar, FileText, Award, BarChart3, Bell, Settings, Plus, Search, Filter, Download, Upload, Edit, Eye, Trash2, CheckCircle, AlertCircle, Clock, TrendingUp, Mail, Phone, MessageSquare } from 'lucide-react';
 import AdvancedGradebook from './AdvancedGradebook';
 import MobileOptimizedGradebook from './MobileOptimizedGradebook';
 import ReportGeneration from './ReportGeneration';
 import MobileOptimizedReportGeneration from './MobileOptimizedReportGeneration';
 import SubjectTeacherGradebook from './SubjectTeacherGradebook';
+import CommunicationHub from './CommunicationHub';
+import LearningMaterials from './LearningMaterials';
+import InteractiveAssignment from './InteractiveAssignment';
 import { useMobileOptimization } from '@/hooks/useMobileOptimization';
 
 export default function TeacherPortal({ 
@@ -113,6 +116,8 @@ export default function TeacherPortal({
               { id: "dashboard", label: "Dashboard", icon: BarChart3 },
               { id: "gradebook", label: "Gradebook", icon: BookOpen },
               { id: "assignments", label: "Assignments", icon: FileText },
+              { id: "materials", label: "Learning Materials", icon: Upload },
+              { id: "communication", label: "Communication", icon: Mail },
               { id: "exams", label: "Exams", icon: Calendar },
               ...(teacherRole === 'class' ? [{ id: "reports", label: "Terminal Reports", icon: FileText }] : []),
               { id: "settings", label: "Settings", icon: Settings },
@@ -295,6 +300,45 @@ export default function TeacherPortal({
                   </table>
                 </div>
               </div>
+            </div>
+          )}
+
+          {activeTab === "materials" && (
+            <LearningMaterials
+              teacherRole={teacherRole}
+              teacherId={teacherId}
+              teacherName={teacherName}
+            />
+          )}
+
+          {activeTab === "communication" && (
+            <CommunicationHub />
+          )}
+
+          {activeTab === "assignments" && (
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-medium text-gray-900">Interactive Assignment System</h3>
+                <button className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                  <Plus className="h-4 w-4" />
+                  Create Assignment
+                </button>
+              </div>
+              
+              {/* Sample Interactive Assignment */}
+              <InteractiveAssignment
+                assignment={{
+                  id: "1",
+                  title: "Math Problem Solving",
+                  description: "Solve the following math problems using the drawing tools",
+                  subject: selectedSubject,
+                  teacher: teacherName,
+                  dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+                  materials: [],
+                  instructions: "Use the drawing tools to show your work step by step. You can use pencils, shapes, and text to explain your solutions.",
+                  maxScore: 100
+                }}
+              />
             </div>
           )}
 
