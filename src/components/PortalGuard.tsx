@@ -15,9 +15,17 @@ export default function PortalGuard({ children, portalType }: PortalGuardProps) 
   const router = useRouter();
 
   useEffect(() => {
-    // Check if user is authenticated
+    // Check if user is authenticated or in development mode
     const authStatus = localStorage.getItem(`portal_auth_${portalType}`);
-    setIsAuthenticated(authStatus === 'true');
+    const isDevMode = process.env.NODE_ENV === 'development';
+    
+    // In development mode, auto-authenticate for testing
+    if (isDevMode) {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(authStatus === 'true');
+    }
+    
     setIsLoading(false);
   }, [portalType]);
 
