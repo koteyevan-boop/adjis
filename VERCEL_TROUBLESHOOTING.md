@@ -12,25 +12,19 @@
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
   "installCommand": "npm install",
-  "framework": "nextjs",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/next"
-    }
-  ],
-  "functions": {
-    "src/app/api/**/*.ts": {
-      "runtime": "nodejs18.x"
-    }
-  },
-  "env": {
-    "NODE_ENV": "production"
-  }
+  "framework": "nextjs"
 }
 ```
 
-#### 2. Server-Side Rendering (SSR) Issues
+#### 2. Function Runtime Error
+**Problem**: `Function Runtimes must have a valid version, for example now-php@1.0.0`
+**Cause**: Invalid runtime specification in vercel.json
+**Solution**: Remove custom runtime and let Next.js handle it automatically
+- Remove `"runtime": "nodejs18.x"` from functions configuration
+- Use simplified vercel.json configuration
+- Next.js automatically handles runtime for API routes
+
+#### 3. Server-Side Rendering (SSR) Issues
 **Problem**: localStorage not available during server-side rendering
 **Solution**: Added safe localStorage helpers in PortalGuard
 ```typescript
@@ -42,7 +36,7 @@ const getLocalStorage = (key: string, defaultValue: string = '') => {
 };
 ```
 
-#### 3. Environment Variables
+#### 4. Environment Variables
 **Problem**: Development vs Production environment differences
 **Solution**: Proper environment handling in PortalGuard
 ```typescript
