@@ -34,6 +34,9 @@ export default function TeacherPortal({
   const mobileState = useMobileOptimization();
   const isMobile = mobileState.isMobile;
 
+  // Debug: Add deployment timestamp
+  const deploymentTime = new Date().toISOString();
+
   const teacherStats = {
     totalStudents: 45,
     assignmentsCreated: 12,
@@ -143,11 +146,18 @@ export default function TeacherPortal({
         {/* Tab Content */}
         <div className="p-6">
           {activeTab === "dashboard" && (
-            <ComprehensiveDashboard
-              teacherName={teacherName}
-              teacherRole={teacherRole}
-              assignedClasses={assignedClasses}
-            />
+            <>
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                <p className="text-blue-800 font-medium">✅ Modern Dashboard Loading Successfully!</p>
+                <p className="text-blue-600 text-sm">Teacher: {teacherName} | Role: {teacherRole}</p>
+                <p className="text-blue-500 text-xs">Deployed: {deploymentTime}</p>
+              </div>
+              <ComprehensiveDashboard
+                teacherName={teacherName}
+                teacherRole={teacherRole}
+                assignedClasses={assignedClasses}
+              />
+            </>
           )}
 
           {activeTab === "materials" && (
