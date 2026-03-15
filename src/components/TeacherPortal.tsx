@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { BookOpen, FileText, Users, Award, Calendar, Plus, Edit, Trash2, Upload, Download, CheckCircle, XCircle, Clock, TrendingUp, TrendingDown } from 'lucide-react';
+import { Users, BookOpen, Calendar, FileText, Award, BarChart3, Bell, Settings, Plus, Search, Filter, Download, Upload, Edit, Eye, Trash2, CheckCircle, AlertCircle, Clock, TrendingUp } from 'lucide-react';
+import AdvancedGradebook from './AdvancedGradebook';
 
 export default function TeacherPortal() {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -277,105 +278,7 @@ export default function TeacherPortal() {
           )}
 
           {activeTab === "gradebook" && (
-            <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <h3 className="text-lg font-medium text-gray-900">Gradebook</h3>
-                <div className="flex items-center gap-4">
-                  <select 
-                    value={selectedClass} 
-                    onChange={(e) => setSelectedClass(e.target.value)}
-                    className="px-3 py-2 border border-gray-300 rounded-lg"
-                  >
-                    <option>Grade 7A</option>
-                    <option>Grade 7B</option>
-                    <option>Grade 8A</option>
-                  </select>
-                  <button className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
-                    <Download className="h-4 w-4" />
-                    Export Grades
-                  </button>
-                </div>
-              </div>
-
-              {/* Grade Input */}
-              <div className="bg-gray-50 rounded-lg p-6">
-                <h4 className="text-md font-medium text-gray-700 mb-4">Input Test Results</h4>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Select Student</label>
-                    <select className="w-full px-3 py-2 border border-gray-300 rounded-lg">
-                      {students.map((student) => (
-                        <option key={student.id}>{student.name}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
-                    <select className="w-full px-3 py-2 border border-gray-300 rounded-lg">
-                      <option>Mathematics</option>
-                      <option>English</option>
-                      <option>Science</option>
-                      <option>History</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Test Score (%)</label>
-                    <input type="number" min="0" max="100" className="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Enter score" />
-                  </div>
-                  <div className="md:col-span-3">
-                    <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
-                      Add Grade
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Gradebook Table */}
-              <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Math</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">English</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Science</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">History</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Average</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {gradebookData.map((student, index) => (
-                      <tr key={index}>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-gray-900">{student.student}</div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <input type="number" value={student.math} className="w-16 px-2 py-1 border border-gray-300 rounded" />
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <input type="number" value={student.english} className="w-16 px-2 py-1 border border-gray-300 rounded" />
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <input type="number" value={student.science} className="w-16 px-2 py-1 border border-gray-300 rounded" />
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <input type="number" value={student.history} className="w-16 px-2 py-1 border border-gray-300 rounded" />
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-gray-900">{student.average.toFixed(1)}%</div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          <button className="text-blue-600 hover:text-blue-900">
-                            <Edit className="h-4 w-4" />
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+            <AdvancedGradebook />
           )}
 
           {activeTab === "exams" && (
@@ -439,58 +342,109 @@ export default function TeacherPortal() {
             </div>
           )}
 
-          {activeTab === "reports" && (
+          {activeTab === "settings" && (
             <div className="space-y-6">
-              <h3 className="text-lg font-medium text-gray-900">Terminal Reports</h3>
+              <h3 className="text-lg font-medium text-gray-900">Teacher Settings</h3>
               
-              {/* Report Generation */}
+              {/* Profile Settings */}
               <div className="bg-gray-50 rounded-lg p-6">
-                <h4 className="text-md font-medium text-gray-700 mb-4">Generate Terminal Report</h4>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <h4 className="text-md font-medium text-gray-700 mb-4">Profile Information</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Select Class</label>
-                    <select className="w-full px-3 py-2 border border-gray-300 rounded-lg">
-                      <option>Grade 7A</option>
-                      <option>Grade 7B</option>
-                      <option>Grade 8A</option>
-                    </select>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                    <input type="text" value="Mr. Johnson" className="w-full px-3 py-2 border border-gray-300 rounded-lg" readOnly />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Term</label>
-                    <select className="w-full px-3 py-2 border border-gray-300 rounded-lg">
-                      <option>First Term</option>
-                      <option>Second Term</option>
-                      <option>Third Term</option>
-                    </select>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" value="johnson@adjis.edu.gh" className="w-full px-3 py-2 border border-gray-300 rounded-lg" readOnly />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Academic Year</label>
-                    <select className="w-full px-3 py-2 border border-gray-300 rounded-lg">
-                      <option>2023/2024</option>
-                      <option>2024/2025</option>
-                    </select>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                    <input type="tel" value="+233201234567" className="w-full px-3 py-2 border border-gray-300 rounded-lg" readOnly />
                   </div>
-                  <div className="md:col-span-3">
-                    <button className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700">
-                      Generate Reports
-                    </button>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                    <input type="text" value="Mathematics" className="w-full px-3 py-2 border border-gray-300 rounded-lg" readOnly />
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                    <input type="text" value="123 Teacher Street, Accra" className="w-full px-3 py-2 border border-gray-300 rounded-lg" readOnly />
                   </div>
                 </div>
               </div>
 
-              {/* Report Templates */}
-              <div>
-                <h4 className="text-md font-medium text-gray-700 mb-3">Report Templates</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="border border-gray-200 rounded-lg p-4">
-                    <h5 className="font-medium text-gray-900 mb-2">Student Progress Report</h5>
-                    <p className="text-sm text-gray-600 mb-3">Comprehensive report including academic performance, attendance, and conduct.</p>
-                    <button className="text-blue-600 hover:text-blue-800 text-sm font-medium">Generate Template</button>
+              {/* Notification Settings */}
+              <div className="bg-gray-50 rounded-lg p-6">
+                <h4 className="text-md font-medium text-gray-700 mb-4">Notification Preferences</h4>
+                <div className="space-y-3">
+                  <label className="flex items-center gap-3">
+                    <input type="checkbox" defaultChecked className="rounded border-gray-300" />
+                    <span className="text-sm text-gray-700">Email notifications for new assignments</span>
+                  </label>
+                  <label className="flex items-center gap-3">
+                    <input type="checkbox" defaultChecked className="rounded border-gray-300" />
+                    <span className="text-sm text-gray-700">SMS notifications for urgent messages</span>
+                  </label>
+                  <label className="flex items-center gap-3">
+                    <input type="checkbox" defaultChecked className="rounded border-gray-300" />
+                    <span className="text-sm text-gray-700">Class reminders</span>
+                  </label>
+                  <label className="flex items-center gap-3">
+                    <input type="checkbox" className="rounded border-gray-300" />
+                    <span className="text-sm text-gray-700">Weekly summary reports</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* Password Settings */}
+              <div className="bg-gray-50 rounded-lg p-6">
+                <h4 className="text-md font-medium text-gray-700 mb-4">Security Settings</h4>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Current Password</label>
+                    <input type="password" className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
                   </div>
-                  <div className="border border-gray-200 rounded-lg p-4">
-                    <h5 className="font-medium text-gray-900 mb-2">Subject-Specific Report</h5>
-                    <p className="text-sm text-gray-600 mb-3">Detailed report for individual subjects with skills assessment.</p>
-                    <button className="text-blue-600 hover:text-blue-800 text-sm font-medium">Generate Template</button>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">New Password</label>
+                    <input type="password" className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Confirm New Password</label>
+                    <input type="password" className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                  </div>
+                  <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                    Update Password
+                  </button>
+                </div>
+              </div>
+
+              {/* System Settings */}
+              <div className="bg-gray-50 rounded-lg p-6">
+                <h4 className="text-md font-medium text-gray-700 mb-4">System Preferences</h4>
+                <div className="space-y-3">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Default Grade Scale</label>
+                    <select className="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                      <option>Ghanaian System (A-F)</option>
+                      <option>Percentage System (0-100)</option>
+                      <option>GPA System (0-4.0)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Time Zone</label>
+                    <select className="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                      <option>GMT (Accra)</option>
+                      <option>GMT+1 (Lagos)</option>
+                      <option>GMT+2 (Cairo)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Language</label>
+                    <select className="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                      <option>English</option>
+                      <option>French</option>
+                      <option>Spanish</option>
+                    </select>
                   </div>
                 </div>
               </div>
