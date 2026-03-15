@@ -4,6 +4,26 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import PortalLogin from '@/components/PortalLogin';
 
+// Safe localStorage helper
+const getLocalStorage = (key: string, defaultValue: string = '') => {
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem(key) || defaultValue;
+  }
+  return defaultValue;
+};
+
+const setLocalStorage = (key: string, value: string) => {
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(key, value);
+  }
+};
+
+const removeLocalStorage = (key: string) => {
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem(key);
+  }
+};
+
 interface PortalGuardProps {
   children: React.ReactNode;
   portalType: 'student' | 'parent' | 'teacher' | 'admin';
@@ -15,11 +35,12 @@ export default function PortalGuard({ children, portalType }: PortalGuardProps) 
   const router = useRouter();
 
   useEffect(() => {
-    // Check if user is authenticated or in development mode
-    const authStatus = localStorage.getItem(`portal_auth_${portalType}`);
+    // Check if user is authenticated
+    const authStatus = getLocalStorage(`portal_auth_${portalType}`);
     const isDevMode = process.env.NODE_ENV === 'development';
     
     // In development mode, auto-authenticate for testing
+    // In production, check actual authentication
     if (isDevMode) {
       setIsAuthenticated(true);
     } else {
@@ -30,12 +51,12 @@ export default function PortalGuard({ children, portalType }: PortalGuardProps) 
   }, [portalType]);
 
   const handleLogin = () => {
-    localStorage.setItem(`portal_auth_${portalType}`, 'true');
+    setLocalStorage(`portal_auth_${portalType}`, 'true');
     setIsAuthenticated(true);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem(`portal_auth_${portalType}`);
+    removeLocalStorage(`portal_auth_${portalType}`);
     setIsAuthenticated(false);
     router.push('/portals');
   };
