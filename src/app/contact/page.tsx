@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Phone, Mail, MapPin, Clock, Send, Facebook, Instagram, Linkedin, Youtube } from 'lucide-react';
 import PageLayout from '@/components/PageLayout';
@@ -37,227 +36,192 @@ export default function ContactPage() {
   };
 
   return (
-    <PageLayout title="Contact Us - ADJIS">
+    <PageLayout title="Contact Us - ADJIS" backgroundImage="/images/hero.jpg" subtitle="Get in touch with Adorable Babies & Josemaria International School. We're here to answer your questions and help you learn more about our educational community.">
       <div className="min-h-screen bg-gray-50">
-        {/* Hero Section */}
-        <section className="relative bg-gradient-to-r from-gis-green to-gis-green-dark text-white">
-          <div className="absolute inset-0">
-            <Image
-              src="/images/hero.jpg"
-              alt="Contact ADJIS"
-              fill
-              className="object-cover opacity-20"
-            />
-          </div>
-          <div className="relative container mx-auto px-4 py-16">
-            <div className="max-w-4xl">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">Contact Us</h1>
-              <p className="text-xl text-white/90 max-w-2xl">
-                Get in touch with Adorable Babies & Josemaria International School. We're here to answer your questions and help you learn more about our educational community.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Form and Map */}
+        {/* Contact Information and Form */}
         <section className="py-16">
           <div className="container mx-auto px-4">
             <div className="grid lg:grid-cols-2 gap-12">
-              {/* Contact Form */}
-              <div className="bg-white rounded-xl shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">Send us a Message</h2>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid md:grid-cols-2 gap-4">
+              {/* Left Side - Contact Information */}
+              <div className="space-y-6">
+                {/* School Hours */}
+                <div className="bg-white rounded-xl shadow-lg p-6">
+                  <div className="flex items-center mb-4">
+                    <Clock className="w-6 h-6 text-lime-600 mr-3" />
+                    <h3 className="text-xl font-bold text-gray-800">School Hours</h3>
+                  </div>
+                  <div className="text-gray-600">
+                    <p className="font-medium mb-2">Monday - Friday</p>
+                    <p>8:00 AM - 3:30 PM</p>
+                    <p className="font-medium mt-3 mb-2">Weekends</p>
+                    <p>Closed</p>
+                  </div>
+                </div>
+
+                {/* Address */}
+                <div className="bg-white rounded-xl shadow-lg p-6">
+                  <div className="flex items-center mb-4">
+                    <MapPin className="w-6 h-6 text-lime-600 mr-3" />
+                    <h3 className="text-xl font-bold text-gray-800">Address</h3>
+                  </div>
+                  <p className="text-gray-600 leading-relaxed">
+                    Josemaria International School<br />
+                    Impaka Ln Comm. 17 Annex<br />
+                    Lashibi<br />
+                    Ghana
+                  </p>
+                </div>
+
+                {/* Contact Info */}
+                <div className="bg-white rounded-xl shadow-lg p-6">
+                  <div className="flex items-center mb-4">
+                    <Phone className="w-6 h-6 text-lime-600 mr-3" />
+                    <h3 className="text-xl font-bold text-gray-800">Contact Info</h3>
+                  </div>
+                  <div className="space-y-2 text-gray-600">
+                    <p className="flex items-center">
+                      <Phone className="w-4 h-4 mr-2" />
+                      +233 245 894 229
+                    </p>
+                    <p className="flex items-center">
+                      <Phone className="w-4 h-4 mr-2" />
+                      +233 244 330 890
+                    </p>
+                    <p className="flex items-center">
+                      <Mail className="w-4 h-4 mr-2" />
+                      <Link href="mailto:admission@josemariaschoolgh.org" className="text-lime-600 hover:text-lime-700 transition-colors">
+                        admission@josemariaschoolgh.org
+                      </Link>
+                    </p>
+                    <p className="flex items-center">
+                      <Mail className="w-4 h-4 mr-2" />
+                      <Link href="mailto:info@josemariaschoolgh.org" className="text-lime-600 hover:text-lime-700 transition-colors">
+                        info@josemariaschoolgh.org
+                      </Link>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Side - Contact Form and Map */}
+              <div className="space-y-6">
+                {/* Contact Form */}
+                <div className="bg-white rounded-xl shadow-lg p-8">
+                  <h2 className="text-2xl font-bold text-gray-800 mb-6">Send us a Message</h2>
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                          Full Name *
+                        </label>
+                        <input
+                          type="text"
+                          id="name"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          required
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-500 focus:border-lime-500"
+                          placeholder="Your full name"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                          Email Address *
+                        </label>
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          required
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-500 focus:border-lime-500"
+                          placeholder="your@email.com"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                          Phone Number
+                        </label>
+                        <input
+                          type="tel"
+                          id="phone"
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-500 focus:border-lime-500"
+                          placeholder="+233 XXX XXX XXX"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
+                          Subject *
+                        </label>
+                        <select
+                          id="subject"
+                          name="subject"
+                          value={formData.subject}
+                          onChange={handleInputChange}
+                          required
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-500 focus:border-lime-500"
+                        >
+                          <option value="">Select a subject</option>
+                          <option value="admissions">Admissions</option>
+                          <option value="general">General Inquiry</option>
+                          <option value="academics">Academics</option>
+                          <option value="fees">Fees & Payments</option>
+                          <option value="complaint">Complaint</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+                    </div>
+
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                        Full Name *
+                      <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                        Message *
                       </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
+                      <textarea
+                        id="message"
+                        name="message"
+                        value={formData.message}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gis-green focus:border-transparent"
-                        placeholder="Your full name"
+                        rows={6}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-500 focus:border-lime-500"
+                        placeholder="Tell us more about your inquiry..."
                       />
                     </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gis-green focus:border-transparent"
-                        placeholder="your@email.com"
-                      />
-                    </div>
-                  </div>
 
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gis-green focus:border-transparent"
-                      placeholder="+233 XXX XXX XXX"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
-                      Subject *
-                    </label>
-                    <select
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gis-green focus:border-transparent"
+                    <button
+                      type="submit"
+                      className="w-full bg-lime-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-lime-700 transition-colors flex items-center justify-center"
                     >
-                      <option value="">Select a subject</option>
-                      <option value="admissions">Admissions Inquiry</option>
-                      <option value="academic">Academic Information</option>
-                      <option value="fees">Fee Information</option>
-                      <option value="general">General Inquiry</option>
-                      <option value="feedback">Feedback</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
+                      <Send className="w-5 h-5 mr-2" />
+                      Send Message
+                    </button>
+                  </form>
+                </div>
 
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                      Message *
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      required
-                      rows={5}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gis-green focus:border-transparent"
-                      placeholder="Type your message here..."
+                {/* Map */}
+                <div className="bg-white rounded-xl shadow-lg p-6">
+                  <h2 className="text-2xl font-bold text-gray-800 mb-6">Find Us</h2>
+                  <div className="relative h-64 bg-gray-200 rounded-lg overflow-hidden">
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3970.8038422383!2d-0.0730168!3d5.6431319!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdf876707c041db%3A0xca6a3e13395b71af!2sJosemaria%20International%20School!5e0!3m2!1sen!2sgh!4v1678901234567!5m2!1sen!2sgh"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      className="absolute inset-0 w-full h-full"
+                      title="Josemaria International School Location"
                     />
                   </div>
-
-                  <button
-                    type="submit"
-                    className="w-full bg-gis-green text-white px-6 py-3 rounded-lg font-medium hover:bg-gis-green-dark transition-colors flex items-center justify-center"
-                  >
-                    <Send className="w-5 h-5 mr-2" />
-                    Send Message
-                  </button>
-                </form>
-              </div>
-
-              {/* Map */}
-              <div className="bg-white rounded-xl shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">Find Us</h2>
-                <div className="relative h-96 bg-gray-200 rounded-lg overflow-hidden">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3970.8038422383!2d-0.0730168!3d5.6431319!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdf876707c041db%3A0xca6a3e13395b71af!2sJosemaria%20International%20School!5e0!3m2!1sen!2sgh!4v1678901234567!5m2!1sen!2sgh"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    className="absolute inset-0 w-full h-full"
-                    title="Josemaria International School Location"
-                  />
-                </div>
-                
-                {/* Quick Links */}
-                <div className="mt-8">
-                  <h3 className="text-lg font-bold text-gray-800 mb-4">Quick Links</h3>
-                  <div className="space-y-2">
-                    <Link href="/admissions" className="block text-gis-green hover:text-gis-green-dark transition-colors">
-                      → Admissions Information
-                    </Link>
-                    <Link href="/about" className="block text-gis-green hover:text-gis-green-dark transition-colors">
-                      → About ADJIS
-                    </Link>
-                    <Link href="/academics" className="block text-gis-green hover:text-gis-green-dark transition-colors">
-                      → Academic Programs
-                    </Link>
-                    <Link href="/life" className="block text-gis-green hover:text-gis-green-dark transition-colors">
-                      → Life In ADJIS
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Contact Information */}
-            <div className="grid md:grid-cols-3 gap-8 mt-12">
-              {/* Address */}
-              <div className="bg-white rounded-xl shadow-lg p-6">
-                <div className="flex items-center mb-4">
-                  <MapPin className="w-6 h-6 text-gis-green mr-3" />
-                  <h3 className="text-xl font-bold text-gray-800">Address</h3>
-                </div>
-                <p className="text-gray-600 leading-relaxed">
-                  Josemaria International School<br />
-                  Impaka Ln Comm. 17 Annex<br />
-                  Lashibi<br />
-                  Ghana
-                </p>
-              </div>
-
-              {/* Contact Information */}
-              <div className="bg-white rounded-xl shadow-lg p-6">
-                <div className="flex items-center mb-4">
-                  <Phone className="w-6 h-6 text-gis-green mr-3" />
-                  <h3 className="text-xl font-bold text-gray-800">Contact Info</h3>
-                </div>
-                <div className="space-y-2 text-gray-600">
-                  <p className="flex items-center">
-                    <Phone className="w-4 h-4 mr-2" />
-                    +233 245 894 229
-                  </p>
-                  <p className="flex items-center">
-                    <Phone className="w-4 h-4 mr-2" />
-                    +233 244 330 890
-                  </p>
-                  <p className="flex items-center">
-                    <Mail className="w-4 h-4 mr-2" />
-                    <Link href="mailto:admission@josemariaschoolgh.org" className="text-gis-green hover:text-gis-green-dark transition-colors">
-                      admission@josemariaschoolgh.org
-                    </Link>
-                  </p>
-                  <p className="flex items-center">
-                    <Mail className="w-4 h-4 mr-2" />
-                    <Link href="mailto:info@josemariaschoolgh.org" className="text-gis-green hover:text-gis-green-dark transition-colors">
-                      info@josemariaschoolgh.org
-                    </Link>
-                  </p>
-                </div>
-              </div>
-
-              {/* School Hours */}
-              <div className="bg-white rounded-xl shadow-lg p-6">
-                <div className="flex items-center mb-4">
-                  <Clock className="w-6 h-6 text-gis-green mr-3" />
-                  <h3 className="text-xl font-bold text-gray-800">School Hours</h3>
-                </div>
-                <div className="text-gray-600">
-                  <p className="font-medium mb-2">Monday - Friday</p>
-                  <p>8:00 AM - 3:30 PM</p>
-                  <p className="font-medium mt-3 mb-2">Weekends</p>
-                  <p>Closed</p>
                 </div>
               </div>
             </div>
@@ -265,7 +229,7 @@ export default function ContactPage() {
         </section>
 
         {/* Social Media */}
-        <section className="py-12 bg-gis-green text-white">
+        <section className="py-12 bg-lime-600 text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-2xl font-bold mb-6">Connect With Us</h2>
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">

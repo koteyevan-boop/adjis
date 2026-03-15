@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import PortalHeader from '@/components/PortalHeader';
 import Link from "next/link";
 
 interface Assignment {
@@ -33,6 +34,8 @@ interface ScheduleItem {
 export default function StudentPortal() {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [notifications, setNotifications] = useState(3);
+  const [scheduleView, setScheduleView] = useState("daily"); // daily, weekly, monthly
+  const [scheduleKey, setScheduleKey] = useState(Date.now()); // Force refresh
 
   const assignments: Assignment[] = [
     {
@@ -51,39 +54,38 @@ export default function StudentPortal() {
     },
     {
       id: "3",
-      title: "English Essay - Literature Analysis",
+      title: "English Essay - Creative Writing",
       subject: "English",
       dueDate: "2024-03-20",
-      status: "graded",
-      grade: "A-"
+      status: "pending"
     }
   ];
 
   const announcements: Announcement[] = [
     {
       id: "1",
-      title: "School Sports Day",
-      message: "Annual sports day will be held on March 25th. All students are required to participate.",
+      title: "Parent-Teacher Meeting",
+      message: "Scheduled for next Friday at 2:00 PM",
       date: "2024-03-10",
       priority: "high"
     },
     {
       id: "2",
-      title: "Parent-Teacher Meeting",
-      message: "Parent-teacher meetings scheduled for next week. Check your schedule for appointment times.",
+      title: "Science Fair",
+      message: "Annual science fair next month",
       date: "2024-03-08",
       priority: "medium"
     },
     {
       id: "3",
-      title: "Library Hours Extended",
-      message: "Library will remain open until 6 PM during exam week.",
+      title: "Sports Day",
+      message: "Annual sports day coming soon",
       date: "2024-03-05",
       priority: "low"
     }
   ];
 
-  const schedule: ScheduleItem[] = [
+  const dailySchedule: ScheduleItem[] = [
     {
       id: "1",
       subject: "Mathematics",
@@ -94,19 +96,19 @@ export default function StudentPortal() {
     },
     {
       id: "2",
-      subject: "Break",
-      teacher: "",
-      time: "9:00 - 9:15",
-      room: "Cafeteria",
-      type: "break"
+      subject: "English",
+      teacher: "Ms. Smith",
+      time: "9:00 - 10:00",
+      room: "Room 105",
+      type: "class"
     },
     {
       id: "3",
-      subject: "English",
-      teacher: "Ms. Smith",
-      time: "9:15 - 10:15",
-      room: "Room 105",
-      type: "class"
+      subject: "Break",
+      teacher: "",
+      time: "10:00 - 10:30",
+      room: "Cafeteria",
+      type: "break"
     },
     {
       id: "4",
@@ -115,7 +117,76 @@ export default function StudentPortal() {
       time: "10:30 - 11:30",
       room: "Lab 301",
       type: "class"
+    },
+    {
+      id: "5",
+      subject: "Creative Arts",
+      teacher: "Ms. Davis",
+      time: "11:30 - 12:00",
+      room: "Art Room",
+      type: "class"
+    },
+    {
+      id: "6",
+      subject: "Lunch",
+      teacher: "",
+      time: "12:00 - 12:45",
+      room: "Cafeteria",
+      type: "break"
+    },
+    {
+      id: "7",
+      subject: "French",
+      teacher: "Mme. Martin",
+      time: "12:45 - 1:30",
+      room: "Room 203",
+      type: "class"
+    },
+    {
+      id: "8",
+      subject: "Twi",
+      teacher: "Mr. Owusu",
+      time: "1:30 - 2:15",
+      room: "Room 108",
+      type: "class"
+    },
+    {
+      id: "9",
+      subject: "Music",
+      teacher: "Mr. Adams",
+      time: "2:15 - 2:30",
+      room: "Music Room",
+      type: "class"
     }
+  ];
+
+  const weeklySchedule = [
+    { day: "Monday", schedule: dailySchedule },
+    { 
+      day: "Tuesday", 
+      schedule: [
+        ...dailySchedule.slice(0, 4),
+        { ...dailySchedule[4], subject: "Computing", teacher: "Ms. Tech", room: "Computer Lab" },
+        ...dailySchedule.slice(5)
+      ]
+    },
+    { 
+      day: "Wednesday", 
+      schedule: [
+        ...dailySchedule.slice(0, 4),
+        { ...dailySchedule[4], subject: "Citizenship Education", teacher: "Mr. Amoah", room: "Room 205" },
+        ...dailySchedule.slice(5)
+      ]
+    },
+    { day: "Thursday", schedule: dailySchedule },
+    { day: "Friday", schedule: dailySchedule }
+  ];
+
+  const monthlySchedule = [
+    { week: "Week 1", dates: "March 1-5", schedule: weeklySchedule },
+    { week: "Week 2", dates: "March 8-12", schedule: weeklySchedule },
+    { week: "Week 3", dates: "March 15-19", schedule: weeklySchedule },
+    { week: "Week 4", dates: "March 22-26", schedule: weeklySchedule }
   ];
 
   const getStatusColor = (status: string) => {
@@ -146,51 +217,14 @@ export default function StudentPortal() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <Image
-                src="/images/logo1.jpg"
-                alt="Adorable Babies & Josemaria International School"
-                width={60}
-                height={60}
-                className="h-12 w-auto"
-              />
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">Student Portal</h1>
-                <p className="text-sm text-gray-500">Adorable Babies & Josemaria International School</p>
-              </div>
-            </div>
-            
-            <div className="flex items-center space-x-4">
-              {/* Notifications */}
-              <div className="relative">
-                <button className="p-2 rounded-lg hover:bg-gray-100 relative">
-                  <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                  </svg>
-                  {notifications > 0 && (
-                    <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-                  )}
-                </button>
-              </div>
-              
-              {/* User Profile */}
-              <div className="flex items-center space-x-3">
-                <div className="text-right">
-                  <p className="text-sm font-medium text-gray-900">Alex Johnson</p>
-                  <p className="text-xs text-gray-500">Grade 10 - Class A</p>
-                </div>
-                <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
-                  AJ
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <PortalHeader
+        portalType="student"
+        userName="Alex Johnson"
+        userRole="Grade 10 - Class A"
+        notifications={notifications}
+        onNotificationClick={() => console.log('Notifications clicked')}
+        onSettingsClick={() => console.log('Settings clicked')}
+      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Navigation Tabs */}
@@ -222,10 +256,22 @@ export default function StudentPortal() {
         {/* Dashboard Tab */}
         {activeTab === "dashboard" && (
           <div className="space-y-6">
-            {/* Welcome Card */}
+            {/* Enhanced Student Profile Card */}
             <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-6 text-white">
-              <h2 className="text-2xl font-bold mb-2">Welcome back, Alex!</h2>
-              <p className="text-blue-100">You have 3 assignments due this week. Keep up the great work!</p>
+              <div className="flex items-center space-x-6">
+                <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center">
+                  <span className="text-3xl font-bold">AJ</span>
+                </div>
+                <div className="flex-1">
+                  <h2 className="text-2xl font-bold">Welcome back, Alex Johnson!</h2>
+                  <p className="text-blue-100">Grade 10 - Class A • Student ID: STU001</p>
+                  <div className="flex items-center gap-4 mt-2">
+                    <span className="bg-white/20 px-3 py-1 rounded-full text-sm">85% Average Grade</span>
+                    <span className="bg-white/20 px-3 py-1 rounded-full text-sm">92% Attendance</span>
+                    <span className="bg-white/20 px-3 py-1 rounded-full text-sm">3 Pending Assignments</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Quick Stats */}
@@ -375,38 +421,133 @@ export default function StudentPortal() {
 
         {/* Schedule Tab */}
         {activeTab === "schedule" && (
-          <div className="bg-white rounded-lg shadow">
+          <div key={scheduleKey} className="bg-white rounded-lg shadow">
             <div className="p-6 border-b">
-              <h3 className="text-lg font-medium text-gray-900">Today's Schedule</h3>
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-medium text-gray-900">Schedule</h3>
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={() => setScheduleKey(Date.now())}
+                    className="px-3 py-2 text-sm bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 flex items-center"
+                  >
+                    <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    Refresh
+                  </button>
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => setScheduleView("daily")}
+                      className={`px-4 py-2 text-sm font-medium rounded-md ${
+                        scheduleView === "daily"
+                          ? "bg-blue-500 text-white"
+                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      }`}
+                    >
+                      Daily
+                    </button>
+                    <button
+                      onClick={() => setScheduleView("weekly")}
+                      className={`px-4 py-2 text-sm font-medium rounded-md ${
+                        scheduleView === "weekly"
+                          ? "bg-blue-500 text-white"
+                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      }`}
+                    >
+                      Weekly
+                    </button>
+                    <button
+                      onClick={() => setScheduleView("monthly")}
+                      className={`px-4 py-2 text-sm font-medium rounded-md ${
+                        scheduleView === "monthly"
+                          ? "bg-blue-500 text-white"
+                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      }`}
+                    >
+                      Monthly
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="p-6">
-              <div className="space-y-4">
-                {schedule.map((item) => (
-                  <div key={item.id} className="flex items-center p-4 bg-gray-50 rounded-lg">
-                    <div className={`w-2 h-12 rounded-full mr-4 ${
-                      item.type === "class" ? "bg-blue-500" : 
-                      item.type === "break" ? "bg-green-500" : "bg-purple-500"
-                    }`}></div>
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h4 className="font-medium text-gray-900">{item.subject}</h4>
-                          <p className="text-sm text-gray-500">{item.teacher} • {item.room}</p>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-sm font-medium text-gray-900">{item.time}</p>
-                          <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                            item.type === "class" ? "bg-blue-100 text-blue-800" : 
-                            item.type === "break" ? "bg-green-100 text-green-800" : "bg-purple-100 text-purple-800"
-                          }`}>
-                            {item.type}
-                          </span>
+              {scheduleView === "daily" && (
+                <div className="space-y-4">
+                  <h4 className="text-md font-medium text-gray-700 mb-4">Today's Schedule (8:00 AM - 2:30 PM)</h4>
+                  {dailySchedule.map((item: ScheduleItem) => (
+                    <div key={item.id} className="flex items-center p-4 bg-gray-50 rounded-lg">
+                      <div className={`w-2 h-12 rounded-full mr-4 ${
+                        item.type === "class" ? "bg-blue-500" : 
+                        item.type === "break" ? "bg-green-500" : "bg-purple-500"
+                      }`}></div>
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <h4 className="font-medium text-gray-900">{item.subject}</h4>
+                            <p className="text-sm text-gray-500">{item.teacher} • {item.room}</p>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-sm font-medium text-gray-900">{item.time}</p>
+                            <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                              item.type === "class" ? "bg-blue-100 text-blue-800" : 
+                              item.type === "break" ? "bg-green-100 text-green-800" : "bg-purple-100 text-purple-800"
+                            }`}>
+                              {item.type}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
+
+              {scheduleView === "weekly" && (
+                <div className="space-y-6">
+                  <h4 className="text-md font-medium text-gray-700 mb-4">Weekly Schedule</h4>
+                  {weeklySchedule.map((dayData) => (
+                    <div key={dayData.day} className="border rounded-lg p-4">
+                      <h5 className="font-medium text-gray-900 mb-3">{dayData.day}</h5>
+                      <div className="space-y-2">
+                        {dayData.schedule.slice(0, 6).map((item: ScheduleItem) => (
+                          <div key={item.id} className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                            <div className="flex items-center">
+                              <div className={`w-2 h-8 rounded-full mr-3 ${
+                                item.type === "class" ? "bg-blue-500" : "bg-green-500"
+                              }`}></div>
+                              <div>
+                                <p className="text-sm font-medium text-gray-900">{item.subject}</p>
+                                <p className="text-xs text-gray-500">{item.room}</p>
+                              </div>
+                            </div>
+                            <p className="text-sm text-gray-600">{item.time}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {scheduleView === "monthly" && (
+                <div className="space-y-6">
+                  <h4 className="text-md font-medium text-gray-700 mb-4">Monthly Schedule</h4>
+                  {monthlySchedule.map((weekData) => (
+                    <div key={weekData.week} className="border rounded-lg p-4">
+                      <h5 className="font-medium text-gray-900 mb-2">{weekData.week} ({weekData.dates})</h5>
+                      <p className="text-sm text-gray-600 mb-3">Regular weekly schedule applies</p>
+                      <div className="grid grid-cols-5 gap-2 text-xs">
+                        {weekData.schedule.map((dayData) => (
+                          <div key={dayData.day} className="text-center p-2 bg-gray-50 rounded">
+                            <p className="font-medium text-gray-700">{dayData.day}</p>
+                            <p className="text-gray-500">9 periods</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -417,23 +558,27 @@ export default function StudentPortal() {
             <div className="bg-white rounded-lg shadow">
               <div className="p-6 border-b">
                 <h3 className="text-lg font-medium text-gray-900">Academic Performance</h3>
+                <p className="text-sm text-gray-500 mt-1">Current Semester Grades • Last Updated: March 15, 2024</p>
               </div>
               <div className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-4">Current Semester</h4>
+                    <h4 className="font-medium text-gray-900 mb-4">Subject Grades</h4>
                     <div className="space-y-3">
-                      {["Mathematics", "English", "Science", "History", "Art"].map((subject, index) => (
-                        <div key={subject} className="flex items-center justify-between">
-                          <span className="text-sm text-gray-600">{subject}</span>
-                          <div className="flex items-center">
-                            <div className="w-24 bg-gray-200 rounded-full h-2 mr-3">
-                              <div 
-                                className="bg-blue-500 h-2 rounded-full" 
-                                style={{ width: `${85 - index * 5}%` }}
-                              ></div>
+                      {["Mathematics", "English", "Science", "Creative Arts", "French", "Twi", "Music", "Computing", "Citizenship Education"].map((subject, index) => (
+                        <div key={subject} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                              <span className="text-xs font-bold text-blue-600">{subject.charAt(0)}</span>
                             </div>
-                            <span className="text-sm font-medium text-gray-900">{85 - index * 5}%</span>
+                            <div>
+                              <span className="text-sm font-medium text-gray-900">{subject}</span>
+                              <p className="text-xs text-gray-500">Class Score + Exam Score</p>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <span className="text-lg font-bold text-gray-900">{85 - index * 2}%</span>
+                            <p className="text-xs text-gray-500">{85 - index * 2 >= 70 ? 'A' : 85 - index * 2 >= 60 ? 'B' : 'C'}</p>
                           </div>
                         </div>
                       ))}
@@ -443,17 +588,30 @@ export default function StudentPortal() {
                   <div>
                     <h4 className="font-medium text-gray-900 mb-4">Grade Distribution</h4>
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-600">A Grade</span>
-                        <span className="text-sm font-medium text-green-600">3</span>
+                      <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                        <span className="text-sm font-medium text-green-900">A Grade (70-100%)</span>
+                        <span className="text-sm font-bold text-green-600">5 Subjects</span>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-600">B Grade</span>
-                        <span className="text-sm font-medium text-blue-600">2</span>
+                      <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                        <span className="text-sm font-medium text-blue-900">B Grade (60-69%)</span>
+                        <span className="text-sm font-bold text-blue-600">2 Subjects</span>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-600">C Grade</span>
-                        <span className="text-sm font-medium text-yellow-600">0</span>
+                      <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                        <span className="text-sm font-medium text-yellow-900">C Grade (50-59%)</span>
+                        <span className="text-sm font-bold text-yellow-600">2 Subjects</span>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
+                        <span className="text-sm font-medium text-red-900">Below 50%</span>
+                        <span className="text-sm font-bold text-red-600">0 Subjects</span>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+                      <h5 className="font-medium text-blue-900 mb-2">Overall Performance</h5>
+                      <div className="text-3xl font-bold text-blue-600">85%</div>
+                      <p className="text-sm text-blue-700">Class Average: 82%</p>
+                      <div className="w-full bg-blue-200 rounded-full h-2 mt-2">
+                        <div className="bg-blue-600 h-2 rounded-full" style={{ width: '85%' }}></div>
                       </div>
                     </div>
                   </div>

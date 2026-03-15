@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import PortalLogin from './PortalLogin';
+import PortalLogin from '@/components/PortalLogin';
 
 interface PortalGuardProps {
   children: React.ReactNode;
-  portalType: 'student' | 'parent' | 'teacher';
+  portalType: 'student' | 'parent' | 'teacher' | 'admin';
 }
 
 export default function PortalGuard({ children, portalType }: PortalGuardProps) {
@@ -41,7 +41,7 @@ export default function PortalGuard({ children, portalType }: PortalGuardProps) 
   }
 
   if (!isAuthenticated) {
-    return <PortalLogin onLogin={handleLogin} portalType={portalType} />;
+    return <PortalLogin key={`login-${portalType}`} onLogin={handleLogin} portalType={portalType} />;
   }
 
   return (
@@ -49,7 +49,7 @@ export default function PortalGuard({ children, portalType }: PortalGuardProps) 
       {children}
       <button
         onClick={handleLogout}
-        className="fixed top-4 right-4 z-50 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors flex items-center gap-2"
+        className="fixed bottom-4 right-4 z-50 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors flex items-center gap-2 shadow-lg"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />

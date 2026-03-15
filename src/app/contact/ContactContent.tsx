@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 
 interface FAQItem {
@@ -91,26 +90,13 @@ export default function ContactContent() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-[400px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/hero.jpg"
-            alt="Contact Adorable Babies & Josemaria International School"
-            fill
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-black/50" />
-        </div>
-        <div className="relative z-10 text-center text-white px-4">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
-          <p className="text-xl text-white/80">Get in Touch</p>
-        </div>
-      </section>
-
       {/* Contact Form and Map Section */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Contact Us</h1>
+            <p className="text-xl text-gray-600">Get in Touch</p>
+          </div>
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <div className="bg-white p-8 rounded-lg shadow-lg">
@@ -308,15 +294,9 @@ export default function ContactContent() {
             <div>
               <h4 className="text-xl font-bold mb-4">FOLLOW US</h4>
               <div className="flex space-x-4">
-                <a href="https://facebook.com/josemariainternationalschool" className="text-gray-300 hover:text-green-400">
-                  Facebook
-                </a>
-                <a href="https://twitter.com/josemariaintsch" className="text-gray-300 hover:text-green-400">
-                  Twitter
-                </a>
-                <a href="https://instagram.com/josemariainternationalschool" className="text-gray-300 hover:text-green-400">
-                  Instagram
-                </a>
+                <span className="text-gray-300">Facebook</span>
+                <span className="text-gray-300">Twitter</span>
+                <span className="text-gray-300">Instagram</span>
               </div>
             </div>
           </div>
