@@ -3,8 +3,11 @@
 import { useState } from 'react';
 import { Users, BookOpen, Calendar, FileText, Award, BarChart3, Bell, Settings, Plus, Search, Filter, Download, Upload, Edit, Eye, Trash2, CheckCircle, AlertCircle, Clock, TrendingUp } from 'lucide-react';
 import AdvancedGradebook from './AdvancedGradebook';
+import MobileOptimizedGradebook from './MobileOptimizedGradebook';
 import ReportGeneration from './ReportGeneration';
+import MobileOptimizedReportGeneration from './MobileOptimizedReportGeneration';
 import SubjectTeacherGradebook from './SubjectTeacherGradebook';
+import { useMobileOptimization } from '@/hooks/useMobileOptimization';
 
 export default function TeacherPortal({ 
   teacherRole = 'subject', 
@@ -22,6 +25,9 @@ export default function TeacherPortal({
   const [activeTab, setActiveTab] = useState("dashboard");
   const [selectedClass, setSelectedClass] = useState(assignedClasses[0] || "Grade 7A");
   const [selectedSubject, setSelectedSubject] = useState(assignedSubjects[0] || "Mathematics");
+  
+  const mobileState = useMobileOptimization();
+  const isMobile = mobileState.isMobile;
 
   const teacherStats = {
     totalStudents: 45,
@@ -301,16 +307,28 @@ export default function TeacherPortal({
                 assignedClasses={assignedClasses}
               />
             ) : (
-              <AdvancedGradebook />
+              isMobile ? (
+                <MobileOptimizedGradebook />
+              ) : (
+                <AdvancedGradebook />
+              )
             )
           )}
 
           {activeTab === "reports" && teacherRole === 'class' && (
-            <ReportGeneration
-              userRole={teacherRole}
-              teacherName={teacherName}
-              teacherId={teacherId}
-            />
+            isMobile ? (
+              <MobileOptimizedReportGeneration
+                userRole={teacherRole}
+                teacherName={teacherName}
+                teacherId={teacherId}
+              />
+            ) : (
+              <ReportGeneration
+                userRole={teacherRole}
+                teacherName={teacherName}
+                teacherId={teacherId}
+              />
+            )
           )}
 
           {activeTab === "exams" && (
