@@ -3,11 +3,25 @@
 import { useState } from 'react';
 import { Users, BookOpen, Calendar, FileText, Award, BarChart3, Bell, Settings, Plus, Search, Filter, Download, Upload, Edit, Eye, Trash2, CheckCircle, AlertCircle, Clock, TrendingUp } from 'lucide-react';
 import AdvancedGradebook from './AdvancedGradebook';
+import ReportGeneration from './ReportGeneration';
+import SubjectTeacherGradebook from './SubjectTeacherGradebook';
 
-export default function TeacherPortal() {
+export default function TeacherPortal({ 
+  teacherRole = 'subject', 
+  teacherName = 'Mr. Johnson', 
+  teacherId = 'teacher1',
+  assignedClasses = ['Grade 7A', 'Grade 7B'],
+  assignedSubjects = ['Mathematics']
+}: { 
+  teacherRole?: string; 
+  teacherName?: string; 
+  teacherId?: string;
+  assignedClasses?: string[];
+  assignedSubjects?: string[];
+}) {
   const [activeTab, setActiveTab] = useState("dashboard");
-  const [selectedClass, setSelectedClass] = useState("Grade 7A");
-  const [selectedSubject, setSelectedSubject] = useState("Mathematics");
+  const [selectedClass, setSelectedClass] = useState(assignedClasses[0] || "Grade 7A");
+  const [selectedSubject, setSelectedSubject] = useState(assignedSubjects[0] || "Mathematics");
 
   const teacherStats = {
     totalStudents: 45,
@@ -90,11 +104,12 @@ export default function TeacherPortal() {
         <div className="border-b border-gray-200">
           <nav className="flex -mb-px">
             {[
-              { id: "dashboard", label: "Dashboard", icon: BookOpen },
+              { id: "dashboard", label: "Dashboard", icon: BarChart3 },
+              { id: "gradebook", label: "Gradebook", icon: BookOpen },
               { id: "assignments", label: "Assignments", icon: FileText },
-              { id: "gradebook", label: "Gradebook", icon: Award },
               { id: "exams", label: "Exams", icon: Calendar },
-              { id: "reports", label: "Reports", icon: Download },
+              ...(teacherRole === 'class' ? [{ id: "reports", label: "Terminal Reports", icon: FileText }] : []),
+              { id: "settings", label: "Settings", icon: Settings },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -278,7 +293,24 @@ export default function TeacherPortal() {
           )}
 
           {activeTab === "gradebook" && (
-            <AdvancedGradebook />
+            teacherRole === 'subject' ? (
+              <SubjectTeacherGradebook
+                teacherId={teacherId}
+                teacherName={teacherName}
+                subject={selectedSubject}
+                assignedClasses={assignedClasses}
+              />
+            ) : (
+              <AdvancedGradebook />
+            )
+          )}
+
+          {activeTab === "reports" && teacherRole === 'class' && (
+            <ReportGeneration
+              userRole={teacherRole}
+              teacherName={teacherName}
+              teacherId={teacherId}
+            />
           )}
 
           {activeTab === "exams" && (
