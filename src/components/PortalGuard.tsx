@@ -32,32 +32,66 @@ interface PortalGuardProps {
 export default function PortalGuard({ children, portalType }: PortalGuardProps) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState<any>(null);
   const router = useRouter();
 
   useEffect(() => {
-    // Check if user is authenticated
+    // Check if user is authenticated for this portal type
     const authStatus = getLocalStorage(`portal_auth_${portalType}`);
+    const userData = getLocalStorage(`current_user_${portalType}`);
     const isDevMode = process.env.NODE_ENV === 'development';
     
     // In development mode, auto-authenticate for testing
-    // In production, check actual authentication
     if (isDevMode) {
+      // Create mock user data for development
+      const mockUser = {
+        id: `${portalType}1`,
+        username: portalType,
+        role: portalType,
+        name: portalType === 'admin' ? 'Super Admin' : 
+              portalType === 'teacher' ? 'Mr. Johnson' : 
+              portalType === 'student' ? 'Kofi Asante' : 'Mr. Asante',
+        assignedClasses: portalType === 'teacher' ? ['Grade 7A', 'Grade 7B'] : [],
+        assignedSubjects: portalType === 'teacher' ? ['Mathematics'] : []
+      };
+      
+      setUser(mockUser);
       setIsAuthenticated(true);
     } else {
-      setIsAuthenticated(authStatus === 'true');
+      // In production, check actual authentication
+      if (authStatus === 'true' && userData) {
+        try {
+          const parsedUser = JSON.parse(userData);
+          setUser(parsedUser);
+          setIsAuthenticated(true);
+        } catch (error) {
+          console.error('Error parsing user data:', error);
+          setIsAuthenticated(false);
+        }
+      } else {
+        setIsAuthenticated(false);
+      }
     }
     
     setIsLoading(false);
   }, [portalType]);
 
   const handleLogin = () => {
-    setLocalStorage(`portal_auth_${portalType}`, 'true');
-    setIsAuthenticated(true);
+    // This will be handled by the UnifiedPortalLogin component
+    // which will set the localStorage and redirect
+    router.push('/portals');
   };
 
   const handleLogout = () => {
-    removeLocalStorage(`portal_auth_${portalType}`);
+    // Clear authentication for all portal types
+    const portalTypes = ['student', 'parent', 'teacher', 'admin'];
+    portalTypes.forEach(type => {
+      removeLocalStorage(`portal_auth_${type}`);
+      removeLocalStorage(`current_user_${type}`);
+    });
+    
     setIsAuthenticated(false);
+    setUser(null);
     router.push('/portals');
   };
 
@@ -70,7 +104,7 @@ export default function PortalGuard({ children, portalType }: PortalGuardProps) 
   }
 
   if (!isAuthenticated) {
-    return <PortalLogin key={`login-${portalType}`} onLogin={handleLogin} portalType={portalType} />;
+    return <PortalLogin onLogin={handleLogin} portalType={portalType} />;
   }
 
   return (

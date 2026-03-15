@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import PortalLogin from '@/components/PortalLogin';
+import UnifiedPortalLogin from '@/components/UnifiedPortalLogin';
 
 export default function PortalsPage() {
   return (
@@ -29,9 +29,9 @@ export default function PortalsPage() {
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* Main Content - Unified Login */}
       <div className="flex-1">
-        <PortalLogin />
+        <UnifiedPortalLogin />
       </div>
     </div>
   );
