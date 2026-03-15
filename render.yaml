@@ -1,0 +1,42 @@
+services:
+  # Production service
+  - type: web
+    name: adjis-school
+    env: node
+    plan: free
+    buildCommand: "npm run build"
+    startCommand: "npm start"
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 18
+      - key: NODE_ENV
+        value: production
+    
+  # Staging service (optional)
+  - type: web
+    name: adjis-school-staging
+    env: node
+    plan: free
+    buildCommand: "npm run build"
+    startCommand: "npm start"
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 18
+        sync: false
+      - key: NODE_ENV
+        value: production
+        sync: false
+
+# Build configuration
+build:
+  builder: NIXPACKS
+  buildPath: .
+  buildCommand: "npm run build"
+  runCommand: "npm start"
+
+# Environment variables
+environment:
+  NODE_VERSION: 18
+  NODE_ENV: production
