@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { Users, UserPlus, BookOpen, DollarSign, Calendar, FileText, Settings, Award, TrendingUp, AlertCircle, CheckCircle, Clock, BarChart3, PieChart, Activity } from 'lucide-react';
+import FeeManagement from './FeeManagement';
+import UserManagement from './UserManagement';
 
 export default function AdminPortal() {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -127,7 +129,10 @@ export default function AdminPortal() {
               { id: "dashboard", label: "Dashboard", icon: BarChart3 },
               { id: "students", label: "Students", icon: Users },
               { id: "teachers", label: "Teachers", icon: BookOpen },
+              { id: "parents", label: "Parents", icon: Users },
               { id: "fees", label: "Fees", icon: DollarSign },
+              { id: "fee-management", label: "Fee Management", icon: DollarSign },
+              { id: "user-management", label: "User Management", icon: Users },
               { id: "academics", label: "Academics", icon: Award },
               { id: "reports", label: "Reports", icon: FileText },
               { id: "settings", label: "Settings", icon: Settings },
@@ -396,6 +401,14 @@ export default function AdminPortal() {
                 </div>
               </div>
             </div>
+          )}
+
+          {activeTab === "fee-management" && (
+            <FeeManagement />
+          )}
+
+          {activeTab === "user-management" && (
+            <UserManagement />
           )}
 
           {activeTab === "academics" && (
