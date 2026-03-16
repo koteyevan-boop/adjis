@@ -2,35 +2,29 @@
 
 import { useState } from 'react';
 import { 
-  Search,
-  Bell,
-  Settings,
-  User,
-  Menu,
+  Menu, 
+  X, 
+  Search, 
+  Bell, 
+  User, 
+  ChevronDown,
+  ChevronRight,
   Home,
   Users,
   DollarSign,
+  BookOpen,
   Calendar,
+  Settings,
   FileText,
-  Award,
-  TrendingUp,
-  Clock,
-  ChevronRight,
-  MoreVertical,
-  Download,
-  Upload,
-  Eye,
-  Plus,
   BarChart3,
-  Activity,
-  Target,
-  Zap,
-  Globe,
-  Mail,
-  Phone,
-  MessageSquare,
+  TrendingUp,
+  Download,
+  Plus,
+  Clock,
   CheckCircle,
   AlertCircle,
+  Activity,
+  Database,
   Info,
   LogOut,
   Shield,
@@ -40,10 +34,20 @@ import {
   Camera,
   TrendingDown,
   Briefcase,
-  Database,
   PieChart,
   LineChart,
-  BookOpen
+  Globe,
+  Zap,
+  Video,
+  Mail,
+  HardDrive,
+  Target,
+  Award,
+  Save,
+  ImageIcon,
+  MessageSquare,
+  Upload,
+  Eye
 } from 'lucide-react';
 import { 
   StatCard,
@@ -2240,26 +2244,1036 @@ export default function FigmaAdminDashboard() {
 
             {/* Reports Tab Content */}
             {activeTab === 'reports' && (
-              <div className="bg-white rounded-xl border border-gray-200 p-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Reports & Analytics</h2>
-                <p className="text-gray-600">View and generate various school reports.</p>
-                <div className="mt-6">
-                  <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-                    Generate Report
-                  </button>
+              <div className="space-y-6">
+                {/* Reports Header */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-2xl font-bold text-gray-900">Business Intelligence Hub</h2>
+                    <div className="flex space-x-2">
+                      <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center space-x-2">
+                        <Plus className="h-4 w-4" />
+                        <span>Create Report</span>
+                      </button>
+                      <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2">
+                        <BarChart3 className="h-4 w-4" />
+                        <span>Dashboard Builder</span>
+                      </button>
+                      <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 flex items-center space-x-2">
+                        <Download className="h-4 w-4" />
+                        <span>Export All</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Quick Stats */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-blue-600 font-medium">Total Reports</p>
+                          <p className="text-2xl font-bold text-blue-900">47</p>
+                          <p className="text-xs text-blue-600 mt-1">Active this month</p>
+                        </div>
+                        <div className="h-12 w-12 bg-blue-200 rounded-full flex items-center justify-center">
+                          <FileText className="h-6 w-6 text-blue-600" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg border border-green-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-green-600 font-medium">Scheduled Reports</p>
+                          <p className="text-2xl font-bold text-green-900">12</p>
+                          <p className="text-xs text-green-600 mt-1">Automated delivery</p>
+                        </div>
+                        <div className="h-12 w-12 bg-green-200 rounded-full flex items-center justify-center">
+                          <Clock className="h-6 w-6 text-green-600" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-gradient-to-r from-purple-50 to-purple-100 p-4 rounded-lg border border-purple-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-purple-600 font-medium">AI Insights</p>
+                          <p className="text-2xl font-bold text-purple-900">8</p>
+                          <p className="text-xs text-purple-600 mt-1">Predictive alerts</p>
+                        </div>
+                        <div className="h-12 w-12 bg-purple-200 rounded-full flex items-center justify-center">
+                          <Target className="h-6 w-6 text-purple-600" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-gradient-to-r from-orange-50 to-orange-100 p-4 rounded-lg border border-orange-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-orange-600 font-medium">Subscribers</p>
+                          <p className="text-2xl font-bold text-orange-900">156</p>
+                          <p className="text-xs text-orange-600 mt-1">Active users</p>
+                        </div>
+                        <div className="h-12 w-12 bg-orange-200 rounded-full flex items-center justify-center">
+                          <Users className="h-6 w-6 text-orange-600" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Report Filters */}
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Report Category</label>
+                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <option>All Categories</option>
+                          <option>Academic</option>
+                          <option>Financial</option>
+                          <option>Operational</option>
+                          <option>HR</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Date Range</label>
+                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <option>Last 30 Days</option>
+                          <option>Last Quarter</option>
+                          <option>This Year</option>
+                          <option>Custom Range</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Format</label>
+                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <option>All Formats</option>
+                          <option>PDF</option>
+                          <option>Excel</option>
+                          <option>CSV</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <option>All Status</option>
+                          <option>Completed</option>
+                          <option>Running</option>
+                          <option>Scheduled</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Interactive Dashboards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Executive Dashboard */}
+                  <div className="bg-white rounded-xl border border-gray-200 p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-lg font-semibold text-gray-900">Executive Dashboard</h3>
+                      <button className="text-blue-600 hover:text-blue-700 text-sm">View Details</button>
+                    </div>
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-blue-50 p-3 rounded-lg">
+                          <p className="text-sm text-blue-600 font-medium">Total Revenue</p>
+                          <p className="text-xl font-bold text-blue-900">GHS 456K</p>
+                          <p className="text-xs text-blue-600">+12% vs last month</p>
+                        </div>
+                        <div className="bg-green-50 p-3 rounded-lg">
+                          <p className="text-sm text-green-600 font-medium">Active Students</p>
+                          <p className="text-xl font-bold text-green-900">1,245</p>
+                          <p className="text-xs text-green-600">+5% vs last term</p>
+                        </div>
+                        <div className="bg-purple-50 p-3 rounded-lg">
+                          <p className="text-sm text-purple-600 font-medium">Avg Grade</p>
+                          <p className="text-xl font-bold text-purple-900">82.3%</p>
+                          <p className="text-xs text-purple-600">+2.1% improvement</p>
+                        </div>
+                        <div className="bg-orange-50 p-3 rounded-lg">
+                          <p className="text-sm text-orange-600 font-medium">Attendance</p>
+                          <p className="text-xl font-bold text-orange-900">94.2%</p>
+                          <p className="text-xs text-orange-600">Stable</p>
+                        </div>
+                      </div>
+                      <div className="h-32 bg-gray-100 rounded-lg flex items-center justify-center">
+                        <BarChart3 className="h-8 w-8 text-gray-400" />
+                        <span className="text-gray-500 ml-2">Revenue Trend Chart</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Academic Performance Dashboard */}
+                  <div className="bg-white rounded-xl border border-gray-200 p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-lg font-semibold text-gray-900">Academic Performance</h3>
+                      <button className="text-blue-600 hover:text-blue-700 text-sm">View Details</button>
+                    </div>
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-green-50 p-3 rounded-lg">
+                          <p className="text-sm text-green-600 font-medium">Pass Rate</p>
+                          <p className="text-xl font-bold text-green-900">96.8%</p>
+                          <p className="text-xs text-green-600">+1.2% vs last term</p>
+                        </div>
+                        <div className="bg-blue-50 p-3 rounded-lg">
+                          <p className="text-sm text-blue-600 font-medium">Honor Roll</p>
+                          <p className="text-xl font-bold text-blue-900">45</p>
+                          <p className="text-xs text-blue-600">3.6% of students</p>
+                        </div>
+                        <div className="bg-purple-50 p-3 rounded-lg">
+                          <p className="text-sm text-purple-600 font-medium">At Risk</p>
+                          <p className="text-xl font-bold text-purple-900">23</p>
+                          <p className="text-xs text-purple-600">Requires intervention</p>
+                        </div>
+                        <div className="bg-orange-50 p-3 rounded-lg">
+                          <p className="text-sm text-orange-600 font-medium">Teacher Avg</p>
+                          <p className="text-xl font-bold text-orange-900">85.2%</p>
+                          <p className="text-xs text-orange-600">Grading consistency</p>
+                        </div>
+                      </div>
+                      <div className="h-32 bg-gray-100 rounded-lg flex items-center justify-center">
+                        <LineChart className="h-8 w-8 text-gray-400" />
+                        <span className="text-gray-500 ml-2">Grade Distribution</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Advanced Report Library */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Advanced Report Library</h3>
+                    <div className="flex space-x-2">
+                      <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">Custom Builder</button>
+                      <button className="text-green-600 hover:text-green-700 text-sm font-medium">Schedule Report</button>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {/* Academic Reports */}
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">Academic Reports</h4>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                          <div>
+                            <p className="font-medium text-gray-900">Grade Distribution Analysis</p>
+                            <p className="text-sm text-gray-600">Last run: 2 hours ago</p>
+                          </div>
+                          <div className="flex space-x-2">
+                            <button className="text-blue-600 hover:text-blue-700 text-sm">Run</button>
+                            <button className="text-green-600 hover:text-green-700 text-sm">Export</button>
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                          <div>
+                            <p className="font-medium text-gray-900">Teacher Grading Patterns</p>
+                            <p className="text-sm text-gray-600">Last run: 1 day ago</p>
+                          </div>
+                          <div className="flex space-x-2">
+                            <button className="text-blue-600 hover:text-blue-700 text-sm">Run</button>
+                            <button className="text-green-600 hover:text-green-700 text-sm">Export</button>
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                          <div>
+                            <p className="font-medium text-gray-900">Standards Mastery Report</p>
+                            <p className="text-sm text-gray-600">Last run: 3 days ago</p>
+                          </div>
+                          <div className="flex space-x-2">
+                            <button className="text-blue-600 hover:text-blue-700 text-sm">Run</button>
+                            <button className="text-green-600 hover:text-green-700 text-sm">Export</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Financial Reports */}
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">Financial Reports</h4>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                          <div>
+                            <p className="font-medium text-gray-900">Aging Receivables</p>
+                            <p className="text-sm text-gray-600">Last run: 1 hour ago</p>
+                          </div>
+                          <div className="flex space-x-2">
+                            <button className="text-blue-600 hover:text-blue-700 text-sm">Run</button>
+                            <button className="text-green-600 hover:text-green-700 text-sm">Export</button>
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                          <div>
+                            <p className="font-medium text-gray-900">Revenue by Fee Type</p>
+                            <p className="text-sm text-gray-600">Last run: 4 hours ago</p>
+                          </div>
+                          <div className="flex space-x-2">
+                            <button className="text-blue-600 hover:text-blue-700 text-sm">Run</button>
+                            <button className="text-green-600 hover:text-green-700 text-sm">Export</button>
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                          <div>
+                            <p className="font-medium text-gray-900">Expense Variance Analysis</p>
+                            <p className="text-sm text-gray-600">Last run: 2 days ago</p>
+                          </div>
+                          <div className="flex space-x-2">
+                            <button className="text-blue-600 hover:text-blue-700 text-sm">Run</button>
+                            <button className="text-green-600 hover:text-green-700 text-sm">Export</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Operational Reports */}
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">Operational Reports</h4>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                          <div>
+                            <p className="font-medium text-gray-900">Attendance Summaries</p>
+                            <p className="text-sm text-gray-600">Last run: 30 min ago</p>
+                          </div>
+                          <div className="flex space-x-2">
+                            <button className="text-blue-600 hover:text-blue-700 text-sm">Run</button>
+                            <button className="text-green-600 hover:text-green-700 text-sm">Export</button>
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                          <div>
+                            <p className="font-medium text-gray-900">Transport Route Efficiency</p>
+                            <p className="text-sm text-gray-600">Last run: 6 hours ago</p>
+                          </div>
+                          <div className="flex space-x-2">
+                            <button className="text-blue-600 hover:text-blue-700 text-sm">Run</button>
+                            <button className="text-green-600 hover:text-green-700 text-sm">Export</button>
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                          <div>
+                            <p className="font-medium text-gray-900">Library Circulation</p>
+                            <p className="text-sm text-gray-600">Last run: 1 day ago</p>
+                          </div>
+                          <div className="flex space-x-2">
+                            <button className="text-blue-600 hover:text-blue-700 text-sm">Run</button>
+                            <button className="text-green-600 hover:text-green-700 text-sm">Export</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Predictive Analytics & AI Insights */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">AI-Powered Insights</h3>
+                    <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">Configure AI</button>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-center space-x-3 mb-3">
+                        <div className="h-10 w-10 bg-red-100 rounded-lg flex items-center justify-center">
+                          <AlertCircle className="h-5 w-5 text-red-600" />
+                        </div>
+                        <h4 className="font-medium text-gray-900">At-Risk Students</h4>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3">AI identified 12 students at risk of dropping out</p>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Kofi Mensah</span>
+                          <span className="text-red-600 font-medium">85% risk</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Ama Asante</span>
+                          <span className="text-orange-600 font-medium">72% risk</span>
+                        </div>
+                      </div>
+                      <button className="w-full mt-3 bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 text-sm">
+                        View Details
+                      </button>
+                    </div>
+
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-center space-x-3 mb-3">
+                        <div className="h-10 w-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                          <TrendingUp className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <h4 className="font-medium text-gray-900">Enrollment Forecast</h4>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3">Predicted 1,312 students next term (+5.3%)</p>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Current</span>
+                          <span className="text-gray-900 font-medium">1,245</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Predicted</span>
+                          <span className="text-blue-600 font-medium">1,312</span>
+                        </div>
+                      </div>
+                      <button className="w-full mt-3 bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 text-sm">
+                        View Forecast
+                      </button>
+                    </div>
+
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-center space-x-3 mb-3">
+                        <div className="h-10 w-10 bg-green-100 rounded-lg flex items-center justify-center">
+                          <DollarSign className="h-5 w-5 text-green-600" />
+                        </div>
+                        <h4 className="font-medium text-gray-900">Financial Projections</h4>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3">Q4 revenue projected: GHS 523,400</p>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Confidence</span>
+                          <span className="text-green-600 font-medium">87%</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Range</span>
+                          <span className="text-gray-900 font-medium">±8%</span>
+                        </div>
+                      </div>
+                      <button className="w-full mt-3 bg-green-600 text-white px-3 py-2 rounded-lg hover:bg-green-700 text-sm">
+                        View Projections
+                      </button>
+                    </div>
+
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-center space-x-3 mb-3">
+                        <div className="h-10 w-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                          <Activity className="h-5 w-5 text-purple-600" />
+                        </div>
+                        <h4 className="font-medium text-gray-900">Anomaly Detection</h4>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3">3 unusual patterns detected this week</p>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Library fines</span>
+                          <span className="text-purple-600 font-medium">+500%</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Math grades</span>
+                          <span className="text-orange-600 font-medium">-15%</span>
+                        </div>
+                      </div>
+                      <button className="w-full mt-3 bg-purple-600 text-white px-3 py-2 rounded-lg hover:bg-purple-700 text-sm">
+                        Investigate
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Report Scheduling & Distribution */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Scheduled Reports</h3>
+                    <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">Add Schedule</button>
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Report Name</th>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Schedule</th>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Format</th>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Recipients</th>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-200">
+                        <tr className="hover:bg-gray-50">
+                          <td className="px-4 py-4 text-sm font-medium text-gray-900">Weekly Financial Summary</td>
+                          <td className="px-4 py-4 text-sm text-gray-600">Every Friday 4:00 PM</td>
+                          <td className="px-4 py-4 text-sm text-gray-600">PDF, Excel</td>
+                          <td className="px-4 py-4 text-sm text-gray-600">Finance Team (5)</td>
+                          <td className="px-4 py-4">
+                            <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Active</span>
+                          </td>
+                          <td className="px-4 py-4 text-sm">
+                            <div className="flex space-x-2">
+                              <button className="text-blue-600 hover:text-blue-700">Edit</button>
+                              <button className="text-red-600 hover:text-red-700">Disable</button>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr className="hover:bg-gray-50">
+                          <td className="px-4 py-4 text-sm font-medium text-gray-900">Monthly Attendance Report</td>
+                          <td className="px-4 py-4 text-sm text-gray-600">1st of month 9:00 AM</td>
+                          <td className="px-4 py-4 text-sm text-gray-600">PDF</td>
+                          <td className="px-4 py-4 text-sm text-gray-600">All Teachers (12)</td>
+                          <td className="px-4 py-4">
+                            <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Active</span>
+                          </td>
+                          <td className="px-4 py-4 text-sm">
+                            <div className="flex space-x-2">
+                              <button className="text-blue-600 hover:text-blue-700">Edit</button>
+                              <button className="text-red-600 hover:text-red-700">Disable</button>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr className="hover:bg-gray-50">
+                          <td className="px-4 py-4 text-sm font-medium text-gray-900">Academic Performance Dashboard</td>
+                          <td className="px-4 py-4 text-sm text-gray-600">Last day of month</td>
+                          <td className="px-4 py-4 text-sm text-gray-600">PowerPoint</td>
+                          <td className="px-4 py-4 text-sm text-gray-600">Management (8)</td>
+                          <td className="px-4 py-4">
+                            <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Active</span>
+                          </td>
+                          <td className="px-4 py-4 text-sm">
+                            <div className="flex space-x-2">
+                              <button className="text-blue-600 hover:text-blue-700">Edit</button>
+                              <button className="text-red-600 hover:text-red-700">Disable</button>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             )}
 
             {/* System Tab Content */}
             {activeTab === 'system' && (
-              <div className="bg-white rounded-xl border border-gray-200 p-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">System Settings</h2>
-                <p className="text-gray-600">Configure system settings and preferences.</p>
-                <div className="mt-6">
-                  <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-                    Update Settings
-                  </button>
+              <div className="space-y-6">
+                {/* System Header */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-2xl font-bold text-gray-900">System Command Center</h2>
+                    <div className="flex space-x-2">
+                      <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center space-x-2">
+                        <Activity className="h-4 w-4" />
+                        <span>Health Check</span>
+                      </button>
+                      <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2">
+                        <Settings className="h-4 w-4" />
+                        <span>Configuration</span>
+                      </button>
+                      <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 flex items-center space-x-2">
+                        <Database className="h-4 w-4" />
+                        <span>Backup Now</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* System Health Overview */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <div className="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg border border-green-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-green-600 font-medium">System Status</p>
+                          <p className="text-2xl font-bold text-green-900">Healthy</p>
+                          <p className="text-xs text-green-600 mt-1">99.9% uptime</p>
+                        </div>
+                        <div className="h-12 w-12 bg-green-200 rounded-full flex items-center justify-center">
+                          <CheckCircle className="h-6 w-6 text-green-600" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-blue-600 font-medium">CPU Usage</p>
+                          <p className="text-2xl font-bold text-blue-900">42%</p>
+                          <p className="text-xs text-blue-600 mt-1">Normal range</p>
+                        </div>
+                        <div className="h-12 w-12 bg-blue-200 rounded-full flex items-center justify-center">
+                          <Activity className="h-6 w-6 text-blue-600" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-gradient-to-r from-purple-50 to-purple-100 p-4 rounded-lg border border-purple-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-purple-600 font-medium">Memory</p>
+                          <p className="text-2xl font-bold text-purple-900">6.2GB</p>
+                          <p className="text-xs text-purple-600 mt-1">62% used</p>
+                        </div>
+                        <div className="h-12 w-12 bg-purple-200 rounded-full flex items-center justify-center">
+                          <Database className="h-6 w-6 text-purple-600" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-gradient-to-r from-orange-50 to-orange-100 p-4 rounded-lg border border-orange-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-orange-600 font-medium">Disk Space</p>
+                          <p className="text-2xl font-bold text-orange-900">78%</p>
+                          <p className="text-xs text-orange-600 mt-1">156GB free</p>
+                        </div>
+                        <div className="h-12 w-12 bg-orange-200 rounded-full flex items-center justify-center">
+                          <Database className="h-6 w-6 text-orange-600" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Live System Status Dashboard */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Live System Status</h3>
+                    <div className="flex space-x-2">
+                      <button className="text-green-600 hover:text-green-700 text-sm font-medium">Refresh</button>
+                      <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">Export Logs</button>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {/* Server Status */}
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-4">
+                        <h4 className="font-medium text-gray-900">Server Performance</h4>
+                        <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Online</span>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Response Time</span>
+                          <span className="text-sm font-medium text-gray-900">124ms</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Active Connections</span>
+                          <span className="text-sm font-medium text-gray-900">234</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Server Load</span>
+                          <span className="text-sm font-medium text-gray-900">0.42</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Uptime</span>
+                          <span className="text-sm font-medium text-gray-900">45 days</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Database Status */}
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-4">
+                        <h4 className="font-medium text-gray-900">Database Performance</h4>
+                        <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Healthy</span>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Query Response</span>
+                          <span className="text-sm font-medium text-gray-900">23ms</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Connection Pool</span>
+                          <span className="text-sm font-medium text-gray-900">45/100</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Cache Hit Rate</span>
+                          <span className="text-sm font-medium text-gray-900">94.2%</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Slow Queries</span>
+                          <span className="text-sm font-medium text-gray-900">0</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Service Status */}
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-4">
+                        <h4 className="font-medium text-gray-900">Service Health</h4>
+                        <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">All OK</span>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">API Gateway</span>
+                          <span className="text-sm font-medium text-green-600">Operational</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Email Server</span>
+                          <span className="text-sm font-medium text-green-600">Operational</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Payment Gateway</span>
+                          <span className="text-sm font-medium text-green-600">Operational</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">File Storage</span>
+                          <span className="text-sm font-medium text-green-600">Operational</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Advanced Configuration */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Advanced Configuration</h3>
+                    <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">View All Settings</button>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {/* Feature Flags */}
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-center space-x-3 mb-4">
+                        <div className="h-10 w-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                          <Zap className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <h4 className="font-medium text-gray-900">Feature Flags</h4>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Mobile App Beta</span>
+                          <label className="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" className="sr-only peer" />
+                            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                          </label>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Advanced Analytics</span>
+                          <label className="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" className="sr-only peer" checked />
+                            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                          </label>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">AI Insights</span>
+                          <label className="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" className="sr-only peer" checked />
+                            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Global Settings */}
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-center space-x-3 mb-4">
+                        <div className="h-10 w-10 bg-green-100 rounded-lg flex items-center justify-center">
+                          <Globe className="h-5 w-5 text-green-600" />
+                        </div>
+                        <h4 className="font-medium text-gray-900">Global Settings</h4>
+                      </div>
+                      <div className="space-y-3">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Timezone</label>
+                          <select className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                            <option>GMT (UTC+0)</option>
+                            <option>GMT+1 (UTC+1)</option>
+                            <option>GMT-5 (UTC-5)</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Date Format</label>
+                          <select className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                            <option>MM/DD/YYYY</option>
+                            <option>DD/MM/YYYY</option>
+                            <option>YYYY-MM-DD</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Default Language</label>
+                          <select className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                            <option>English</option>
+                            <option>Spanish</option>
+                            <option>French</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Security Settings */}
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-center space-x-3 mb-4">
+                        <div className="h-10 w-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                          <Shield className="h-5 w-5 text-purple-600" />
+                        </div>
+                        <h4 className="font-medium text-gray-900">Security Settings</h4>
+                      </div>
+                      <div className="space-y-3">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Session Timeout</label>
+                          <select className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                            <option>30 minutes</option>
+                            <option>1 hour</option>
+                            <option>2 hours</option>
+                            <option>4 hours</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Password Policy</label>
+                          <select className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                            <option>Standard (8 chars)</option>
+                            <option>Strong (12 chars + symbols)</option>
+                            <option>Enterprise (15 chars + 2FA)</option>
+                          </select>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Two-Factor Auth</span>
+                          <label className="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" className="sr-only peer" checked />
+                            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Integration Hub */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Integration Hub (iPaaS)</h3>
+                    <div className="flex space-x-2">
+                      <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">Add Integration</button>
+                      <button className="text-green-600 hover:text-green-700 text-sm font-medium">Test All</button>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* API Gateway */}
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">API Gateway</h4>
+                      <div className="space-y-3">
+                        <div className="border border-gray-200 rounded-lg p-3">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="font-medium text-gray-900">API Key Management</span>
+                            <button className="text-blue-600 hover:text-blue-700 text-sm">Generate New</button>
+                          </div>
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between text-xs">
+                              <span className="text-gray-600">Production API</span>
+                              <span className="text-green-600 font-medium">Active</span>
+                            </div>
+                            <div className="flex items-center justify-between text-xs">
+                              <span className="text-gray-600">Test API</span>
+                              <span className="text-green-600 font-medium">Active</span>
+                            </div>
+                            <div className="flex items-center justify-between text-xs">
+                              <span className="text-gray-600">Last Rotation</span>
+                              <span className="text-gray-900 font-medium">15 days ago</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="border border-gray-200 rounded-lg p-3">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="font-medium text-gray-900">Rate Limiting</span>
+                            <button className="text-blue-600 hover:text-blue-700 text-sm">Configure</button>
+                          </div>
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between text-xs">
+                              <span className="text-gray-600">Default Limit</span>
+                              <span className="text-gray-900 font-medium">1000/hr</span>
+                            </div>
+                            <div className="flex items-center justify-between text-xs">
+                              <span className="text-gray-600">Current Usage</span>
+                              <span className="text-blue-600 font-medium">342/hr</span>
+                            </div>
+                            <div className="flex items-center justify-between text-xs">
+                              <span className="text-gray-600">Blocked Requests</span>
+                              <span className="text-gray-900 font-medium">0</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Pre-built Connectors */}
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">Pre-built Connectors</h4>
+                      <div className="space-y-3">
+                        <div className="border border-gray-200 rounded-lg p-3">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-3">
+                              <div className="h-8 w-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <Video className="h-4 w-4 text-blue-600" />
+                              </div>
+                              <div>
+                                <p className="font-medium text-gray-900">Zoom Integration</p>
+                                <p className="text-sm text-gray-600">Virtual classroom</p>
+                              </div>
+                            </div>
+                            <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Connected</span>
+                          </div>
+                        </div>
+                        <div className="border border-gray-200 rounded-lg p-3">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-3">
+                              <div className="h-8 w-8 bg-green-100 rounded-lg flex items-center justify-center">
+                                <DollarSign className="h-4 w-4 text-green-600" />
+                              </div>
+                              <div>
+                                <p className="font-medium text-gray-900">Stripe Payment</p>
+                                <p className="text-sm text-gray-600">Payment processing</p>
+                              </div>
+                            </div>
+                            <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Connected</span>
+                          </div>
+                        </div>
+                        <div className="border border-gray-200 rounded-lg p-3">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-3">
+                              <div className="h-8 w-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                                <Mail className="h-4 w-4 text-purple-600" />
+                              </div>
+                              <div>
+                                <p className="font-medium text-gray-900">Google Workspace</p>
+                                <p className="text-sm text-gray-600">Email & documents</p>
+                              </div>
+                            </div>
+                            <span className="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Setup</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Data Management & Compliance */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Data Management & Compliance</h3>
+                    <div className="flex space-x-2">
+                      <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">Backup Now</button>
+                      <button className="text-green-600 hover:text-green-700 text-sm font-medium">Schedule Backup</button>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {/* Backup & Restore */}
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-center space-x-3 mb-4">
+                        <div className="h-10 w-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                          <Database className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <h4 className="font-medium text-gray-900">Backup & Restore</h4>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Last Backup</span>
+                          <span className="text-gray-900 font-medium">2 hours ago</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Backup Size</span>
+                          <span className="text-gray-900 font-medium">2.4GB</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Next Scheduled</span>
+                          <span className="text-gray-900 font-medium">6 hours</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Retention Period</span>
+                          <span className="text-gray-900 font-medium">30 days</span>
+                        </div>
+                        <button className="w-full bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 text-sm">
+                          Initiate Backup
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Data Retention */}
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-center space-x-3 mb-4">
+                        <div className="h-10 w-10 bg-green-100 rounded-lg flex items-center justify-center">
+                          <Clock className="h-5 w-5 text-green-600" />
+                        </div>
+                        <h4 className="font-medium text-gray-900">Data Retention</h4>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Login Logs</span>
+                          <span className="text-gray-900 font-medium">1 year</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Financial Records</span>
+                          <span className="text-gray-900 font-medium">7 years</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Academic Data</span>
+                          <span className="text-gray-900 font-medium">5 years</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Audit Logs</span>
+                          <span className="text-gray-900 font-medium">3 years</span>
+                        </div>
+                        <button className="w-full bg-green-600 text-white px-3 py-2 rounded-lg hover:bg-green-700 text-sm">
+                          Configure Policies
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* GDPR Compliance */}
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-center space-x-3 mb-4">
+                        <div className="h-10 w-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                          <Shield className="h-5 w-5 text-purple-600" />
+                        </div>
+                        <h4 className="font-medium text-gray-900">GDPR Compliance</h4>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Data Portability</span>
+                          <span className="text-green-600 font-medium">Enabled</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Right to Forget</span>
+                          <span className="text-green-600 font-medium">Enabled</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Consent Tracking</span>
+                          <span className="text-green-600 font-medium">Active</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Data Anonymization</span>
+                          <span className="text-green-600 font-medium">Configured</span>
+                        </div>
+                        <button className="w-full bg-purple-600 text-white px-3 py-2 rounded-lg hover:bg-purple-700 text-sm">
+                          Manage Compliance
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Logs & Debugging */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Logs & Debugging</h3>
+                    <div className="flex space-x-2">
+                      <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">Filter Logs</button>
+                      <button className="text-green-600 hover:text-green-700 text-sm font-medium">Download Logs</button>
+                    </div>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="bg-gray-50 p-3 rounded-lg">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="font-medium text-gray-900">Recent System Events</span>
+                        <span className="text-xs text-gray-600">Last 100 entries</span>
+                      </div>
+                      <div className="space-y-2 max-h-48 overflow-y-auto">
+                        <div className="flex items-start space-x-2 text-xs">
+                          <span className="text-green-600 font-medium">[INFO]</span>
+                          <span className="text-gray-600">2024-03-16 14:23:45</span>
+                          <span className="text-gray-900">System backup completed successfully</span>
+                        </div>
+                        <div className="flex items-start space-x-2 text-xs">
+                          <span className="text-blue-600 font-medium">[DEBUG]</span>
+                          <span className="text-gray-600">2024-03-16 14:22:12</span>
+                          <span className="text-gray-900">API request processed: GET /api/students</span>
+                        </div>
+                        <div className="flex items-start space-x-2 text-xs">
+                          <span className="text-yellow-600 font-medium">[WARN]</span>
+                          <span className="text-gray-600">2024-03-16 14:20:33</span>
+                          <span className="text-gray-900">High memory usage detected: 85%</span>
+                        </div>
+                        <div className="flex items-start space-x-2 text-xs">
+                          <span className="text-green-600 font-medium">[INFO]</span>
+                          <span className="text-gray-600">2024-03-16 14:18:21</span>
+                          <span className="text-gray-900">User login: admin@adjis.edu</span>
+                        </div>
+                        <div className="flex items-start space-x-2 text-xs">
+                          <span className="text-red-600 font-medium">[ERROR]</span>
+                          <span className="text-gray-600">2024-03-16 14:15:47</span>
+                          <span className="text-gray-900">Database connection timeout</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
@@ -2279,13 +3293,710 @@ export default function FigmaAdminDashboard() {
 
             {/* Settings Tab Content */}
             {activeTab === 'settings' && (
-              <div className="bg-white rounded-xl border border-gray-200 p-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Settings</h2>
-                <p className="text-gray-600">Manage portal settings and configurations.</p>
-                <div className="mt-6">
-                  <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-                    Update Configuration
-                  </button>
+              <div className="space-y-6">
+                {/* Settings Header */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-2xl font-bold text-gray-900">Branding & Global Configuration</h2>
+                    <div className="flex space-x-2">
+                      <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center space-x-2">
+                        <Save className="h-4 w-4" />
+                        <span>Save Changes</span>
+                      </button>
+                      <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2">
+                        <Download className="h-4 w-4" />
+                        <span>Export Config</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Institution Branding */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Institution Branding & Communication</h3>
+                    <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">Preview Changes</button>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Logo Management */}
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-4">Logo Management</h4>
+                      <div className="space-y-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Primary Logo (Light Background)</label>
+                          <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors cursor-pointer">
+                            <div className="h-16 w-16 bg-gray-100 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                              <ImageIcon className="h-8 w-8 text-gray-400" />
+                            </div>
+                            <p className="text-sm text-gray-600">Click to upload or drag and drop</p>
+                            <p className="text-xs text-gray-500">PNG, JPG up to 2MB</p>
+                          </div>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Dark Logo (Dark Background)</label>
+                          <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors cursor-pointer">
+                            <div className="h-16 w-16 bg-gray-100 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                              <ImageIcon className="h-8 w-8 text-gray-400" />
+                            </div>
+                            <p className="text-sm text-gray-600">Click to upload or drag and drop</p>
+                            <p className="text-xs text-gray-500">PNG, JPG up to 2MB</p>
+                          </div>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Favicon</label>
+                          <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors cursor-pointer">
+                            <div className="h-12 w-12 bg-gray-100 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                              <ImageIcon className="h-6 w-6 text-gray-400" />
+                            </div>
+                            <p className="text-sm text-gray-600">Upload favicon</p>
+                            <p className="text-xs text-gray-500">32x32px, ICO format</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Color Scheme */}
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-4">Color Scheme</h4>
+                      <div className="space-y-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Primary Color</label>
+                          <div className="flex items-center space-x-3">
+                            <input type="color" value="#3B82F6" className="h-10 w-20 border border-gray-300 rounded-lg" />
+                            <input type="text" value="#3B82F6" className="flex-1 px-3 py-2 border border-gray-300 rounded-lg" />
+                          </div>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Secondary Color</label>
+                          <div className="flex items-center space-x-3">
+                            <input type="color" value="#10B981" className="h-10 w-20 border border-gray-300 rounded-lg" />
+                            <input type="text" value="#10B981" className="flex-1 px-3 py-2 border border-gray-300 rounded-lg" />
+                          </div>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Accent Color</label>
+                          <div className="flex items-center space-x-3">
+                            <input type="color" value="#F59E0B" className="h-10 w-20 border border-gray-300 rounded-lg" />
+                            <input type="text" value="#F59E0B" className="flex-1 px-3 py-2 border border-gray-300 rounded-lg" />
+                          </div>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Custom CSS</label>
+                          <textarea 
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg h-24 text-sm font-mono"
+                            placeholder="/* Add custom CSS here */"
+                          ></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Communication Templates */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Communication Templates</h3>
+                    <div className="flex space-x-2">
+                      <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">Add Template</button>
+                      <button className="text-green-600 hover:text-green-700 text-sm font-medium">Test Email</button>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* Email Templates */}
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">Email Templates</h4>
+                      <div className="space-y-2">
+                        <div className="border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors cursor-pointer">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium text-gray-900">Welcome Email</span>
+                            <button className="text-blue-600 hover:text-blue-700 text-xs">Edit</button>
+                          </div>
+                          <p className="text-xs text-gray-600 mt-1">New user registration</p>
+                        </div>
+                        <div className="border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors cursor-pointer">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium text-gray-900">Fee Reminder</span>
+                            <button className="text-blue-600 hover:text-blue-700 text-xs">Edit</button>
+                          </div>
+                          <p className="text-xs text-gray-600 mt-1">Payment due notifications</p>
+                        </div>
+                        <div className="border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors cursor-pointer">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium text-gray-900">Grade Publication</span>
+                            <button className="text-blue-600 hover:text-blue-700 text-xs">Edit</button>
+                          </div>
+                          <p className="text-xs text-gray-600 mt-1">Grade release notifications</p>
+                        </div>
+                        <div className="border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors cursor-pointer">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium text-gray-900">Password Reset</span>
+                            <button className="text-blue-600 hover:text-blue-700 text-xs">Edit</button>
+                          </div>
+                          <p className="text-xs text-gray-600 mt-1">Password recovery</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* SMS Templates */}
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">SMS Templates</h4>
+                      <div className="space-y-2">
+                        <div className="border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors cursor-pointer">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium text-gray-900">Attendance Alert</span>
+                            <button className="text-blue-600 hover:text-blue-700 text-xs">Edit</button>
+                          </div>
+                          <p className="text-xs text-gray-600 mt-1">Student absence notifications</p>
+                        </div>
+                        <div className="border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors cursor-pointer">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium text-gray-900">Urgent Closure</span>
+                            <button className="text-blue-600 hover:text-blue-700 text-xs">Edit</button>
+                          </div>
+                          <p className="text-xs text-gray-600 mt-1">Emergency school closure</p>
+                        </div>
+                        <div className="border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors cursor-pointer">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium text-gray-900">Payment Confirmation</span>
+                            <button className="text-blue-600 hover:text-blue-700 text-xs">Edit</button>
+                          </div>
+                          <p className="text-xs text-gray-600 mt-1">Payment received alerts</p>
+                        </div>
+                        <div className="border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors cursor-pointer">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium text-gray-900">Event Reminder</span>
+                            <button className="text-blue-600 hover:text-blue-700 text-xs">Edit</button>
+                          </div>
+                          <p className="text-xs text-gray-600 mt-1">Upcoming event notifications</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* PDF Letterheads */}
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">PDF Letterheads</h4>
+                      <div className="space-y-2">
+                        <div className="border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors cursor-pointer">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium text-gray-900">Report Card</span>
+                            <button className="text-blue-600 hover:text-blue-700 text-xs">Edit</button>
+                          </div>
+                          <p className="text-xs text-gray-600 mt-1">Student report cards</p>
+                        </div>
+                        <div className="border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors cursor-pointer">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium text-gray-900">Transcript</span>
+                            <button className="text-blue-600 hover:text-blue-700 text-xs">Edit</button>
+                          </div>
+                          <p className="text-xs text-gray-600 mt-1">Academic transcripts</p>
+                        </div>
+                        <div className="border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors cursor-pointer">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium text-gray-900">Offer Letter</span>
+                            <button className="text-blue-600 hover:text-blue-700 text-xs">Edit</button>
+                          </div>
+                          <p className="text-xs text-gray-600 mt-1">Admission offers</p>
+                        </div>
+                        <div className="border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors cursor-pointer">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium text-gray-900">Certificate</span>
+                            <button className="text-blue-600 hover:text-blue-700 text-xs">Edit</button>
+                          </div>
+                          <p className="text-xs text-gray-600 mt-1">Completion certificates</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Global Lists & Lookups */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Global Lists & Lookups (Master Data)</h3>
+                    <div className="flex space-x-2">
+                      <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">Add List</button>
+                      <button className="text-green-600 hover:text-green-700 text-sm font-medium">Bulk Import</button>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">Demographics</h4>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between p-2 bg-gray-50 rounded hover:bg-gray-100 transition-colors cursor-pointer">
+                          <span className="text-sm text-gray-900">Nationalities</span>
+                          <span className="text-xs text-gray-600">45 items</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-gray-50 rounded hover:bg-gray-100 transition-colors cursor-pointer">
+                          <span className="text-sm text-gray-900">Languages</span>
+                          <span className="text-xs text-gray-600">12 items</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-gray-50 rounded hover:bg-gray-100 transition-colors cursor-pointer">
+                          <span className="text-sm text-gray-900">Religions</span>
+                          <span className="text-xs text-gray-600">8 items</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-gray-50 rounded hover:bg-gray-100 transition-colors cursor-pointer">
+                          <span className="text-sm text-gray-900">Blood Types</span>
+                          <span className="text-xs text-gray-600">8 items</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">Academic</h4>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between p-2 bg-gray-50 rounded hover:bg-gray-100 transition-colors cursor-pointer">
+                          <span className="text-sm text-gray-900">Subject Codes</span>
+                          <span className="text-xs text-gray-600">23 items</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-gray-50 rounded hover:bg-gray-100 transition-colors cursor-pointer">
+                          <span className="text-sm text-gray-900">Grade Levels</span>
+                          <span className="text-xs text-gray-600">13 items</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-gray-50 rounded hover:bg-gray-100 transition-colors cursor-pointer">
+                          <span className="text-sm text-gray-900">Departments</span>
+                          <span className="text-xs text-gray-600">7 items</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-gray-50 rounded hover:bg-gray-100 transition-colors cursor-pointer">
+                          <span className="text-sm text-gray-900">Behavior Codes</span>
+                          <span className="text-xs text-gray-600">15 items</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">Operations</h4>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between p-2 bg-gray-50 rounded hover:bg-gray-100 transition-colors cursor-pointer">
+                          <span className="text-sm text-gray-900">Relationship Types</span>
+                          <span className="text-xs text-gray-600">6 items</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-gray-50 rounded hover:bg-gray-100 transition-colors cursor-pointer">
+                          <span className="text-sm text-gray-900">Transport Stops</span>
+                          <span className="text-xs text-gray-600">34 items</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-gray-50 rounded hover:bg-gray-100 transition-colors cursor-pointer">
+                          <span className="text-sm text-gray-900">Hostel Names</span>
+                          <span className="text-xs text-gray-600">4 items</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-gray-50 rounded hover:bg-gray-100 transition-colors cursor-pointer">
+                          <span className="text-sm text-gray-900">Leave Types</span>
+                          <span className="text-xs text-gray-600">8 items</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Academic Definitions */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Academic Definitions</h3>
+                    <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">Add Definition</button>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* Grade Scale Manager */}
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-center space-x-3 mb-4">
+                        <div className="h-10 w-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                          <BarChart3 className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <h4 className="font-medium text-gray-900">Grade Scale Manager</h4>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">IB Scale (1-7)</span>
+                          <span className="text-xs text-green-600 font-medium">Active</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">IGCSE (A*-G)</span>
+                          <span className="text-xs text-green-600 font-medium">Active</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">US (A-F)</span>
+                          <span className="text-xs text-green-600 font-medium">Active</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Percentage (0-100)</span>
+                          <span className="text-xs text-gray-600 font-medium">Inactive</span>
+                        </div>
+                        <button className="w-full bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 text-sm">
+                          Manage Scales
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Subject & Course Codes */}
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-center space-x-3 mb-4">
+                        <div className="h-10 w-10 bg-green-100 rounded-lg flex items-center justify-center">
+                          <BookOpen className="h-5 w-5 text-green-600" />
+                        </div>
+                        <h4 className="font-medium text-gray-900">Subject & Course Codes</h4>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Total Subjects</span>
+                          <span className="text-gray-900 font-medium">23</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Course Codes</span>
+                          <span className="text-gray-900 font-medium">156</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Last Updated</span>
+                          <span className="text-gray-900 font-medium">2 weeks ago</span>
+                        </div>
+                        <button className="w-full bg-green-600 text-white px-3 py-2 rounded-lg hover:bg-green-700 text-sm">
+                          Manage Subjects
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Behavior & Conduct Codes */}
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-center space-x-3 mb-4">
+                        <div className="h-10 w-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                          <Award className="h-5 w-5 text-purple-600" />
+                        </div>
+                        <h4 className="font-medium text-gray-900">Behavior & Conduct Codes</h4>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Positive Codes</span>
+                          <span className="text-gray-900 font-medium">8</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Disciplinary Codes</span>
+                          <span className="text-gray-900 font-medium">7</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">Community Service</span>
+                          <span className="text-gray-900 font-medium">3</span>
+                        </div>
+                        <button className="w-full bg-purple-600 text-white px-3 py-2 rounded-lg hover:bg-purple-700 text-sm">
+                          Manage Codes
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Financial Definitions */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Financial Definitions</h3>
+                    <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">Add Category</button>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Fee Type Management */}
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">Fee Type Management</h4>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between p-2 bg-gray-50 rounded hover:bg-gray-100 transition-colors cursor-pointer">
+                          <div>
+                            <span className="text-sm font-medium text-gray-900">Tuition Fees</span>
+                            <p className="text-xs text-gray-600">Taxable</p>
+                          </div>
+                          <button className="text-blue-600 hover:text-blue-700 text-xs">Edit</button>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-gray-50 rounded hover:bg-gray-100 transition-colors cursor-pointer">
+                          <div>
+                            <span className="text-sm font-medium text-gray-900">Transport Fees</span>
+                            <p className="text-xs text-gray-600">Non-taxable</p>
+                          </div>
+                          <button className="text-blue-600 hover:text-blue-700 text-xs">Edit</button>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-gray-50 rounded hover:bg-gray-100 transition-colors cursor-pointer">
+                          <div>
+                            <span className="text-sm font-medium text-gray-900">Lab Fees</span>
+                            <p className="text-xs text-gray-600">Taxable</p>
+                          </div>
+                          <button className="text-blue-600 hover:text-blue-700 text-xs">Edit</button>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-gray-50 rounded hover:bg-gray-100 transition-colors cursor-pointer">
+                          <div>
+                            <span className="text-sm font-medium text-gray-900">Library Fees</span>
+                            <p className="text-xs text-gray-600">Non-taxable</p>
+                          </div>
+                          <button className="text-blue-600 hover:text-blue-700 text-xs">Edit</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Payment Method Configuration */}
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">Payment Method Configuration</h4>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Cash</span>
+                          <label className="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" className="sr-only peer" checked />
+                            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                          </label>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Check</span>
+                          <label className="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" className="sr-only peer" checked />
+                            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                          </label>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Credit Card</span>
+                          <label className="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" className="sr-only peer" checked />
+                            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                          </label>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Bank Transfer</span>
+                          <label className="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" className="sr-only peer" checked />
+                            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                          </label>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Mobile Money</span>
+                          <label className="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" className="sr-only peer" />
+                            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Notification & Alert Rules */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Notification & Alert Rules</h3>
+                    <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">Add Rule</button>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-3">
+                        <div>
+                          <h4 className="font-medium text-gray-900">Attendance Alert</h4>
+                          <p className="text-sm text-gray-600">Send SMS to parents if student is marked absent for first period</p>
+                        </div>
+                        <label className="relative inline-flex items-center cursor-pointer">
+                          <input type="checkbox" className="sr-only peer" checked />
+                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        </label>
+                      </div>
+                      <div className="flex items-center space-x-4 text-xs text-gray-600">
+                        <span>Trigger: First period absence</span>
+                        <span>Channel: SMS</span>
+                        <span>Recipients: Parents</span>
+                      </div>
+                    </div>
+
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-3">
+                        <div>
+                          <h4 className="font-medium text-gray-900">High Payment Alert</h4>
+                          <p className="text-sm text-gray-600">Send email to finance team if payment over $10,000 is received</p>
+                        </div>
+                        <label className="relative inline-flex items-center cursor-pointer">
+                          <input type="checkbox" className="sr-only peer" checked />
+                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        </label>
+                      </div>
+                      <div className="flex items-center space-x-4 text-xs text-gray-600">
+                        <span>Trigger: Payment &gt; GHS 10,000</span>
+                        <span>Channel: Email</span>
+                        <span>Recipients: Finance Team</span>
+                      </div>
+                    </div>
+
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-3">
+                        <div>
+                          <h4 className="font-medium text-gray-900">Late Assignment Alert</h4>
+                          <p className="text-sm text-gray-600">Send in-app alert to teacher if 5 students submit assignment late</p>
+                        </div>
+                        <label className="relative inline-flex items-center cursor-pointer">
+                          <input type="checkbox" className="sr-only peer" />
+                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        </label>
+                      </div>
+                      <div className="flex items-center space-x-4 text-xs text-gray-600">
+                        <span>Trigger: 5+ late submissions</span>
+                        <span>Channel: In-App</span>
+                        <span>Recipients: Teacher</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Localization */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Localization</h3>
+                    <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">Add Language</button>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* Multi-Language Management */}
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">Multi-Language Management</h4>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">English</span>
+                          <label className="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" className="sr-only peer" checked />
+                            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                          </label>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Spanish</span>
+                          <label className="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" className="sr-only peer" />
+                            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                          </label>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">French</span>
+                          <label className="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" className="sr-only peer" />
+                            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Date/Time Formats */}
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">Date/Time Formats</h4>
+                      <div className="space-y-3">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Date Format</label>
+                          <select className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                            <option>MM/DD/YYYY</option>
+                            <option>DD/MM/YYYY</option>
+                            <option>YYYY-MM-DD</option>
+                            <option>DD-MM-YYYY</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Time Format</label>
+                          <select className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                            <option>12-hour (AM/PM)</option>
+                            <option>24-hour</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Week Start</label>
+                          <select className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                            <option>Sunday</option>
+                            <option>Monday</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Currency Settings */}
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">Currency Settings</h4>
+                      <div className="space-y-3">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Base Currency</label>
+                          <select className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                            <option>GHS - Ghana Cedi</option>
+                            <option>USD - US Dollar</option>
+                            <option>EUR - Euro</option>
+                            <option>GBP - British Pound</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Symbol Position</label>
+                          <select className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                            <option>Before amount (GHS 100)</option>
+                            <option>After amount (100 GHS)</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Decimal Places</label>
+                          <select className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                            <option>2 decimal places</option>
+                            <option>0 decimal places</option>
+                            <option>3 decimal places</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Personal Preferences */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Super Admin Personal Preferences</h3>
+                    <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">Edit Profile</button>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* My Profile */}
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">My Profile</h4>
+                      <div className="space-y-3">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Display Name</label>
+                          <input type="text" value="Super Admin" className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                          <input type="email" value="admin@adjis.edu" className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                          <input type="tel" value="+233 24 123 4567" className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                        </div>
+                        <div className="flex space-x-2">
+                          <button className="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 text-sm">
+                            Change Password
+                          </button>
+                          <button className="bg-green-600 text-white px-3 py-2 rounded-lg hover:bg-green-700 text-sm">
+                            Setup 2FA
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Dashboard Layout */}
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">Dashboard Layout</h4>
+                      <div className="space-y-3">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Default View</label>
+                          <select className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                            <option>Default View</option>
+                            <option>End-of-Term Review</option>
+                            <option>Budget Planning</option>
+                            <option>Academic Overview</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Widget Density</label>
+                          <select className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                            <option>Comfortable</option>
+                            <option>Compact</option>
+                            <option>Spacious</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Theme</label>
+                          <select className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                            <option>Light</option>
+                            <option>Dark</option>
+                            <option>Auto</option>
+                          </select>
+                        </div>
+                        <button className="w-full bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 text-sm">
+                          Save Layout
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
