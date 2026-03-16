@@ -62,8 +62,8 @@ const navItems = [
     name: "Community", 
     href: "#",
     submenu: [
-      { name: "Parent Portal", href: "/portals" },
-      { name: "Student Portal", href: "/portals/student" }
+      { name: "Parent Portal", href: "https://portal.josemariaschoolgh.org/portals" },
+      { name: "Student Portal", href: "https://portal.josemariaschoolgh.org/portals" }
     ]
   },
   { 
@@ -74,8 +74,8 @@ const navItems = [
 ];
 
 const secondaryNavItems = [
-  { name: "Staff Portal", href: "/portals/staff" },
-  { name: "Parent Portal", href: "/portals" },
+  { name: "Staff Portal", href: "https://portal.josemariaschoolgh.org/portals" },
+  { name: "Parent Portal", href: "https://portal.josemariaschoolgh.org/portals" },
 ];
 
 const values = [

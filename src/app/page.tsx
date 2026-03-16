@@ -1,347 +1,744 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { ChevronDown, Search, Play, Facebook, Instagram, Linkedin, Youtube, Menu, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { toast, Toaster } from "sonner";
-import { 
-  User, 
-  GraduationCap, 
-  Users, 
-  Shield, 
-  Mail, 
-  Lock, 
-  Eye, 
-  EyeOff,
-  CheckCircle,
-  AlertCircle,
-  ArrowRight
-} from "lucide-react";
+import AdvancedChatbot from "@/components/AdvancedChatbot";
 
-// Portal types configuration
-const portalTypes = [
+// Navigation items
+const navItems = [
+  { name: "Home", href: "/" },
   {
-    id: 'student',
-    name: 'Student Portal',
-    description: 'Access your assignments, grades, schedule, and more',
-    icon: GraduationCap,
-    color: 'blue',
-    credentials: { username: 'student', password: 'student123' }
+    name: "About",
+    href: "/about",
+    subItems: [
+      { name: "About ADJIS", href: "/about" },
+      { name: "Our History", href: "/about/our-history" },
+      { name: "Careers", href: "/about" },
+      { name: "Principal's Message", href: "/about" },
+      { name: "ADJIS Attributes", href: "/about/jis-attributes" },
+    ],
   },
   {
-    id: 'teacher',
-    name: 'Teacher Portal',
-    description: 'Manage classes, assignments, grades, and student progress',
-    icon: Users,
-    color: 'green',
-    credentials: { username: 'teacher', password: 'teacher123' }
+    name: "Admissions",
+    href: "/admissions",
+    subItems: [
+      { name: "View Admissions", href: "/admissions" },
+      { name: "Apply", href: "/admissions/apply" },
+      { name: "FAQ", href: "/admissions#faq" },
+    ],
   },
   {
-    id: 'parent',
-    name: 'Parent Portal',
-    description: 'Monitor your child\'s progress, fees, and communicate with teachers',
-    icon: User,
-    color: 'purple',
-    credentials: { username: 'parent', password: 'parent123' }
+    name: "Life In ADJIS",
+    href: "/life",
+    subItems: [
+      { name: "News & Updates", href: "/news" },
+      { name: "Memories", href: "/memories" },
+      { name: "Activities", href: "/activities" },
+      { name: "Calendar", href: "/calendar" },
+    ],
   },
   {
-    id: 'admin',
-    name: 'Admin Portal',
-    description: 'System administration, user management, and school operations',
-    icon: Shield,
-    color: 'red',
-    credentials: { username: 'admin', password: 'admin123' }
-  }
+    name: "Academics",
+    href: "/academics",
+    subItems: [
+      { name: "Departments", href: "/academics/departments", subItems: [
+        { name: "Pre-School", href: "/academics/preschool" },
+        { name: "Primary School", href: "/academics/primary" },
+      ]},
+      { name: "Curriculum", href: "/academics/curriculum" },
+    ],
+  },
+  {
+    name: "Parents",
+    href: "#",
+    subItems: [{ name: "PTA", href: "#" }],
+  },
+  { name: "Contact Us", href: "/contact" },
 ];
 
-export default function HomePage() {
-  const [selectedPortal, setSelectedPortal] = useState('student');
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    username: '',
-    password: ''
-  });
+// Stats data
+const stats = [
+  { label: "Established", value: "2010" },
+  { label: "Students", value: "1,200+" },
+  { label: "Nationalities", value: "60+" },
+  { label: "After-school programs", value: "50+" },
+];
 
-  const currentPortal = portalTypes.find(p => p.id === selectedPortal);
-  const Icon = currentPortal?.icon || GraduationCap;
+// Events data
+const events = [
+  { date: "09", month: "March", year: "2026", title: "Technology in Problem-Solving (TIPS) Week", href: "#" },
+  { date: "20", month: "March", year: "2026", title: "Stage Musical", href: "#" },
+  { date: "26", month: "March", year: "2026", title: "Kwame Pianim Debate", href: "#" },
+  { date: "27", month: "March", year: "2026", title: "Term 2 Ends", href: "#" },
+  { date: "28", month: "March", year: "2026", title: "Carnifest (Yearbook Fundraiser)", href: "#" },
+];
 
-  const colorClasses = {
-    blue: 'border-blue-500 text-blue-600 bg-blue-50',
-    green: 'border-green-500 text-green-600 bg-green-50',
-    purple: 'border-purple-500 text-purple-600 bg-purple-50',
-    red: 'border-red-500 text-red-600 bg-red-50'
+// News data
+const newsItems = [
+  {
+    title: "ADJIS Celebrates Excellence in Cambridge Results",
+    excerpt: "Our students have achieved outstanding results in the recent Cambridge International examinations, with several students earning top honors and distinctions across various subjects.",
+    image: "/images/hero.jpg",
+    href: "#",
+  },
+  {
+    title: "New STEM Laboratory Complex Opens",
+    excerpt: "ADJIS proudly inaugurates its state-of-the-art STEM laboratory complex, providing students with cutting-edge facilities for science, technology, engineering, and mathematics education.",
+    image: "/images/hero.jpg",
+    href: "#",
+  },
+  {
+    title: "Cultural Diversity Week 2026",
+    excerpt: "Our annual Cultural Diversity Week showcases the rich heritage of our 60+ nationalities through traditional performances, cuisine fairs, and cultural exchange programs.",
+    image: "/images/hero.jpg",
+    href: "#",
+  },
+];
+
+// Join ADJIS cards
+const joinCards = [
+  { title: "A Student", image: "/images/hero.jpg", href: "/admissions" },
+  { title: "A Staff Member", image: "/images/hero.jpg", href: "/careers" },
+];
+
+// University logos
+const universityLogos = [
+  { name: "Harvard", src: "https://ext.same-assets.com/1957532446/956413186.png" },
+  { name: "Stanford", src: "https://ext.same-assets.com/1957532446/2362178359.png" },
+  { name: "LSE", src: "https://ext.same-assets.com/1957532446/2491797537.png" },
+  { name: "Durham", src: "https://ext.same-assets.com/1957532446/1614074497.png" },
+  { name: "Imperial", src: "https://ext.same-assets.com/1957532446/90945058.png" },
+  { name: "Queens", src: "https://ext.same-assets.com/1957532446/3761837835.jpeg" },
+];
+
+// Accreditation logos
+const accreditationLogos = [
+  { name: "CIS", src: "https://ext.same-assets.com/1957532446/3353241665.png" },
+  { name: "NEASC", src: "https://ext.same-assets.com/1957532446/281335752.png" },
+  { name: "AISA", src: "https://ext.same-assets.com/1957532446/3853054907.png" },
+  { name: "ECIS", src: "https://ext.same-assets.com/1957532446/796267081.png" },
+  { name: "Pearson", src: "https://ext.same-assets.com/1957532446/763822731.png" },
+];
+
+// Animation hook for scroll reveal
+function useScrollAnimation() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return { ref, isVisible };
+}
+
+// Animated Section Component
+function AnimatedSection({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+  const { ref, isVisible } = useScrollAnimation();
+
+  return (
+    <div
+      ref={ref}
+      className={`transition-all duration-700 ease-out ${className}`}
+      style={{
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? "translateY(0)" : "translateY(30px)",
+        transitionDelay: `${delay}ms`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+export default function Home() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [currentNewsIndex, setCurrentNewsIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Auto-play carousel
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+
+    const interval = setInterval(() => {
+      setCurrentNewsIndex((prev) => (prev + 1) % newsItems.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
+
+  // Pause auto-play on hover
+  const handleCarouselHover = (hovering: boolean) => {
+    setIsAutoPlaying(!hovering);
   };
 
-  const buttonColors = {
-    blue: 'bg-blue-600 hover:bg-blue-700',
-    green: 'bg-green-600 hover:bg-green-700',
-    purple: 'bg-purple-600 hover:bg-purple-700',
-    red: 'bg-red-600 hover:bg-red-700'
+  // Navigate carousel
+  const goToNext = () => {
+    setCurrentNewsIndex((prev) => (prev + 1) % newsItems.length);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const goToPrev = () => {
+    setCurrentNewsIndex((prev) => (prev - 1 + newsItems.length) % newsItems.length);
+  };
+
+  // Newsletter submission
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!formData.username || !formData.password) {
-      toast.error("Please enter both username and password");
+    if (!email) {
+      toast.error("Please enter your email address");
       return;
     }
 
-    setIsLoading(true);
+    setIsSubmitting(true);
 
-    // Simulate authentication
-    setTimeout(() => {
-      const expectedCredentials = currentPortal?.credentials;
-      
-      if (formData.username === expectedCredentials?.username && 
-          formData.password === expectedCredentials?.password) {
-        // Store authentication in localStorage
-        localStorage.setItem(`portal_auth_${selectedPortal}`, 'true');
-        localStorage.setItem('current_user_type', selectedPortal);
-        localStorage.setItem('login_timestamp', new Date().toISOString());
-        
-        toast.success("Login successful!", {
-          description: `Welcome to ${currentPortal?.name}`,
-        });
-        
-        // Redirect to appropriate portal
-        setTimeout(() => {
-          if (selectedPortal === 'admin') {
-            window.location.href = '/portals/admin';
-          } else if (selectedPortal === 'teacher') {
-            window.location.href = '/portals/staff';
-          } else if (selectedPortal === 'student') {
-            window.location.href = '/portals/student';
-          } else if (selectedPortal === 'parent') {
-            window.location.href = '/portals/parent';
-          }
-        }, 1500);
-      } else {
-        toast.error("Invalid credentials", {
-          description: "Please check your username and password",
-        });
-      }
-      
-      setIsLoading(false);
-    }, 1500);
-  };
+    // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    toast.success("Successfully subscribed to the newsletter!", {
+      description: "Thank you for subscribing. You will receive updates soon.",
+    });
+
+    setEmail("");
+    setIsSubmitting(false);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
+    <div className="min-h-screen flex flex-col">
       <Toaster position="top-right" richColors />
-      
-      <div className="w-full max-w-6xl">
-        {/* Header with Logo */}
-        <div className="text-center mb-8">
-          <div className="flex justify-center mb-6">
-            <Image
-              src="/images/logo1.jpg"
-              alt="Adorable Babies & Josemaria International School"
-              width={200}
-              height={200}
-              className="h-32 w-auto"
-            />
-          </div>
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">
-            Adorable Babies & Josemaria International School
-          </h1>
-          <p className="text-gray-600">
-            Portal Login System
-          </p>
-        </div>
 
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-          <div className="grid md:grid-cols-2">
-            {/* Left Side - Portal Selection */}
-            <div className="bg-gray-50 p-8">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6">
-                Select Your Portal
-              </h2>
-              
-              <div className="space-y-3">
-                {portalTypes.map((portal) => {
-                  const PortalIcon = portal.icon;
-                  return (
-                    <button
-                      key={portal.id}
-                      onClick={() => setSelectedPortal(portal.id)}
-                      className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
-                        selectedPortal === portal.id
-                          ? colorClasses[portal.color as keyof typeof colorClasses]
-                          : 'border-gray-200 hover:border-gray-300'
-                      }`}
-                    >
-                      <div className="flex items-start space-x-3">
-                        <PortalIcon className="h-6 w-6 mt-1 flex-shrink-0" />
-                        <div>
-                          <h3 className="font-semibold text-gray-900">
-                            {portal.name}
-                          </h3>
-                          <p className="text-sm text-gray-600 mt-1">
-                            {portal.description}
-                          </p>
-                        </div>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Quick Demo Credentials */}
-              <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                <h4 className="font-semibold text-blue-900 mb-2">
-                  Demo Credentials
-                </h4>
-                <div className="text-sm text-blue-800">
-                  <p><strong>Student:</strong> student / student123</p>
-                  <p><strong>Teacher:</strong> teacher / teacher123</p>
-                  <p><strong>Parent:</strong> parent / parent123</p>
-                  <p><strong>Admin:</strong> admin / admin123</p>
-                </div>
-              </div>
+      {/* Header */}
+      <header className="bg-transparent absolute top-0 left-0 right-0 z-50">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between py-4">
+            {/* Logo */}
+            <div className="flex items-center gap-4">
+              <Link href="/" className="flex items-center gap-2">
+                <Image
+                  src="/images/logo1.jpg"
+                  alt="Adorable Babies & Josemaria International School"
+                  width={150}
+                  height={150}
+                  className="h-20 w-auto"
+                />
+              </Link>
+              <div className="h-10 w-px bg-white/40 hidden md:block" />
             </div>
 
-            {/* Right Side - Login Form */}
-            <div className="p-8">
-              <div className="text-center mb-6">
-                <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full ${colorClasses[currentPortal?.color as keyof typeof colorClasses]} mb-4`}>
-                  <Icon className="h-8 w-8" />
-                </div>
-                <h2 className="text-2xl font-bold text-gray-800">
-                  {currentPortal?.name}
-                </h2>
-                <p className="text-gray-600 mt-2">
-                  Enter your credentials to access your portal
-                </p>
-              </div>
-
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Username */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Username
-                  </label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <User className="h-5 w-5 text-gray-400" />
-                    </div>
-                    <input
-                      type="text"
-                      name="username"
-                      value={formData.username}
-                      onChange={handleInputChange}
-                      className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      placeholder="Enter your username"
-                      required
-                    />
-                  </div>
-                </div>
-
-                {/* Password */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Password
-                  </label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <Lock className="h-5 w-5 text-gray-400" />
-                    </div>
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      name="password"
-                      value={formData.password}
-                      onChange={handleInputChange}
-                      className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      placeholder="Enter your password"
-                      required
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                    >
-                      {showPassword ? (
-                        <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600" />
-                      ) : (
-                        <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600" />
-                      )}
-                    </button>
-                  </div>
-                </div>
-
-                {/* Remember Me & Forgot Password */}
-                <div className="flex items-center justify-between">
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                    />
-                    <span className="ml-2 text-sm text-gray-600">Remember me</span>
-                  </label>
-                  <a href="#" className="text-sm text-blue-600 hover:text-blue-700">
-                    Forgot password?
-                  </a>
-                </div>
-
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className={`w-full flex items-center justify-center px-4 py-3 text-white font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
-                    buttonColors[currentPortal?.color as keyof typeof buttonColors]
-                  }`}
+            {/* Desktop Navigation */}
+            <nav className="hidden xl:flex items-center gap-0.5">
+              {navItems.map((item) => (
+                <div
+                  key={item.name}
+                  className="relative group"
+                  onMouseEnter={() => setActiveDropdown(item.name)}
+                  onMouseLeave={() => setActiveDropdown(null)}
                 >
-                  {isLoading ? (
-                    <div className="flex items-center space-x-2">
-                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      <span>Signing in...</span>
-                    </div>
+                  {item.subItems ? (
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setActiveDropdown(activeDropdown === item.name ? null : item.name);
+                      }}
+                      className="flex items-center gap-1 text-white text-sm font-medium px-3 py-2 hover:text-gis-gold transition-colors whitespace-nowrap bg-transparent border-none cursor-pointer"
+                    >
+                      {item.name}
+                      <ChevronDown className="w-3.5 h-3.5" />
+                    </button>
                   ) : (
-                    <div className="flex items-center space-x-2">
-                      <span>Sign In</span>
-                      <ArrowRight className="h-4 w-4" />
+                    <Link
+                      href={item.href}
+                      className="flex items-center gap-1 text-white text-sm font-medium px-3 py-2 hover:text-gis-gold transition-colors whitespace-nowrap"
+                    >
+                      {item.name}
+                    </Link>
+                  )}
+                  {item.subItems && activeDropdown === item.name && (
+                    <div className="absolute top-full left-0 bg-white shadow-xl rounded-md min-w-[220px] py-2 z-50 border border-gray-100">
+                      {item.subItems.map((subItem) => (
+                        <Link
+                          key={subItem.name}
+                          href={subItem.href}
+                          className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gis-green hover:text-white transition-colors"
+                        >
+                          {subItem.name}
+                        </Link>
+                      ))}
                     </div>
                   )}
-                </button>
-              </form>
+                </div>
+              ))}
+              
+              {/* Portal Links */}
+              <div className="flex items-center gap-4 ml-4 border-l border-white/20 pl-4">
+                <a href="https://portal.josemariaschoolgh.org/portals" className="text-white text-sm hover:text-gis-gold transition-colors">
+                  Parent Portal
+                </a>
+                <a href="https://portal.josemariaschoolgh.org/portals" className="text-white text-sm hover:text-gis-gold transition-colors">
+                  Staff Portal
+                </a>
+                <a href="https://portal.josemariaschoolgh.org/portals" className="text-white text-sm hover:text-gis-gold transition-colors">
+                  Student Portal
+                </a>
+              </div>
+              
+              <button type="button" className="text-white p-2 ml-2 hover:text-gis-gold transition-colors" aria-label="Search">
+                <Search className="w-5 h-5" />
+              </button>
+            </nav>
 
-              {/* Help Links */}
-              <div className="mt-6 pt-6 border-t border-gray-200">
-                <div className="text-center space-y-2">
-                  <p className="text-sm text-gray-600">
-                    Need help? Contact the school administration
+            {/* Mobile Menu Button */}
+            <button
+              type="button"
+              className="xl:hidden text-white p-2"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+
+          {/* Mobile Navigation */}
+          {mobileMenuOpen && (
+            <div className="xl:hidden bg-white rounded-lg shadow-xl mt-2 py-4 absolute left-4 right-4 max-h-[70vh] overflow-y-auto">
+              {navItems.map((item) => (
+                <div key={item.name} className="border-b border-gray-100 last:border-0">
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (item.subItems && item.subItems.length > 0) {
+                        setActiveDropdown(activeDropdown === item.name ? null : item.name);
+                      } else {
+                        window.location.href = item.href;
+                        setMobileMenuOpen(false);
+                      }
+                    }}
+                    className="w-full block px-4 py-3 text-gray-700 hover:bg-gis-green hover:text-white transition-colors text-left bg-transparent border-none cursor-pointer"
+                  >
+                    <div className="flex items-center justify-between">
+                      {item.name}
+                      {item.subItems && item.subItems.length > 0 && (
+                        <ChevronDown className={`w-4 h-4 transition-transform ${
+                          activeDropdown === item.name ? 'rotate-180' : ''
+                        }`} />
+                      )}
+                    </div>
+                  </button>
+                  
+                  {/* Mobile Submenu */}
+                  {item.subItems && item.subItems.length > 0 && activeDropdown === item.name && (
+                    <div className="bg-gray-50">
+                      {item.subItems.map((subItem) => (
+                        <Link
+                          key={subItem.name}
+                          href={subItem.href}
+                          className="block px-8 py-2 text-gray-600 hover:bg-gray-100 hover:text-gis-green transition-colors text-sm"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {subItem.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <section className="relative min-h-[650px] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/hero.jpg"
+            alt="ADJIS Students"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
+
+        <div className="relative z-10 text-center text-white px-4 pt-24 pb-8">
+          {/* YH Logo */}
+          <AnimatedSection delay={0}>
+            <div className="flex justify-center mb-6">
+              <Image
+                src="/images/yh.png"
+                alt="ADJIS Logo"
+                width={300}
+                height={300}
+                className="w-40 md:w-56 lg:w-72 drop-shadow-lg"
+              />
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection delay={200}>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <Link
+                href="#"
+                className="bg-gis-green hover:bg-gis-green-dark text-white font-semibold px-8 py-3.5 rounded-full transition-all uppercase tracking-wider text-sm shadow-lg hover:shadow-xl hover:scale-105"
+              >
+                Join The Celebration
+              </Link>
+              <Link
+                href="#"
+                className="bg-gis-green hover:bg-gis-green-dark text-white font-semibold px-8 py-3.5 rounded-full transition-all uppercase tracking-wider text-sm shadow-lg hover:shadow-xl hover:scale-105"
+              >
+                Watch The Documentary
+              </Link>
+            </div>
+          </AnimatedSection>
+
+          {/* School name overlay */}
+          <AnimatedSection delay={400}>
+            <p className="text-white/70 text-lg md:text-xl tracking-wide">Adorable Babies & Josemaria International School</p>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="bg-gis-green py-6">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-white">
+            {stats.map((stat, index) => (
+              <AnimatedSection key={stat.label} delay={index * 100}>
+                <div className="space-y-3">
+                  <div className="w-10 h-0.5 bg-white mx-auto" />
+                  <p className="text-sm font-medium tracking-wide">{stat.label}</p>
+                  <p className="text-xs opacity-80">{stat.value}</p>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Main Content Section */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-12 gap-12">
+            {/* Events Sidebar */}
+            <div className="lg:col-span-4">
+              <AnimatedSection>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">Upcoming events</h2>
+              </AnimatedSection>
+              <div className="space-y-4">
+                {events.map((event, index) => (
+                  <AnimatedSection key={`${event.title}-${index}`} delay={index * 100}>
+                    <div className="flex gap-4 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow event-card">
+                      <div className="bg-gis-green text-white p-4 flex flex-col items-center justify-center min-w-[80px]">
+                        <span className="text-2xl font-bold">{event.date}</span>
+                        <span className="text-xs">{event.month}</span>
+                        <span className="text-xs">{event.year}</span>
+                      </div>
+                      <div className="p-4 flex flex-col justify-center">
+                        <h3 className="text-gis-green font-semibold text-sm mb-2">{event.title}</h3>
+                        <Link href={event.href} className="text-gis-green text-sm font-medium hover:underline">
+                          Find out more &raquo;
+                        </Link>
+                      </div>
+                    </div>
+                  </AnimatedSection>
+                ))}
+              </div>
+              <AnimatedSection delay={500}>
+                <div className="mt-6">
+                  <Link
+                    href="#"
+                    className="inline-block border-2 border-gis-green text-gis-green font-semibold px-8 py-3 rounded hover:bg-gis-green hover:text-white transition-colors text-sm"
+                  >
+                    VIEW CALENDAR
+                  </Link>
+                </div>
+              </AnimatedSection>
+            </div>
+
+            {/* Welcome Content */}
+            <div className="lg:col-span-8">
+              <AnimatedSection>
+                <h2 className="section-title text-3xl font-bold text-gray-800 mb-6">Welcome to ADJIS</h2>
+              </AnimatedSection>
+              <AnimatedSection delay={100}>
+                <div className="space-y-4 text-gray-600 leading-relaxed">
+                  <p>
+                    Adorable Babies & Josemaria International School is a not-for-profit, private, non-sectarian, co-educational day and boarding school. Established in 2010, ADJIS was founded to provide innovative international education to students of all races and creeds. We offer a unique blended curriculum that combines the best of the Ghana Education Service (GES), Montessori, and Cambridge International systems, providing students with a comprehensive and globally-relevant learning experience.
                   </p>
-                  <div className="flex justify-center space-x-4 text-sm">
-                    <a href="mailto:info@josemariaschoolgh.org" className="text-blue-600 hover:text-blue-700">
-                      Email Support
-                    </a>
-                    <span className="text-gray-400">•</span>
-                    <a href="tel:+233245894229" className="text-blue-600 hover:text-blue-700">
-                      Call Us
-                    </a>
-                  </div>
+                  <p>
+                    Our blended curriculum approach integrates the structured framework of Cambridge International programs with the child-centered philosophy of Montessori and the cultural relevance of the Ghana Education Service curriculum. This unique combination ensures that students receive both international standards and local educational context, preparing them for global opportunities while maintaining strong connections to their heritage. English language serves as the primary medium of instruction, with additional support for local languages and cultural studies.
+                  </p>
+                </div>
+              </AnimatedSection>
+              <AnimatedSection delay={200}>
+                <Link href="/about" className="inline-block text-gis-green font-semibold mt-4 hover:underline">
+                  Read more
+                </Link>
+              </AnimatedSection>
+              
+              {/* Join ADJIS Section */}
+              <div className="mt-12">
+                <AnimatedSection>
+                  <h2 className="section-title text-3xl font-bold text-gray-800 mb-8">Join ADJIS as...</h2>
+                </AnimatedSection>
+                <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-12">
+                  {joinCards.map((card, index) => (
+                    <AnimatedSection key={card.title} delay={index * 100}>
+                      <Link href={card.href} className="group block">
+                        <div className="relative overflow-hidden rounded-lg aspect-[16/9] h-64">
+                          <Image
+                            src={card.image}
+                            alt={card.title}
+                            fill
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
+                        </div>
+                        <h3 className="text-gis-green font-semibold text-xl mt-4 group-hover:underline">{card.title}</h3>
+                      </Link>
+                    </AnimatedSection>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </section>
+      
+      {/* News Section with Auto-play */}
+      <section className="py-12">
+        <div className="container mx-auto px-4">
+          <AnimatedSection>
+            <h2 className="section-title text-3xl font-bold text-gray-800 mb-8">News & Updates</h2>
+          </AnimatedSection>
+          <AnimatedSection delay={100}>
+            <div
+              className="relative"
+              onMouseEnter={() => handleCarouselHover(true)}
+              onMouseLeave={() => handleCarouselHover(false)}
+            >
+              <div className="relative overflow-hidden rounded-lg aspect-[16/9] max-w-4xl mx-auto group">
+                <Image
+                  src={newsItems[currentNewsIndex].image}
+                  alt={newsItems[currentNewsIndex].title}
+                  fill
+                  className="object-cover transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h3 className="text-xl md:text-2xl font-bold mb-2">{newsItems[currentNewsIndex].title}</h3>
+                  <p className="text-sm md:text-base text-gray-200 mb-4">{newsItems[currentNewsIndex].excerpt}</p>
+                  <Link href={newsItems[currentNewsIndex].href} className="inline-flex items-center gap-2 text-sm font-medium hover:underline">
+                    Read More <span className="text-lg">&rarr;</span>
+                  </Link>
+                </div>
 
-        {/* Footer */}
-        <div className="text-center mt-8 text-gray-500 text-sm">
-          <p>&copy; 2024 Adorable Babies & Josemaria International School</p>
-          <p className="mt-1">
-            Secure Portal Login System | All rights reserved
-          </p>
+                {/* Navigation Arrows */}
+                <button
+                  type="button"
+                  onClick={goToPrev}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 hover:bg-white/40 rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                  aria-label="Previous slide"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <button
+                  type="button"
+                  onClick={goToNext}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 hover:bg-white/40 rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                  aria-label="Next slide"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+
+                {/* Progress Bar */}
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
+                  <div
+                    className="h-full bg-gis-green transition-all duration-300"
+                    style={{ width: `${((currentNewsIndex + 1) / newsItems.length) * 100}%` }}
+                  />
+                </div>
+              </div>
+
+              {/* Carousel Dots */}
+              <div className="flex justify-center gap-2 mt-4">
+                {newsItems.map((_, index) => (
+                  <button
+                    key={`news-dot-${index}`}
+                    type="button"
+                    onClick={() => setCurrentNewsIndex(index)}
+                    className={`w-3 h-3 rounded-full transition-all ${
+                      index === currentNewsIndex ? "bg-gis-green scale-110" : "bg-gray-300 hover:bg-gray-400"
+                    }`}
+                    aria-label={`Go to news item ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </AnimatedSection>
         </div>
-      </div>
+      </section>
+
+      {/* University Acceptance Section */}
+      
+      {/* Video CTA Section */}
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/hero.jpg"
+            alt="ADJIS Students"
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-black/50" />
+        </div>
+        <AnimatedSection>
+          <div className="relative z-10 text-center text-white">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 rounded-full hover:bg-white/30 transition-all hover:scale-110 mb-4 cursor-pointer">
+              <Play className="w-8 h-8 text-white fill-white" />
+            </div>
+            <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-wider">Watch Our Channel</h2>
+          </div>
+        </AnimatedSection>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gis-green-dark text-white py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+            {/* School Hours */}
+            <div>
+              <h3 className="text-lg font-bold uppercase tracking-wider mb-4">School Hours</h3>
+              <p className="text-gray-300">M-F: 8am - 3:30pm</p>
+            </div>
+
+            {/* Address */}
+            <div>
+              <h3 className="text-lg font-bold uppercase tracking-wider mb-4">Address</h3>
+              <p className="text-gray-300 leading-relaxed">
+                Josemaria International School<br />
+                Impaka Ln Comm. 17 Annex<br />
+                Lashibi<br />
+                Ghana
+              </p>
+            </div>
+
+            {/* Email & Number */}
+            <div>
+              <h3 className="text-lg font-bold uppercase tracking-wider mb-4">Email & Number</h3>
+              <div className="space-y-2 text-gray-300">
+                <Link href="mailto:admission@josemariaschoolgh.org" className="block hover:text-white">admission@josemariaschoolgh.org</Link>
+                <Link href="mailto:info@josemariaschoolgh.org" className="block hover:text-white">info@josemariaschoolgh.org</Link>
+                <p>+233 245 894 229</p>
+                <p>+233 244 330 890</p>
+              </div>
+            </div>
+
+            {/* Newsletter */}
+            <div className="lg:col-span-2">
+              <h3 className="text-lg font-bold uppercase tracking-wider mb-4">Newsletter</h3>
+              <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-2">
+                <input
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="flex-1 px-4 py-2 bg-white/10 border border-white/20 rounded text-white placeholder-gray-400 focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all"
+                />
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="px-6 py-2 bg-gis-green hover:bg-gis-green-light text-white font-semibold rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? "Subscribing..." : "Subscribe"}
+                </button>
+              </form>
+              <div className="flex gap-3 mt-4">
+                <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer" aria-label="Facebook">
+                  <Facebook className="w-5 h-5" />
+                </div>
+                <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer" aria-label="X">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                </div>
+                <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer" aria-label="LinkedIn">
+                  <Linkedin className="w-5 h-5" />
+                </div>
+                <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer" aria-label="Instagram">
+                  <Instagram className="w-5 h-5" />
+                </div>
+                <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer" aria-label="YouTube">
+                  <Youtube className="w-5 h-5" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-white/20 pt-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {/* Logo */}
+              <div>
+                <Image
+                  src="/images/logo1.jpg"
+                  alt="Adorable Babies & Josemaria International School"
+                  width={200}
+                  height={100}
+                  className="h-24 w-auto"
+                />
+              </div>
+
+              {/* School Links */}
+              <div>
+                <h3 className="text-lg font-bold uppercase tracking-wider mb-4">School</h3>
+                <div className="space-y-2">
+                  <Link href="/admissions" className="block text-gray-300 hover:text-white">Apply</Link>
+                  <Link href="/admissions" className="block text-gray-300 hover:text-white">FAQs</Link>
+                  <Link href="#" className="block text-gray-300 hover:text-white">Privacy Policy</Link>
+                  <Link href="#" className="block text-gray-300 hover:text-white">Child Protection Policy</Link>
+                </div>
+              </div>
+
+              {/* Quick Links */}
+              <div>
+                <h3 className="text-lg font-bold uppercase tracking-wider mb-4">Quick Links</h3>
+                <div className="space-y-2">
+                  <Link href="/about" className="block text-gray-300 hover:text-white">Student Life</Link>
+                  <Link href="/principal" className="block text-gray-300 hover:text-white">Principal's Message</Link>
+                  <Link href="/careers" className="block text-gray-300 hover:text-white">Careers</Link>
+                  <Link href="/about" className="block text-gray-300 hover:text-white">Boarding Program</Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          
+          {/* Copyright */}
+          <div className="text-center mt-8 pt-4 border-t border-white/20">
+            <p className="text-sm text-gray-400">All rights reserved &copy; Adorable Babies & Josemaria International School</p>
+          </div>
+        </div>
+      </footer>
+      
+      {/* Chatbot */}
+      <AdvancedChatbot />
     </div>
   );
 }
