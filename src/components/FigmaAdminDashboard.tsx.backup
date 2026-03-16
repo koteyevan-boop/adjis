@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   Search,
   Bell,
@@ -148,9 +148,9 @@ export default function FigmaAdminDashboard() {
       {
         id: "2",
         name: "English",
-        head: "Mr. Kwame Asante",
+        head: "Mr. Kofi Asante",
         teachers: 10,
-        students: 198,
+        students: 234,
         performance: 82.3,
         status: "good"
       },
@@ -159,77 +159,96 @@ export default function FigmaAdminDashboard() {
         name: "Science",
         head: "Dr. Yaa Boateng",
         teachers: 8,
-        students: 167,
-        performance: 79.8,
-        status: "good"
+        students: 189,
+        performance: 91.2,
+        status: "excellent"
+      },
+      {
+        id: "4",
+        name: "Social Studies",
+        head: "Mr. Kwame Osei",
+        teachers: 9,
+        students: 198,
+        performance: 78.9,
+        status: "average"
+      },
+      {
+        id: "5",
+        name: "ICT",
+        head: "Ms. Akua Afriyie",
+        teachers: 6,
+        students: 156,
+        performance: 94.1,
+        status: "excellent"
+      },
+      {
+        id: "6",
+        name: "French",
+        head: "M. Pierre Dubois",
+        teachers: 4,
+        students: 89,
+        performance: 76.4,
+        status: "needs-improvement"
       }
     ],
     activities: [
       {
         id: "1",
         type: "user",
-        title: "New teacher registration",
-        description: "Ms. Adwoa Mensah joined as Mathematics teacher",
+        title: "New Teacher Onboarded",
+        description: "Ms. Akua Afriyie joined as ICT teacher",
         time: "2 hours ago",
         status: "completed"
       },
       {
         id: "2",
-        type: "academic",
-        title: "Grade 7A exam results uploaded",
-        description: "Mid-term examination results for Grade 7A",
-        time: "4 hours ago",
+        type: "system",
+        title: "System Backup Completed",
+        description: "Weekly backup completed successfully",
+        time: "5 hours ago",
         status: "completed"
       },
       {
         id: "3",
         type: "financial",
-        title: "Fee payment reminder sent",
-        description: "Automated reminders sent to 45 parents",
-        time: "6 hours ago",
+        title: "Fee Payment Processed",
+        description: "GHS 15,000 in fee payments processed",
+        time: "1 day ago",
         status: "completed"
       },
       {
         id: "4",
-        type: "system",
-        title: "Database backup completed",
-        description: "Scheduled daily backup completed successfully",
-        time: "8 hours ago",
-        status: "completed"
-      },
-      {
-        id: "5",
-        type: "announcement",
-        title: "School holiday announced",
-        description: "Public holiday on Friday, March 21st",
-        time: "1 day ago",
+        type: "academic",
+        title: "Exam Schedule Updated",
+        description: "End-of-term exam schedule published",
+        time: "2 days ago",
         status: "completed"
       }
     ],
     announcements: [
       {
         id: "1",
-        title: "End of Term Exams",
-        message: "Final examinations will begin on March 25th. All students should prepare accordingly.",
+        title: "System Maintenance",
+        message: "Scheduled system maintenance this weekend. Please save all work.",
         priority: "high",
-        date: "2024-03-15",
-        author: "Academic Office"
+        date: "2 days ago",
+        author: "IT Department"
       },
       {
         id: "2",
-        title: "Parent-Teacher Meeting",
-        message: "Scheduled for March 20th at 2:00 PM in the school auditorium.",
+        title: "New Academic Year",
+        message: "Academic calendar for 2024/2025 has been approved.",
         priority: "medium",
-        date: "2024-03-14",
-        author: "Administration"
+        date: "3 days ago",
+        author: "Academic Office"
       },
       {
         id: "3",
-        title: "School Fees Reminder",
-        message: "Second installment fees are due by March 30th. Please ensure timely payment.",
-        priority: "medium",
-        date: "2024-03-13",
-        author: "Finance Office"
+        title: "Staff Training",
+        message: "Professional development sessions scheduled for next month.",
+        priority: "low",
+        date: "1 week ago",
+        author: "HR Department"
       }
     ],
     systemHealth: [
@@ -242,20 +261,43 @@ export default function FigmaAdminDashboard() {
       },
       {
         id: "2",
-        metric: "API Server",
-        value: 98.7,
+        metric: "API Response",
+        value: 98.8,
         status: "healthy",
-        lastChecked: "5 minutes ago"
+        lastChecked: "1 minute ago"
       },
       {
         id: "3",
         metric: "Storage",
-        value: 85.3,
+        value: 85.0,
         status: "warning",
-        lastChecked: "10 minutes ago"
+        lastChecked: "5 minutes ago"
+      },
+      {
+        id: "4",
+        metric: "Backup",
+        value: 100.0,
+        status: "healthy",
+        lastChecked: "1 hour ago"
+      },
+      {
+        id: "5",
+        metric: "Security",
+        value: 97.5,
+        status: "healthy",
+        lastChecked: "30 minutes ago"
       }
     ]
   });
+
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: Home, badge: undefined },
@@ -312,26 +354,21 @@ export default function FigmaAdminDashboard() {
               >
                 <Menu className="h-5 w-5 text-gray-600" />
               </button>
-              <h1 className="ml-4 text-xl font-semibold text-gray-900">Admin Dashboard</h1>
+              <div className="ml-4">
+                <h1 className="text-xl font-semibold text-gray-900">Admin Dashboard</h1>
+                <p className="text-sm text-gray-500">Welcome back, {adminData.profile.name}</p>
+              </div>
             </div>
 
             {/* Right side */}
             <div className="flex items-center space-x-4">
               <SearchBar
+                placeholder="Search users, reports, system..."
                 value={searchQuery}
                 onChange={setSearchQuery}
-                placeholder="Search anything..."
               />
-              
-              <NotificationBell
-                count={7}
-                onClick={() => setNotificationsOpen(!notificationsOpen)}
-              />
-              
-              <UserMenu
-                name={adminData.profile.name}
-                onLogout={() => console.log('Logout clicked')}
-              />
+              <NotificationBell count={3} />
+              <UserMenu name={adminData.profile.name} />
             </div>
           </div>
         </div>
@@ -410,86 +447,108 @@ export default function FigmaAdminDashboard() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                   {/* Department Performance */}
                   <div className="lg:col-span-2">
-                    <div className="bg-white rounded-xl border border-gray-200">
-                      <div className="p-6 border-b border-gray-200">
-                        <div className="flex items-center justify-between">
-                          <h2 className="text-lg font-semibold text-gray-900">Department Performance</h2>
-                          <button className="text-sm text-blue-600 hover:text-blue-700">View All</button>
-                        </div>
-                      </div>
-                      <div className="p-6 space-y-4">
-                        {adminData.departments.map((dept) => (
-                          <div key={dept.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                            <div className="flex items-center space-x-4">
-                              <div className="flex-shrink-0">
-                                <div className="h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center">
-                                  <Briefcase className="h-5 w-5 text-blue-600" />
-                                </div>
-                              </div>
-                              <div>
-                                <h3 className="text-sm font-medium text-gray-900">{dept.name}</h3>
-                                <p className="text-sm text-gray-500">{dept.head} • {dept.teachers} teachers</p>
-                              </div>
-                            </div>
-                            <div className="text-right">
-                              <div className="text-sm font-medium text-gray-900">{dept.students} students</div>
-                              <div className="text-sm text-gray-600">{dept.performance}% performance</div>
-                              <div className={`text-xs font-medium px-2 py-1 rounded-full inline-block mt-1 ${getDepartmentStatusColor(dept.status)}`}>
-                                {dept.status}
-                              </div>
+                <div className="bg-white rounded-xl border border-gray-200">
+                  <div className="p-6 border-b border-gray-200">
+                    <div className="flex items-center justify-between">
+                      <h2 className="text-lg font-semibold text-gray-900">Department Performance</h2>
+                      <button className="text-sm text-blue-600 hover:text-blue-700">View All</button>
+                    </div>
+                  </div>
+                  <div className="p-6 space-y-4">
+                    {adminData.departments.map((dept) => (
+                      <div key={dept.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                        <div className="flex items-center space-x-4">
+                          <div className="flex-shrink-0">
+                            <div className="h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center">
+                              <Briefcase className="h-5 w-5 text-blue-600" />
                             </div>
                           </div>
-                        ))}
+                          <div>
+                            <h3 className="text-sm font-medium text-gray-900">{dept.name}</h3>
+                            <p className="text-sm text-gray-500">{dept.head} • {dept.teachers} teachers</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-sm font-medium text-gray-900">{dept.performance}%</p>
+                          <p className="text-sm text-gray-500">{dept.students} students</p>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-
-                  {/* Recent Activities */}
-                  <div>
-                    <div className="bg-white rounded-xl border border-gray-200">
-                      <div className="p-6 border-b border-gray-200">
-                        <h2 className="text-lg font-semibold text-gray-900">Recent Activities</h2>
-                      </div>
-                      <div className="p-6 space-y-4">
-                        {adminData.activities.slice(0, 5).map((activity) => (
-                          <ActivityItem
-                            key={activity.id}
-                            icon={getActivityIcon(activity.type)}
-                            title={activity.title}
-                            description={activity.description}
-                            time={activity.time}
-                            status={activity.status}
-                          />
-                        ))}
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
 
-                {/* Announcements */}
-                <div className="mt-6">
-                  <div className="bg-white rounded-xl border border-gray-200">
-                    <div className="p-6 border-b border-gray-200">
-                      <div className="flex items-center justify-between">
-                        <h2 className="text-lg font-semibold text-gray-900">Recent Announcements</h2>
-                        <button className="text-sm text-blue-600 hover:text-blue-700">View All</button>
-                      </div>
+                {/* System Health */}
+                <div className="bg-white rounded-xl border border-gray-200 mt-6">
+                  <div className="p-6 border-b border-gray-200">
+                    <div className="flex items-center justify-between">
+                      <h2 className="text-lg font-semibold text-gray-900">System Health</h2>
+                      <button className="text-sm text-blue-600 hover:text-blue-700">Run Diagnostics</button>
                     </div>
-                    <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {adminData.announcements.slice(0, 3).map((announcement) => (
-                        <AnnouncementCard
-                          key={announcement.id}
-                          title={announcement.title}
-                          message={announcement.message}
-                          priority={announcement.priority}
-                          date={announcement.date}
-                          author={announcement.author}
+                  </div>
+                  <div className="p-6 space-y-4">
+                    {adminData.systemHealth.map((health) => (
+                      <div key={health.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                        <div className="flex items-center space-x-4">
+                          <div className={`p-2 rounded-lg ${getHealthStatusColor(health.status)}`}>
+                            <Database className="h-4 w-4" />
+                          </div>
+                          <div>
+                            <h3 className="text-sm font-medium text-gray-900">{health.metric}</h3>
+                            <p className="text-sm text-gray-500">Last checked: {health.lastChecked}</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-sm font-medium text-gray-900">{health.value}%</p>
+                          <p className="text-sm text-gray-500 capitalize">{health.status}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Recent Activities & Announcements */}
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl border border-gray-200">
+                  <div className="p-6 border-b border-gray-200">
+                    <h2 className="text-lg font-semibold text-gray-900">Recent Activities</h2>
+                  </div>
+                  <div className="p-6 space-y-4">
+                    {adminData.activities.map((activity) => {
+                      const Icon = getActivityIcon(activity.type);
+                      return (
+                        <ActivityItem
+                          key={activity.id}
+                          icon={Icon}
+                          title={activity.title}
+                          description={activity.description}
+                          time={activity.time}
+                          status={activity.status}
                         />
-                      ))}
-                    </div>
+                      );
+                    })}
                   </div>
                 </div>
-              </>
+
+                <div className="bg-white rounded-xl border border-gray-200">
+                  <div className="p-6 border-b border-gray-200">
+                    <h2 className="text-lg font-semibold text-gray-900">System Announcements</h2>
+                  </div>
+                  <div className="p-6 space-y-4">
+                    {adminData.announcements.map((announcement) => (
+                      <AnnouncementCard
+                        key={announcement.id}
+                        title={announcement.title}
+                        message={announcement.message}
+                        priority={announcement.priority}
+                        date={announcement.date}
+                        author={announcement.author}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </>
             )}
 
             {/* User Management Tab Content */}
