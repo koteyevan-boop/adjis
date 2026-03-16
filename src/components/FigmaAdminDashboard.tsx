@@ -495,13 +495,608 @@ export default function FigmaAdminDashboard() {
 
             {/* User Management Tab Content */}
             {activeTab === 'users' && (
-              <div className="bg-white rounded-xl border border-gray-200 p-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">User Management</h2>
-                <p className="text-gray-600">Manage students, teachers, and parents accounts.</p>
-                <div className="mt-6">
-                  <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-                    Add New User
-                  </button>
+              <div className="space-y-6">
+                {/* User Management Header */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-2xl font-bold text-gray-900">User Management</h2>
+                    <div className="flex space-x-2">
+                      <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center space-x-2">
+                        <Plus className="h-4 w-4" />
+                        <span>Add User</span>
+                      </button>
+                      <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2">
+                        <Upload className="h-4 w-4" />
+                        <span>Bulk Import</span>
+                      </button>
+                      <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 flex items-center space-x-2">
+                        <Download className="h-4 w-4" />
+                        <span>Export Users</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* User Statistics Cards */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-blue-600 font-medium">Total Users</p>
+                          <p className="text-2xl font-bold text-blue-900">3,672</p>
+                          <p className="text-xs text-blue-600 mt-1">All roles</p>
+                        </div>
+                        <div className="h-12 w-12 bg-blue-200 rounded-full flex items-center justify-center">
+                          <Users className="h-6 w-6 text-blue-600" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg border border-green-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-green-600 font-medium">Active Users</p>
+                          <p className="text-2xl font-bold text-green-900">3,245</p>
+                          <p className="text-xs text-green-600 mt-1">88% active</p>
+                        </div>
+                        <div className="h-12 w-12 bg-green-200 rounded-full flex items-center justify-center">
+                          <CheckCircle className="h-6 w-6 text-green-600" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-gradient-to-r from-purple-50 to-purple-100 p-4 rounded-lg border border-purple-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-purple-600 font-medium">Students</p>
+                          <p className="text-2xl font-bold text-purple-900">1,245</p>
+                          <p className="text-xs text-purple-600 mt-1">Primary users</p>
+                        </div>
+                        <div className="h-12 w-12 bg-purple-200 rounded-full flex items-center justify-center">
+                          <GraduationCap className="h-6 w-6 text-purple-600" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-gradient-to-r from-orange-50 to-orange-100 p-4 rounded-lg border border-orange-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-orange-600 font-medium">Staff</p>
+                          <p className="text-2xl font-bold text-orange-900">327</p>
+                          <p className="text-xs text-orange-600 mt-1">Teachers & Admin</p>
+                        </div>
+                        <div className="h-12 w-12 bg-orange-200 rounded-full flex items-center justify-center">
+                          <Shield className="h-6 w-6 text-orange-600" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Advanced Search & Filtering */}
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Advanced Search & Filtering</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Search Users</label>
+                        <input
+                          type="text"
+                          placeholder="Name, ID, Email..."
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Role</label>
+                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <option>All Roles</option>
+                          <option>Student</option>
+                          <option>Parent</option>
+                          <option>Teacher</option>
+                          <option>Admin</option>
+                          <option>Alumni</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <option>All Status</option>
+                          <option>Active</option>
+                          <option>Inactive</option>
+                          <option>Archived</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Department</label>
+                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <option>All Departments</option>
+                          <option>Academic</option>
+                          <option>Administration</option>
+                          <option>Support</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Enrollment Year</label>
+                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <option>All Years</option>
+                          <option>2024</option>
+                          <option>2023</option>
+                          <option>2022</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Last Login</label>
+                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <option>Any Time</option>
+                          <option>Last 7 Days</option>
+                          <option>Last 30 Days</option>
+                          <option>Last 90 Days</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Class/Grade</label>
+                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <option>All Classes</option>
+                          <option>Grade 10A</option>
+                          <option>Grade 10B</option>
+                          <option>Grade 11A</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Quick Actions */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* Academic Grouping */}
+                  <div className="bg-white rounded-xl border border-gray-200 p-6">
+                    <div className="flex items-center space-x-3 mb-4">
+                      <div className="h-10 w-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <GraduationCap className="h-5 w-5 text-blue-600" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900">Academic Grouping</h3>
+                    </div>
+                    <div className="space-y-3">
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Enroll Student</p>
+                            <p className="text-sm text-gray-600">Add to class & academic year</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Change Class/Grade</p>
+                            <p className="text-sm text-gray-600">Promote or transfer students</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Graduate Students</p>
+                            <p className="text-sm text-gray-600">Convert to alumni</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Roles & Permissions */}
+                  <div className="bg-white rounded-xl border border-gray-200 p-6">
+                    <div className="flex items-center space-x-3 mb-4">
+                      <div className="h-10 w-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <Shield className="h-5 w-5 text-purple-600" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900">Roles & Permissions</h3>
+                    </div>
+                    <div className="space-y-3">
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Create Custom Role</p>
+                            <p className="text-sm text-gray-600">Define specific permissions</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Permission Matrix</p>
+                            <p className="text-sm text-gray-600">Module & action access</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Bulk Role Assignment</p>
+                            <p className="text-sm text-gray-600">Assign roles to multiple users</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Security & Audit */}
+                  <div className="bg-white rounded-xl border border-gray-200 p-6">
+                    <div className="flex items-center space-x-3 mb-4">
+                      <div className="h-10 w-10 bg-red-100 rounded-lg flex items-center justify-center">
+                        <AlertCircle className="h-5 w-5 text-red-600" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900">Security & Audit</h3>
+                    </div>
+                    <div className="space-y-3">
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Login History</p>
+                            <p className="text-sm text-gray-600">View authentication logs</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Active Sessions</p>
+                            <p className="text-sm text-gray-600">Manage logged-in users</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Audit Trail</p>
+                            <p className="text-sm text-gray-600">Track user actions</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* User Directory Table */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Master User Directory</h3>
+                    <div className="flex space-x-2">
+                      <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">Bulk Operations</button>
+                      <button className="text-green-600 hover:text-green-700 text-sm font-medium">Export Selected</button>
+                    </div>
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th className="px-4 py-3">
+                            <input type="checkbox" className="h-4 w-4 text-blue-600 rounded" />
+                          </th>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Class/Dept</th>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Last Login</th>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-200">
+                        <tr className="hover:bg-gray-50">
+                          <td className="px-4 py-4">
+                            <input type="checkbox" className="h-4 w-4 text-blue-600 rounded" />
+                          </td>
+                          <td className="px-4 py-4">
+                            <div className="flex items-center space-x-3">
+                              <div className="h-8 w-8 bg-blue-500 rounded-full flex items-center justify-center">
+                                <User className="h-4 w-4 text-white" />
+                              </div>
+                              <div>
+                                <p className="font-medium text-gray-900">Kofi Asante</p>
+                                <p className="text-sm text-gray-600">kofi.asante@adjis.edu</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-4 py-4">
+                            <span className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">Student</span>
+                          </td>
+                          <td className="px-4 py-4 text-sm text-gray-600">Grade 10A</td>
+                          <td className="px-4 py-4">
+                            <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Active</span>
+                          </td>
+                          <td className="px-4 py-4 text-sm text-gray-600">2 hours ago</td>
+                          <td className="px-4 py-4 text-sm">
+                            <div className="flex space-x-2">
+                              <button className="text-blue-600 hover:text-blue-700">View</button>
+                              <button className="text-green-600 hover:text-green-700">Edit</button>
+                              <button className="text-red-600 hover:text-red-700">Archive</button>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr className="hover:bg-gray-50">
+                          <td className="px-4 py-4">
+                            <input type="checkbox" className="h-4 w-4 text-blue-600 rounded" />
+                          </td>
+                          <td className="px-4 py-4">
+                            <div className="flex items-center space-x-3">
+                              <div className="h-8 w-8 bg-purple-500 rounded-full flex items-center justify-center">
+                                <User className="h-4 w-4 text-white" />
+                              </div>
+                              <div>
+                                <p className="font-medium text-gray-900">Mrs. Ama Mensah</p>
+                                <p className="text-sm text-gray-600">ama.mensah@adjis.edu</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-4 py-4">
+                            <span className="px-2 py-1 text-xs font-medium bg-purple-100 text-purple-800 rounded-full">Teacher</span>
+                          </td>
+                          <td className="px-4 py-4 text-sm text-gray-600">Mathematics</td>
+                          <td className="px-4 py-4">
+                            <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Active</span>
+                          </td>
+                          <td className="px-4 py-4 text-sm text-gray-600">1 day ago</td>
+                          <td className="px-4 py-4 text-sm">
+                            <div className="flex space-x-2">
+                              <button className="text-blue-600 hover:text-blue-700">View</button>
+                              <button className="text-green-600 hover:text-green-700">Edit</button>
+                              <button className="text-red-600 hover:text-red-700">Archive</button>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr className="hover:bg-gray-50">
+                          <td className="px-4 py-4">
+                            <input type="checkbox" className="h-4 w-4 text-blue-600 rounded" />
+                          </td>
+                          <td className="px-4 py-4">
+                            <div className="flex items-center space-x-3">
+                              <div className="h-8 w-8 bg-green-500 rounded-full flex items-center justify-center">
+                                <User className="h-4 w-4 text-white" />
+                              </div>
+                              <div>
+                                <p className="font-medium text-gray-900">Mr. Kwame Asante</p>
+                                <p className="text-sm text-gray-600">kwame.asante@parent.com</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-4 py-4">
+                            <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Parent</span>
+                          </td>
+                          <td className="px-4 py-4 text-sm text-gray-600">Parent of Grade 7A</td>
+                          <td className="px-4 py-4">
+                            <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Active</span>
+                          </td>
+                          <td className="px-4 py-4 text-sm text-gray-600">3 days ago</td>
+                          <td className="px-4 py-4 text-sm">
+                            <div className="flex space-x-2">
+                              <button className="text-blue-600 hover:text-blue-700">View</button>
+                              <button className="text-green-600 hover:text-green-700">Edit</button>
+                              <button className="text-red-600 hover:text-red-700">Archive</button>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr className="hover:bg-gray-50">
+                          <td className="px-4 py-4">
+                            <input type="checkbox" className="h-4 w-4 text-blue-600 rounded" />
+                          </td>
+                          <td className="px-4 py-4">
+                            <div className="flex items-center space-x-3">
+                              <div className="h-8 w-8 bg-orange-500 rounded-full flex items-center justify-center">
+                                <User className="h-4 w-4 text-white" />
+                              </div>
+                              <div>
+                                <p className="font-medium text-gray-900">Dr. Yaa Boateng</p>
+                                <p className="text-sm text-gray-600">yaa.boateng@adjis.edu</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-4 py-4">
+                            <span className="px-2 py-1 text-xs font-medium bg-orange-100 text-orange-800 rounded-full">Admin</span>
+                          </td>
+                          <td className="px-4 py-4 text-sm text-gray-600">Administration</td>
+                          <td className="px-4 py-4">
+                            <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Active</span>
+                          </td>
+                          <td className="px-4 py-4 text-sm text-gray-600">5 hours ago</td>
+                          <td className="px-4 py-4 text-sm">
+                            <div className="flex space-x-2">
+                              <button className="text-blue-600 hover:text-blue-700">View</button>
+                              <button className="text-green-600 hover:text-green-700">Edit</button>
+                              <button className="text-red-600 hover:text-red-700">Archive</button>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr className="hover:bg-gray-50">
+                          <td className="px-4 py-4">
+                            <input type="checkbox" className="h-4 w-4 text-blue-600 rounded" />
+                          </td>
+                          <td className="px-4 py-4">
+                            <div className="flex items-center space-x-3">
+                              <div className="h-8 w-8 bg-gray-500 rounded-full flex items-center justify-center">
+                                <User className="h-4 w-4 text-white" />
+                              </div>
+                              <div>
+                                <p className="font-medium text-gray-900">John Doe</p>
+                                <p className="text-sm text-gray-600">john.doe@alumni.com</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-4 py-4">
+                            <span className="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-800 rounded-full">Alumni</span>
+                          </td>
+                          <td className="px-4 py-4 text-sm text-gray-600">Class of 2020</td>
+                          <td className="px-4 py-4">
+                            <span className="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Archived</span>
+                          </td>
+                          <td className="px-4 py-4 text-sm text-gray-600">1 year ago</td>
+                          <td className="px-4 py-4 text-sm">
+                            <div className="flex space-x-2">
+                              <button className="text-blue-600 hover:text-blue-700">View</button>
+                              <button className="text-green-600 hover:text-green-700">Restore</button>
+                              <button className="text-red-600 hover:text-red-700">Delete</button>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* Super Admin Tools */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Super Admin Tools</h3>
+                    <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">View All Tools</button>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                      <div className="flex items-center space-x-3 mb-3">
+                        <div className="h-10 w-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                          <Camera className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <h4 className="font-medium text-gray-900">ID Card Generator</h4>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3">Bulk generate and print student/staff ID cards with photos and barcodes</p>
+                      <button className="w-full bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 text-sm">
+                        Generate IDs
+                      </button>
+                    </div>
+
+                    <div className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                      <div className="flex items-center space-x-3 mb-3">
+                        <div className="h-10 w-10 bg-green-100 rounded-lg flex items-center justify-center">
+                          <Mail className="h-5 w-5 text-green-600" />
+                        </div>
+                        <h4 className="font-medium text-gray-900">Parent Portal Reset</h4>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3">Reset parent portal access and resend login instructions</p>
+                      <button className="w-full bg-green-600 text-white px-3 py-2 rounded-lg hover:bg-green-700 text-sm">
+                        Reset Access
+                      </button>
+                    </div>
+
+                    <div className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                      <div className="flex items-center space-x-3 mb-3">
+                        <div className="h-10 w-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                          <Users className="h-5 w-5 text-purple-600" />
+                        </div>
+                        <h4 className="font-medium text-gray-900">User Merging Tool</h4>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3">Detect and merge duplicate user accounts to clean database</p>
+                      <button className="w-full bg-purple-600 text-white px-3 py-2 rounded-lg hover:bg-purple-700 text-sm">
+                        Find Duplicates
+                      </button>
+                    </div>
+
+                    <div className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                      <div className="flex items-center space-x-3 mb-3">
+                        <div className="h-10 w-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                          <MessageSquare className="h-5 w-5 text-orange-600" />
+                        </div>
+                        <h4 className="font-medium text-gray-900">Bulk Communication</h4>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3">Send SMS or emails to selected user groups</p>
+                      <button className="w-full bg-orange-600 text-white px-3 py-2 rounded-lg hover:bg-orange-700 text-sm">
+                        Send Messages
+                      </button>
+                    </div>
+
+                    <div className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                      <div className="flex items-center space-x-3 mb-3">
+                        <div className="h-10 w-10 bg-red-100 rounded-lg flex items-center justify-center">
+                          <Activity className="h-5 w-5 text-red-600" />
+                        </div>
+                        <h4 className="font-medium text-gray-900">Bulk Status Update</h4>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3">Activate, deactivate, or archive multiple users at once</p>
+                      <button className="w-full bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 text-sm">
+                        Update Status
+                      </button>
+                    </div>
+
+                    <div className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                      <div className="flex items-center space-x-3 mb-3">
+                        <div className="h-10 w-10 bg-yellow-100 rounded-lg flex items-center justify-center">
+                          <Clock className="h-5 w-5 text-yellow-600" />
+                        </div>
+                        <h4 className="font-medium text-gray-900">Session Management</h4>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3">View active sessions and force logout users</p>
+                      <button className="w-full bg-yellow-600 text-white px-3 py-2 rounded-lg hover:bg-yellow-700 text-sm">
+                        Manage Sessions
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Alumni Management */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Alumni & Archival Management</h3>
+                    <div className="flex space-x-2">
+                      <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">View Alumni Directory</button>
+                      <button className="text-green-600 hover:text-green-700 text-sm font-medium">Export Alumni</button>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">Alumni Statistics</h4>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                          <span className="text-sm text-gray-600">Total Alumni</span>
+                          <span className="font-semibold text-gray-900">1,234</span>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                          <span className="text-sm text-gray-600">This Year Graduates</span>
+                          <span className="font-semibold text-gray-900">89</span>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                          <span className="text-sm text-gray-600">Active Alumni</span>
+                          <span className="font-semibold text-gray-900">456</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">Archival Operations</h4>
+                      <div className="space-y-3">
+                        <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <p className="font-medium text-gray-900">Graduate Batch</p>
+                              <p className="text-sm text-gray-600">Archive graduating class</p>
+                            </div>
+                            <ChevronRight className="h-4 w-4 text-gray-400" />
+                          </div>
+                        </button>
+                        <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <p className="font-medium text-gray-900">Restore Archived</p>
+                              <p className="text-sm text-gray-600">Reactivate archived users</p>
+                            </div>
+                            <ChevronRight className="h-4 w-4 text-gray-400" />
+                          </div>
+                        </button>
+                        <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <p className="font-medium text-gray-900">Data Cleanup</p>
+                              <p className="text-sm text-gray-600">Remove old archived data</p>
+                            </div>
+                            <ChevronRight className="h-4 w-4 text-gray-400" />
+                          </div>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
