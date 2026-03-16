@@ -481,7 +481,7 @@ export default function Home() {
               <AnimatedSection delay={100}>
                 <div className="space-y-4 text-gray-600 leading-relaxed">
                   <p>
-                    Adorable Babies & Josemaria International School is a not-for-profit, private, non-sectarian, co-educational day and boarding school. Established in 2010, ADJIS was founded to provide innovative international education to students of all races and creeds. We offer a unique blended curriculum that combines the best of the Ghana Education Service (GES), Montessori, and Cambridge International systems, providing students with a comprehensive and globally-relevant learning experience.
+                    Adorable Babies & Josemaria International School is a not-for-profit, private, non-sectarian, co-educational day school. Established in 2010, ADJIS was founded to provide innovative international education to students of all races and creeds. We offer a unique blended curriculum that combines the best of the Ghana Education Service (GES), Montessori, and Cambridge International systems, providing students with a comprehensive and globally-relevant learning experience.
                   </p>
                   <p>
                     Our blended curriculum approach integrates the structured framework of Cambridge International programs with the child-centered philosophy of Montessori and the cultural relevance of the Ghana Education Service curriculum. This unique combination ensures that students receive both international standards and local educational context, preparing them for global opportunities while maintaining strong connections to their heritage. English language serves as the primary medium of instruction, with additional support for local languages and cultural studies.
@@ -723,7 +723,6 @@ export default function Home() {
                   <Link href="/about" className="block text-gray-300 hover:text-white">Student Life</Link>
                   <Link href="/principal" className="block text-gray-300 hover:text-white">Principal's Message</Link>
                   <Link href="/careers" className="block text-gray-300 hover:text-white">Careers</Link>
-                  <Link href="/about" className="block text-gray-300 hover:text-white">Boarding Program</Link>
                 </div>
               </div>
             </div>

@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "ADJIS | Nurturing Little Steps to Big Steps",
-  description: "Adorable Babies & Josemaria International School - A not-for-profit, private, non-sectarian, co-educational day and boarding school established in 2010.",
+  description: "Adorable Babies & Josemaria International School - A not-for-profit, private, non-sectarian, co-educational day school established in 2010.",
   icons: {
     icon: "/images/logo1.jpg",
   },
