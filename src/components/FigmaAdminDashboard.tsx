@@ -42,7 +42,8 @@ import {
   Briefcase,
   Database,
   PieChart,
-  LineChart
+  LineChart,
+  BookOpen
 } from 'lucide-react';
 import { 
   StatCard,
@@ -520,13 +521,478 @@ export default function FigmaAdminDashboard() {
 
             {/* Financial Tab Content */}
             {activeTab === 'financial' && (
-              <div className="bg-white rounded-xl border border-gray-200 p-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Financial Management</h2>
-                <p className="text-gray-600">Manage fees, payments, and financial reports.</p>
-                <div className="mt-6">
-                  <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-                    Generate Financial Report
-                  </button>
+              <div className="space-y-6">
+                {/* Financial Header */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-2xl font-bold text-gray-900">Financial Management</h2>
+                    <div className="flex space-x-2">
+                      <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center space-x-2">
+                        <Plus className="h-4 w-4" />
+                        <span>Create Bill</span>
+                      </button>
+                      <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2">
+                        <Download className="h-4 w-4" />
+                        <span>Export Report</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Financial Overview Cards */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <div className="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg border border-green-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-green-600 font-medium">Total Revenue</p>
+                          <p className="text-2xl font-bold text-green-900">GHS 456,789</p>
+                          <p className="text-xs text-green-600 mt-1">+12% from last month</p>
+                        </div>
+                        <div className="h-12 w-12 bg-green-200 rounded-full flex items-center justify-center">
+                          <TrendingUp className="h-6 w-6 text-green-600" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-blue-600 font-medium">Pending Fees</p>
+                          <p className="text-2xl font-bold text-blue-900">GHS 123,456</p>
+                          <p className="text-xs text-blue-600 mt-1">234 students</p>
+                        </div>
+                        <div className="h-12 w-12 bg-blue-200 rounded-full flex items-center justify-center">
+                          <AlertCircle className="h-6 w-6 text-blue-600" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-gradient-to-r from-purple-50 to-purple-100 p-4 rounded-lg border border-purple-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-purple-600 font-medium">Total Expenses</p>
+                          <p className="text-2xl font-bold text-purple-900">GHS 234,567</p>
+                          <p className="text-xs text-purple-600 mt-1">This month</p>
+                        </div>
+                        <div className="h-12 w-12 bg-purple-200 rounded-full flex items-center justify-center">
+                          <TrendingDown className="h-6 w-6 text-purple-600" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-gradient-to-r from-orange-50 to-orange-100 p-4 rounded-lg border border-orange-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-orange-600 font-medium">Net Position</p>
+                          <p className="text-2xl font-bold text-orange-900">GHS 222,222</p>
+                          <p className="text-xs text-orange-600 mt-1">Profit</p>
+                        </div>
+                        <div className="h-12 w-12 bg-orange-200 rounded-full flex items-center justify-center">
+                          <Target className="h-6 w-6 text-orange-600" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Filter Controls */}
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Academic Year</label>
+                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <option>2024-2025</option>
+                          <option>2023-2024</option>
+                          <option>2022-2023</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Term</label>
+                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <option>Fall Term</option>
+                          <option>Spring Term</option>
+                          <option>Summer Term</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Class</label>
+                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <option>All Classes</option>
+                          <option>Grade 10A</option>
+                          <option>Grade 10B</option>
+                          <option>Grade 11A</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Report Type</label>
+                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <option>All Reports</option>
+                          <option>Billing Summary</option>
+                          <option>Payment Collected</option>
+                          <option>Receipts Issued</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Quick Actions */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* Billing Operations */}
+                  <div className="bg-white rounded-xl border border-gray-200 p-6">
+                    <div className="flex items-center space-x-3 mb-4">
+                      <div className="h-10 w-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <FileText className="h-5 w-5 text-blue-600" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900">Billing Operations</h3>
+                    </div>
+                    <div className="space-y-3">
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Create Single Bill</p>
+                            <p className="text-sm text-gray-600">Generate bill for individual student</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Bulk Bill Generation</p>
+                            <p className="text-sm text-gray-600">Create bills for class/grade</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Bill Review & Approval</p>
+                            <p className="text-sm text-gray-600">Review generated bills</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Payment Processing */}
+                  <div className="bg-white rounded-xl border border-gray-200 p-6">
+                    <div className="flex items-center space-x-3 mb-4">
+                      <div className="h-10 w-10 bg-green-100 rounded-lg flex items-center justify-center">
+                        <DollarSign className="h-5 w-5 text-green-600" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900">Payment Processing</h3>
+                    </div>
+                    <div className="space-y-3">
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Manual Payment Entry</p>
+                            <p className="text-sm text-gray-600">Record offline payments</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Generate Receipt</p>
+                            <p className="text-sm text-gray-600">Create official receipt</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">View All Transactions</p>
+                            <p className="text-sm text-gray-600">Complete payment ledger</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Student Financial */}
+                  <div className="bg-white rounded-xl border border-gray-200 p-6">
+                    <div className="flex items-center space-x-3 mb-4">
+                      <div className="h-10 w-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <Users className="h-5 w-5 text-purple-600" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900">Student Financial</h3>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="p-3 border border-gray-200 rounded-lg">
+                        <input
+                          type="text"
+                          placeholder="Search student..."
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                      </div>
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Student Ledger View</p>
+                            <p className="text-sm text-gray-600">Complete financial history</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Payment Plan Tracking</p>
+                            <p className="text-sm text-gray-600">Installment management</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Recent Transactions Table */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Recent Transactions</h3>
+                    <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">View All</button>
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Student</th>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-200">
+                        <tr className="hover:bg-gray-50">
+                          <td className="px-4 py-4 text-sm text-gray-900">2024-03-15</td>
+                          <td className="px-4 py-4 text-sm text-gray-900">Kofi Asante</td>
+                          <td className="px-4 py-4 text-sm">
+                            <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Payment</span>
+                          </td>
+                          <td className="px-4 py-4 text-sm text-gray-600">Tuition Fee - Fall Term</td>
+                          <td className="px-4 py-4 text-sm font-medium text-gray-900">GHS 2,500</td>
+                          <td className="px-4 py-4 text-sm">
+                            <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Paid</span>
+                          </td>
+                          <td className="px-4 py-4 text-sm">
+                            <button className="text-blue-600 hover:text-blue-700">View Receipt</button>
+                          </td>
+                        </tr>
+                        <tr className="hover:bg-gray-50">
+                          <td className="px-4 py-4 text-sm text-gray-900">2024-03-14</td>
+                          <td className="px-4 py-4 text-sm text-gray-900">Ama Mensah</td>
+                          <td className="px-4 py-4 text-sm">
+                            <span className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">Bill</span>
+                          </td>
+                          <td className="px-4 py-4 text-sm text-gray-600">Lab Fees - Science</td>
+                          <td className="px-4 py-4 text-sm font-medium text-gray-900">GHS 150</td>
+                          <td className="px-4 py-4 text-sm">
+                            <span className="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Pending</span>
+                          </td>
+                          <td className="px-4 py-4 text-sm">
+                            <button className="text-blue-600 hover:text-blue-700">View Details</button>
+                          </td>
+                        </tr>
+                        <tr className="hover:bg-gray-50">
+                          <td className="px-4 py-4 text-sm text-gray-900">2024-03-13</td>
+                          <td className="px-4 py-4 text-sm text-gray-900">Yaa Boateng</td>
+                          <td className="px-4 py-4 text-sm">
+                            <span className="px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded-full">Refund</span>
+                          </td>
+                          <td className="px-4 py-4 text-sm text-gray-600">Overpayment Refund</td>
+                          <td className="px-4 py-4 text-sm font-medium text-gray-900">GHS 500</td>
+                          <td className="px-4 py-4 text-sm">
+                            <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Processed</span>
+                          </td>
+                          <td className="px-4 py-4 text-sm">
+                            <button className="text-blue-600 hover:text-blue-700">View Receipt</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* Income & Expenditure Summary */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Income Breakdown */}
+                  <div className="bg-white rounded-xl border border-gray-200 p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Income Breakdown</h3>
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div className="flex items-center space-x-3">
+                          <div className="h-8 w-8 bg-blue-100 rounded-full flex items-center justify-center">
+                            <GraduationCap className="h-4 w-4 text-blue-600" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">Tuition Fees</p>
+                            <p className="text-sm text-gray-600">85% of total income</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-semibold text-gray-900">GHS 388,270</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div className="flex items-center space-x-3">
+                          <div className="h-8 w-8 bg-green-100 rounded-full flex items-center justify-center">
+                            <Activity className="h-4 w-4 text-green-600" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">Activity Fees</p>
+                            <p className="text-sm text-gray-600">8% of total income</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-semibold text-gray-900">GHS 36,543</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div className="flex items-center space-x-3">
+                          <div className="h-8 w-8 bg-purple-100 rounded-full flex items-center justify-center">
+                            <BookOpen className="h-4 w-4 text-purple-600" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">Lab & Library</p>
+                            <p className="text-sm text-gray-600">4% of total income</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-semibold text-gray-900">GHS 18,271</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div className="flex items-center space-x-3">
+                          <div className="h-8 w-8 bg-orange-100 rounded-full flex items-center justify-center">
+                            <Star className="h-4 w-4 text-orange-600" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">Other Income</p>
+                            <p className="text-sm text-gray-600">3% of total income</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-semibold text-gray-900">GHS 13,705</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Expenditure Breakdown */}
+                  <div className="bg-white rounded-xl border border-gray-200 p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Expenditure Breakdown</h3>
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div className="flex items-center space-x-3">
+                          <div className="h-8 w-8 bg-red-100 rounded-full flex items-center justify-center">
+                            <Users className="h-4 w-4 text-red-600" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">Salaries & Wages</p>
+                            <p className="text-sm text-gray-600">65% of expenses</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-semibold text-gray-900">GHS 152,468</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div className="flex items-center space-x-3">
+                          <div className="h-8 w-8 bg-yellow-100 rounded-full flex items-center justify-center">
+                            <Zap className="h-4 w-4 text-yellow-600" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">Utilities</p>
+                            <p className="text-sm text-gray-600">15% of expenses</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-semibold text-gray-900">GHS 35,185</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div className="flex items-center space-x-3">
+                          <div className="h-8 w-8 bg-blue-100 rounded-full flex items-center justify-center">
+                            <Briefcase className="h-4 w-4 text-blue-600" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">Operations</p>
+                            <p className="text-sm text-gray-600">12% of expenses</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-semibold text-gray-900">GHS 28,148</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div className="flex items-center space-x-3">
+                          <div className="h-8 w-8 bg-purple-100 rounded-full flex items-center justify-center">
+                            <Globe className="h-4 w-4 text-purple-600" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">Maintenance</p>
+                            <p className="text-sm text-gray-600">8% of expenses</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-semibold text-gray-900">GHS 18,766</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Notifications & Alerts */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Notifications & Alerts</h3>
+                    <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">Configure</button>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">Fee Reminders</h4>
+                      <div className="space-y-2">
+                        <label className="flex items-center space-x-3">
+                          <input type="checkbox" className="h-4 w-4 text-blue-600 rounded" defaultChecked />
+                          <span className="text-sm text-gray-700">Send reminders 7 days before due date</span>
+                        </label>
+                        <label className="flex items-center space-x-3">
+                          <input type="checkbox" className="h-4 w-4 text-blue-600 rounded" defaultChecked />
+                          <span className="text-sm text-gray-700">Send reminders 3 days before due date</span>
+                        </label>
+                        <label className="flex items-center space-x-3">
+                          <input type="checkbox" className="h-4 w-4 text-blue-600 rounded" defaultChecked />
+                          <span className="text-sm text-gray-700">Send reminder on due date</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">Payment Confirmations</h4>
+                      <div className="space-y-2">
+                        <label className="flex items-center space-x-3">
+                          <input type="checkbox" className="h-4 w-4 text-blue-600 rounded" defaultChecked />
+                          <span className="text-sm text-gray-700">Send SMS confirmation</span>
+                        </label>
+                        <label className="flex items-center space-x-3">
+                          <input type="checkbox" className="h-4 w-4 text-blue-600 rounded" defaultChecked />
+                          <span className="text-sm text-gray-700">Send email receipt</span>
+                        </label>
+                        <label className="flex items-center space-x-3">
+                          <input type="checkbox" className="h-4 w-4 text-blue-600 rounded" />
+                          <span className="text-sm text-gray-700">Notify class teacher</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
