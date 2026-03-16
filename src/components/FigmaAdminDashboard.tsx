@@ -294,13 +294,9 @@ export default function FigmaAdminDashboard() {
     }
   };
 
-  const getHealthStatusColor = (status: string) => {
-    switch (status) {
-      case 'healthy': return 'text-green-600 bg-green-100';
-      case 'warning': return 'text-yellow-600 bg-yellow-100';
-      case 'critical': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
-    }
+  const handleTabChange = (tabId: string) => {
+    console.log('🔄 Tab changing to:', tabId);
+    setActiveTab(tabId);
   };
 
   return (
@@ -353,7 +349,7 @@ export default function FigmaAdminDashboard() {
                 label={item.label}
                 badge={item.badge}
                 isActive={item.id === activeTab}
-                onClick={() => setActiveTab(item.id)}
+                onClick={() => handleTabChange(item.id)}
               />
             ))}
           </nav>
@@ -362,6 +358,11 @@ export default function FigmaAdminDashboard() {
         {/* Main Content */}
         <main className={`flex-1 ${sidebarOpen ? 'ml-64' : 'ml-0'} transition-all duration-300`}>
           <div className="p-6">
+            {/* Debug Info */}
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mb-4">
+              <p className="text-yellow-800 text-sm">🔍 Debug: Active Tab = {activeTab}</p>
+            </div>
+            
             {/* Dashboard Tab Content */}
             {activeTab === 'dashboard' && (
               <>
@@ -3998,6 +3999,13 @@ export default function FigmaAdminDashboard() {
                     </div>
                   </div>
                 </div>
+              </div>
+            )}
+          {/* Fallback for unknown tabs */}
+            {!['dashboard', 'users', 'academic', 'financial', 'reports', 'system', 'messages', 'settings'].includes(activeTab) && (
+              <div className="bg-white rounded-xl border border-gray-200 p-6">
+                <h2 className="text-lg font-semibold text-gray-900 mb-4">Tab Content</h2>
+                <p className="text-gray-600">Content for "{activeTab}" tab is being loaded...</p>
               </div>
             )}
           </div>

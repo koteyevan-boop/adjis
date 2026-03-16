@@ -29,7 +29,7 @@ export default function TeacherPortal({
   assignedSubjects?: string[];
 }) {
   const [activeTab, setActiveTab] = useState("dashboard");
-  const [dashboardStyle, setDashboardStyle] = useState("figma"); // 'figma', 'comprehensive', 'modern'
+  const [dashboardStyle] = useState("comprehensive"); // Auto-select comprehensive
   const [selectedClass, setSelectedClass] = useState(assignedClasses[0] || "Grade 7A");
   const [selectedSubject, setSelectedSubject] = useState(assignedSubjects[0] || "Mathematics");
   
@@ -148,70 +148,11 @@ export default function TeacherPortal({
         {/* Tab Content */}
         <div className="p-6">
           {activeTab === "dashboard" && (
-            <>
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                <p className="text-blue-800 font-medium">✅ Modern Dashboard Loading Successfully!</p>
-                <p className="text-blue-600 text-sm">Teacher: {teacherName} | Role: {teacherRole} | Style: {dashboardStyle}</p>
-                <p className="text-blue-500 text-xs">Deployed: {deploymentTime}</p>
-                <div className="mt-3 flex items-center gap-2">
-                  <span className="text-sm text-blue-700">Dashboard Style:</span>
-                  <button
-                    onClick={() => setDashboardStyle("figma")}
-                    className={`px-3 py-1 text-xs rounded ${
-                      dashboardStyle === "figma" 
-                        ? "bg-blue-600 text-white" 
-                        : "bg-white text-blue-600 border border-blue-300"
-                    }`}
-                  >
-                    Figma Design
-                  </button>
-                  <button
-                    onClick={() => setDashboardStyle("comprehensive")}
-                    className={`px-3 py-1 text-xs rounded ${
-                      dashboardStyle === "comprehensive" 
-                        ? "bg-blue-600 text-white" 
-                        : "bg-white text-blue-600 border border-blue-300"
-                    }`}
-                  >
-                    Comprehensive
-                  </button>
-                  <button
-                    onClick={() => setDashboardStyle("modern")}
-                    className={`px-3 py-1 text-xs rounded ${
-                      dashboardStyle === "modern" 
-                        ? "bg-blue-600 text-white" 
-                        : "bg-white text-blue-600 border border-blue-300"
-                    }`}
-                  >
-                    Modern
-                  </button>
-                </div>
-              </div>
-              
-              {dashboardStyle === "figma" && (
-                <FigmaInspiredDashboard
-                  teacherName={teacherName}
-                  teacherRole={teacherRole}
-                  assignedClasses={assignedClasses}
-                />
-              )}
-              
-              {dashboardStyle === "comprehensive" && (
-                <ComprehensiveDashboard
-                  teacherName={teacherName}
-                  teacherRole={teacherRole}
-                  assignedClasses={assignedClasses}
-                />
-              )}
-              
-              {dashboardStyle === "modern" && (
-                <ModernTeacherDashboard
-                  teacherName={teacherName}
-                  teacherRole={teacherRole}
-                  assignedClasses={assignedClasses}
-                />
-              )}
-            </>
+            <ComprehensiveDashboard
+              teacherName={teacherName}
+              teacherRole={teacherRole}
+              assignedClasses={assignedClasses}
+            />
           )}
 
           {activeTab === "materials" && (
