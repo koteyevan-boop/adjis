@@ -4,23 +4,31 @@ services:
     name: adjis-school
     env: node
     plan: free
-    buildCommand: "npm run build"
+    buildCommand: "chmod +x build-render.sh && ./build-render.sh"
     startCommand: "npm start"
     healthCheckPath: /
+    buildTimeout: 900  # 15 minutes
     envVars:
       - key: NODE_VERSION
         value: 18
       - key: NODE_ENV
         value: production
+      - key: NODE_OPTIONS
+        value: "--max-old-space-size=4096"
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"
+      - key: TURBOPACK
+        value: "1"
     
   # Staging service (optional)
   - type: web
     name: adjis-school-staging
     env: node
     plan: free
-    buildCommand: "npm run build"
+    buildCommand: "chmod +x build-render.sh && ./build-render.sh"
     startCommand: "npm start"
     healthCheckPath: /
+    buildTimeout: 900  # 15 minutes
     envVars:
       - key: NODE_VERSION
         value: 18
@@ -28,15 +36,25 @@ services:
       - key: NODE_ENV
         value: production
         sync: false
+      - key: NODE_OPTIONS
+        value: "--max-old-space-size=4096"
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"
+      - key: TURBOPACK
+        value: "1"
 
 # Build configuration
 build:
   builder: NIXPACKS
   buildPath: .
-  buildCommand: "npm run build"
+  buildCommand: "chmod +x build-render.sh && ./build-render.sh"
   runCommand: "npm start"
+  buildTimeout: 900  # 15 minutes
 
 # Environment variables
 environment:
   NODE_VERSION: 18
   NODE_ENV: production
+  NODE_OPTIONS: "--max-old-space-size=4096"
+  NEXT_TELEMETRY_DISABLED: "1"
+  TURBOPACK: "1"

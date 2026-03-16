@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "bunx tsc --noEmit && next lint",
-    "format": "bunx biome format --write"
+    "format": "bunx biome format --write",
+    "build:optimized": "npm run clean && npm run build:prod",
+    "build:prod": "NODE_ENV=production NODE_OPTIONS=\"--max-old-space-size=4096\" next build",
+    "clean": "if exist .next rmdir /s /q .next && if exist out rmdir /s /q out"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
