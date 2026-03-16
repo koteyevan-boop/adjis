@@ -1103,13 +1103,659 @@ export default function FigmaAdminDashboard() {
 
             {/* Academic Tab Content */}
             {activeTab === 'academic' && (
-              <div className="bg-white rounded-xl border border-gray-200 p-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Academic Management</h2>
-                <p className="text-gray-600">Manage classes, subjects, and academic records.</p>
-                <div className="mt-6">
-                  <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-                    Add New Class
-                  </button>
+              <div className="space-y-6">
+                {/* Academic Management Header */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-2xl font-bold text-gray-900">Academic Management</h2>
+                    <div className="flex space-x-2">
+                      <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center space-x-2">
+                        <Plus className="h-4 w-4" />
+                        <span>Add Course</span>
+                      </button>
+                      <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2">
+                        <Calendar className="h-4 w-4" />
+                        <span>Academic Calendar</span>
+                      </button>
+                      <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 flex items-center space-x-2">
+                        <BarChart3 className="h-4 w-4" />
+                        <span>Gradebook Overview</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Academic Statistics Cards */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-blue-600 font-medium">Total Courses</p>
+                          <p className="text-2xl font-bold text-blue-900">127</p>
+                          <p className="text-xs text-blue-600 mt-1">Active this term</p>
+                        </div>
+                        <div className="h-12 w-12 bg-blue-200 rounded-full flex items-center justify-center">
+                          <BookOpen className="h-6 w-6 text-blue-600" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg border border-green-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-green-600 font-medium">Classes</p>
+                          <p className="text-2xl font-bold text-green-900">48</p>
+                          <p className="text-xs text-green-600 mt-1">Across all grades</p>
+                        </div>
+                        <div className="h-12 w-12 bg-green-200 rounded-full flex items-center justify-center">
+                          <GraduationCap className="h-6 w-6 text-green-600" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-gradient-to-r from-purple-50 to-purple-100 p-4 rounded-lg border border-purple-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-purple-600 font-medium">Teachers</p>
+                          <p className="text-2xl font-bold text-purple-900">87</p>
+                          <p className="text-xs text-purple-600 mt-1">Active faculty</p>
+                        </div>
+                        <div className="h-12 w-12 bg-purple-200 rounded-full flex items-center justify-center">
+                          <Users className="h-6 w-6 text-purple-600" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-gradient-to-r from-orange-50 to-orange-100 p-4 rounded-lg border border-orange-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-orange-600 font-medium">Avg Attendance</p>
+                          <p className="text-2xl font-bold text-orange-900">94.2%</p>
+                          <p className="text-xs text-orange-600 mt-1">This week</p>
+                        </div>
+                        <div className="h-12 w-12 bg-orange-200 rounded-full flex items-center justify-center">
+                          <CheckCircle className="h-6 w-6 text-orange-600" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Academic Calendar Overview */}
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Current Academic Period</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Academic Year</label>
+                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <option>2024-2025</option>
+                          <option>2023-2024</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Term/Semester</label>
+                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <option>Fall Term</option>
+                          <option>Spring Term</option>
+                          <option>Summer Term</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Grading Period</label>
+                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <option>Quarter 1</option>
+                          <option>Quarter 2</option>
+                          <option>Mid-Term</option>
+                          <option>Final Exams</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Campus/Branch</label>
+                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <option>Main Campus</option>
+                          <option>North Campus</option>
+                          <option>South Campus</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Quick Actions */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* Curriculum Management */}
+                  <div className="bg-white rounded-xl border border-gray-200 p-6">
+                    <div className="flex items-center space-x-3 mb-4">
+                      <div className="h-10 w-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <BookOpen className="h-5 w-5 text-blue-600" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900">Curriculum Management</h3>
+                    </div>
+                    <div className="space-y-3">
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Course Catalog</p>
+                            <p className="text-sm text-gray-600">Manage all courses</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Program Requirements</p>
+                            <p className="text-sm text-gray-600">Define completion criteria</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Prerequisites</p>
+                            <p className="text-sm text-gray-600">Set course requirements</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Gradebook Management */}
+                  <div className="bg-white rounded-xl border border-gray-200 p-6">
+                    <div className="flex items-center space-x-3 mb-4">
+                      <div className="h-10 w-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <BarChart3 className="h-5 w-5 text-purple-600" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900">Gradebook Management</h3>
+                    </div>
+                    <div className="space-y-3">
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Grading Scales</p>
+                            <p className="text-sm text-gray-600">Configure grade systems</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Gradebook Templates</p>
+                            <p className="text-sm text-gray-600">Assignment categories</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Grade Publishing</p>
+                            <p className="text-sm text-gray-600">Approval workflow</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Assessment & Attendance */}
+                  <div className="bg-white rounded-xl border border-gray-200 p-6">
+                    <div className="flex items-center space-x-3 mb-4">
+                      <div className="h-10 w-10 bg-green-100 rounded-lg flex items-center justify-center">
+                        <FileText className="h-5 w-5 text-green-600" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900">Assessment & Attendance</h3>
+                    </div>
+                    <div className="space-y-3">
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Exam Scheduling</p>
+                            <p className="text-sm text-gray-600">Plan assessments</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Attendance Rules</p>
+                            <p className="text-sm text-gray-600">Set policies</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">Report Cards</p>
+                            <p className="text-sm text-gray-600">Generate reports</p>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Gradebook Overview Dashboard */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Gradebook Overview</h3>
+                    <div className="flex space-x-2">
+                      <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">View All Classes</button>
+                      <button className="text-green-600 hover:text-green-700 text-sm font-medium">Export Grades</button>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Gradebook Heat Map */}
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">Class Gradebook Status</h4>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-200">
+                          <div className="flex items-center space-x-3">
+                            <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+                            <span className="text-sm font-medium text-gray-900">Grade 10A - Mathematics</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <span className="text-xs text-green-600">Complete</span>
+                            <span className="text-xs text-gray-600">Avg: 85%</span>
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                          <div className="flex items-center space-x-3">
+                            <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+                            <span className="text-sm font-medium text-gray-900">Grade 10B - Science</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <span className="text-xs text-yellow-600">Missing Grades</span>
+                            <span className="text-xs text-gray-600">3 assignments</span>
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-200">
+                          <div className="flex items-center space-x-3">
+                            <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+                            <span className="text-sm font-medium text-gray-900">Grade 11A - English</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <span className="text-xs text-green-600">Complete</span>
+                            <span className="text-xs text-gray-600">Avg: 88%</span>
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg border border-red-200">
+                          <div className="flex items-center space-x-3">
+                            <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+                            <span className="text-sm font-medium text-gray-900">Grade 9A - History</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <span className="text-xs text-red-600">Overdue</span>
+                            <span className="text-xs text-gray-600">5 days late</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Grade Distribution */}
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">Grade Distribution</h4>
+                      <div className="space-y-3">
+                        <div>
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="text-sm text-gray-600">A (90-100)</span>
+                            <span className="text-sm font-medium text-gray-900">23%</span>
+                          </div>
+                          <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div className="bg-green-500 h-2 rounded-full" style={{width: '23%'}}></div>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="text-sm text-gray-600">B (80-89)</span>
+                            <span className="text-sm font-medium text-gray-900">34%</span>
+                          </div>
+                          <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div className="bg-blue-500 h-2 rounded-full" style={{width: '34%'}}></div>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="text-sm text-gray-600">C (70-79)</span>
+                            <span className="text-sm font-medium text-gray-900">28%</span>
+                          </div>
+                          <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div className="bg-yellow-500 h-2 rounded-full" style={{width: '28%'}}></div>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="text-sm text-gray-600">D (60-69)</span>
+                            <span className="text-sm font-medium text-gray-900">12%</span>
+                          </div>
+                          <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div className="bg-orange-500 h-2 rounded-full" style={{width: '12%'}}></div>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="text-sm text-gray-600">F (Below 60)</span>
+                            <span className="text-sm font-medium text-gray-900">3%</span>
+                          </div>
+                          <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div className="bg-red-500 h-2 rounded-full" style={{width: '3%'}}></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Course Schedule Grid */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Master Schedule Viewer</h3>
+                    <div className="flex space-x-2">
+                      <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">Week View</button>
+                      <button className="text-green-600 hover:text-green-700 text-sm font-medium">Day View</button>
+                    </div>
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider border">Time</th>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider border">Monday</th>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider border">Tuesday</th>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider border">Wednesday</th>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider border">Thursday</th>
+                          <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider border">Friday</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-200">
+                        <tr>
+                          <td className="px-4 py-3 text-sm font-medium text-gray-900 border">8:00 - 9:00</td>
+                          <td className="px-4 py-3 border">
+                            <div className="bg-blue-50 p-2 rounded text-xs">
+                              <p className="font-medium text-blue-900">Math 10A</p>
+                              <p className="text-blue-600">Mrs. Mensah</p>
+                              <p className="text-gray-500">Room 201</p>
+                            </div>
+                          </td>
+                          <td className="px-4 py-3 border">
+                            <div className="bg-green-50 p-2 rounded text-xs">
+                              <p className="font-medium text-green-900">English 10B</p>
+                              <p className="text-green-600">Mr. Asante</p>
+                              <p className="text-gray-500">Room 203</p>
+                            </div>
+                          </td>
+                          <td className="px-4 py-3 border">
+                            <div className="bg-purple-50 p-2 rounded text-xs">
+                              <p className="font-medium text-purple-900">Science 10A</p>
+                              <p className="text-purple-600">Dr. Boateng</p>
+                              <p className="text-gray-500">Lab 101</p>
+                            </div>
+                          </td>
+                          <td className="px-4 py-3 border">
+                            <div className="bg-blue-50 p-2 rounded text-xs">
+                              <p className="font-medium text-blue-900">Math 10A</p>
+                              <p className="text-blue-600">Mrs. Mensah</p>
+                              <p className="text-gray-500">Room 201</p>
+                            </div>
+                          </td>
+                          <td className="px-4 py-3 border">
+                            <div className="bg-orange-50 p-2 rounded text-xs">
+                              <p className="font-medium text-orange-900">History 10B</p>
+                              <p className="text-orange-600">Ms. Johnson</p>
+                              <p className="text-gray-500">Room 205</p>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="px-4 py-3 text-sm font-medium text-gray-900 border">9:00 - 10:00</td>
+                          <td className="px-4 py-3 border">
+                            <div className="bg-green-50 p-2 rounded text-xs">
+                              <p className="font-medium text-green-900">English 10A</p>
+                              <p className="text-green-600">Mr. Asante</p>
+                              <p className="text-gray-500">Room 203</p>
+                            </div>
+                          </td>
+                          <td className="px-4 py-3 border">
+                            <div className="bg-purple-50 p-2 rounded text-xs">
+                              <p className="font-medium text-purple-900">Science 10B</p>
+                              <p className="text-purple-600">Dr. Boateng</p>
+                              <p className="text-gray-500">Lab 102</p>
+                            </div>
+                          </td>
+                          <td className="px-4 py-3 border">
+                            <div className="bg-blue-50 p-2 rounded text-xs">
+                              <p className="font-medium text-blue-900">Math 10B</p>
+                              <p className="text-blue-600">Mrs. Mensah</p>
+                              <p className="text-gray-500">Room 202</p>
+                            </div>
+                          </td>
+                          <td className="px-4 py-3 border">
+                            <div className="bg-green-50 p-2 rounded text-xs">
+                              <p className="font-medium text-green-900">English 10A</p>
+                              <p className="text-green-600">Mr. Asante</p>
+                              <p className="text-gray-500">Room 203</p>
+                            </div>
+                          </td>
+                          <td className="px-4 py-3 border">
+                            <div className="bg-purple-50 p-2 rounded text-xs">
+                              <p className="font-medium text-purple-900">Science 10A</p>
+                              <p className="text-purple-600">Dr. Boateng</p>
+                              <p className="text-gray-500">Lab 101</p>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* Academic Progress Monitoring */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* At-Risk Students */}
+                  <div className="bg-white rounded-xl border border-gray-200 p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">At-Risk Students</h3>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg border border-red-200">
+                        <div className="flex items-center space-x-3">
+                          <div className="h-8 w-8 bg-red-500 rounded-full flex items-center justify-center">
+                            <User className="h-4 w-4 text-white" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">Kofi Mensah</p>
+                            <p className="text-sm text-gray-600">Grade 10A - Avg: 58%</p>
+                          </div>
+                        </div>
+                        <button className="text-red-600 hover:text-red-700 text-sm">Intervene</button>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg border border-orange-200">
+                        <div className="flex items-center space-x-3">
+                          <div className="h-8 w-8 bg-orange-500 rounded-full flex items-center justify-center">
+                            <User className="h-4 w-4 text-white" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">Ama Asante</p>
+                            <p className="text-sm text-gray-600">Grade 11B - Avg: 65%</p>
+                          </div>
+                        </div>
+                        <button className="text-orange-600 hover:text-orange-700 text-sm">Monitor</button>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <div className="flex items-center space-x-3">
+                          <div className="h-8 w-8 bg-yellow-500 rounded-full flex items-center justify-center">
+                            <User className="h-4 w-4 text-white" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">Yaa Boateng</p>
+                            <p className="text-sm text-gray-600">Grade 9A - Avg: 72%</p>
+                          </div>
+                        </div>
+                        <button className="text-yellow-600 hover:text-yellow-700 text-sm">Support</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Academic Achievement */}
+                  <div className="bg-white rounded-xl border border-gray-200 p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Academic Achievement</h3>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-200">
+                        <div className="flex items-center space-x-3">
+                          <div className="h-8 w-8 bg-green-500 rounded-full flex items-center justify-center">
+                            <Award className="h-4 w-4 text-white" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">Honor Roll</p>
+                            <p className="text-sm text-gray-600">45 students (3.6% GPA+)</p>
+                          </div>
+                        </div>
+                        <button className="text-green-600 hover:text-green-700 text-sm">View List</button>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg border border-blue-200">
+                        <div className="flex items-center space-x-3">
+                          <div className="h-8 w-8 bg-blue-500 rounded-full flex items-center justify-center">
+                            <Star className="h-4 w-4 text-white" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">Perfect Attendance</p>
+                            <p className="text-sm text-gray-600">127 students (100% attendance)</p>
+                          </div>
+                        </div>
+                        <button className="text-blue-600 hover:text-blue-700 text-sm">View List</button>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg border border-purple-200">
+                        <div className="flex items-center space-x-3">
+                          <div className="h-8 w-8 bg-purple-500 rounded-full flex items-center justify-center">
+                            <Target className="h-4 w-4 text-white" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">Most Improved</p>
+                            <p className="text-sm text-gray-600">23 students (+15% avg improvement)</p>
+                          </div>
+                        </div>
+                        <button className="text-purple-600 hover:text-purple-700 text-sm">View List</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Teacher Tools & Resources */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Teacher Tools & Resources</h3>
+                    <div className="flex space-x-2">
+                      <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">Add Resource</button>
+                      <button className="text-green-600 hover:text-green-700 text-sm font-medium">Schedule Observation</button>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                      <div className="flex items-center space-x-3 mb-3">
+                        <div className="h-10 w-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                          <FileText className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <h4 className="font-medium text-gray-900">Lesson Plan Repository</h4>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3">View and manage lesson plans submitted by teachers</p>
+                      <button className="w-full bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 text-sm">
+                        View Plans
+                      </button>
+                    </div>
+
+                    <div className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                      <div className="flex items-center space-x-3 mb-3">
+                        <div className="h-10 w-10 bg-green-100 rounded-lg flex items-center justify-center">
+                          <Database className="h-5 w-5 text-green-600" />
+                        </div>
+                        <h4 className="font-medium text-gray-900">Resource Library</h4>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3">Upload and manage shared teaching resources</p>
+                      <button className="w-full bg-green-600 text-white px-3 py-2 rounded-lg hover:bg-green-700 text-sm">
+                        Browse Resources
+                      </button>
+                    </div>
+
+                    <div className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                      <div className="flex items-center space-x-3 mb-3">
+                        <div className="h-10 w-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                          <Eye className="h-5 w-5 text-purple-600" />
+                        </div>
+                        <h4 className="font-medium text-gray-900">Classroom Observations</h4>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3">Schedule and log classroom observations</p>
+                      <button className="w-full bg-purple-600 text-white px-3 py-2 rounded-lg hover:bg-purple-700 text-sm">
+                        Schedule Observation
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Assessment Management */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900">Assessment Management</h3>
+                    <div className="flex space-x-2">
+                      <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">Schedule Exam</button>
+                      <button className="text-green-600 hover:text-green-700 text-sm font-medium">View Results</button>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">Upcoming Assessments</h4>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg border border-blue-200">
+                          <div>
+                            <p className="font-medium text-gray-900">Mid-Term Exams</p>
+                            <p className="text-sm text-gray-600">All Grades - Oct 15-20</p>
+                          </div>
+                          <span className="text-xs text-blue-600">5 days</span>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-200">
+                          <div>
+                            <p className="font-medium text-gray-900">Science Fair</p>
+                            <p className="text-sm text-gray-600">Grade 10 - Oct 25</p>
+                          </div>
+                          <span className="text-xs text-green-600">15 days</span>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg border border-purple-200">
+                          <div>
+                            <p className="font-medium text-gray-900">Math Competition</p>
+                            <p className="text-sm text-gray-600">Selected Students - Nov 5</p>
+                          </div>
+                          <span className="text-xs text-purple-600">26 days</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-3">Recent Assessment Results</h4>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+                          <div>
+                            <p className="font-medium text-gray-900">Quarter 1 Tests</p>
+                            <p className="text-sm text-gray-600">Completed - Avg: 82%</p>
+                          </div>
+                          <button className="text-blue-600 hover:text-blue-700 text-sm">View Details</button>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+                          <div>
+                            <p className="font-medium text-gray-900">Reading Assessment</p>
+                            <p className="text-sm text-gray-600">Grade 7 - Avg: 78%</p>
+                          </div>
+                          <button className="text-blue-600 hover:text-blue-700 text-sm">View Details</button>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+                          <div>
+                            <p className="font-medium text-gray-900">Math Quiz</p>
+                            <p className="text-sm text-gray-600">Grade 8 - Avg: 85%</p>
+                          </div>
+                          <button className="text-blue-600 hover:text-blue-700 text-sm">View Details</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
