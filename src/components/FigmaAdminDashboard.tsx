@@ -121,6 +121,13 @@ export default function FigmaAdminDashboard() {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("dashboard");
+  
+  // Interactive feature states
+  const [showAddUserModal, setShowAddUserModal] = useState(false);
+  const [showBulkImportModal, setShowBulkImportModal] = useState(false);
+  const [showExportModal, setShowExportModal] = useState(false);
+  const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
+  const [notificationMessage, setNotificationMessage] = useState("");
 
   const [adminData] = useState<AdminData>({
     profile: {
@@ -299,6 +306,95 @@ export default function FigmaAdminDashboard() {
     setActiveTab(tabId);
   };
 
+  // Interactive feature handlers
+  const handleAddUser = () => {
+    console.log('➕ Add User clicked');
+    setShowAddUserModal(true);
+    setNotificationMessage("Add User modal opened");
+  };
+
+  const handleBulkImport = () => {
+    console.log('📤 Bulk Import clicked');
+    setShowBulkImportModal(true);
+    setNotificationMessage("Bulk Import modal opened");
+  };
+
+  const handleExportUsers = () => {
+    console.log('📥 Export Users clicked');
+    setShowExportModal(true);
+    setNotificationMessage("Exporting users data...");
+  };
+
+  const handleUserSelection = (userId: string) => {
+    setSelectedUsers(prev => 
+      prev.includes(userId) 
+        ? prev.filter(id => id !== userId)
+        : [...prev, userId]
+    );
+  };
+
+  const handleDeleteUser = (userId: string) => {
+    console.log('🗑️ Delete user:', userId);
+    setNotificationMessage(`User ${userId} deleted`);
+  };
+
+  const handleEditUser = (userId: string) => {
+    console.log('✏️ Edit user:', userId);
+    setNotificationMessage(`Editing user ${userId}`);
+  };
+
+  const clearNotification = () => {
+    setNotificationMessage("");
+  };
+
+  // User action handlers
+  const handleViewUser = (userId: string, userName: string) => {
+    console.log('👁️ View user:', userId, userName);
+    setNotificationMessage(`Viewing ${userName}'s profile`);
+  };
+
+  const handleArchiveUser = (userId: string, userName: string) => {
+    console.log('📦 Archive user:', userId, userName);
+    setNotificationMessage(`${userName} archived`);
+  };
+
+  // Academic action handlers
+  const handleEnrollStudent = () => {
+    console.log('📝 Enroll Student clicked');
+    setNotificationMessage("Student enrollment form opened");
+  };
+
+  const handleChangeClass = () => {
+    console.log('🔄 Change Class/Grade clicked');
+    setNotificationMessage("Class change form opened");
+  };
+
+  const handleManageSubjects = () => {
+    console.log('📚 Manage Subjects clicked');
+    setNotificationMessage("Subject management opened");
+  };
+
+  const handleAssignTeachers = () => {
+    console.log('👨‍🏫 Assign Teachers clicked');
+    setNotificationMessage("Teacher assignment opened");
+  };
+
+  // Financial action handlers
+  const handleCreateInvoice = () => {
+    console.log('💰 Create Invoice clicked');
+    setNotificationMessage("Invoice creation form opened");
+  };
+
+  const handleRecordPayment = () => {
+    console.log('💳 Record Payment clicked');
+    setNotificationMessage("Payment recording form opened");
+  };
+
+  const handleGenerateReport = () => {
+    console.log('📊 Generate Report clicked');
+    setNotificationMessage("Financial report generating...");
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -358,10 +454,21 @@ export default function FigmaAdminDashboard() {
         {/* Main Content */}
         <main className={`flex-1 ${sidebarOpen ? 'ml-64' : 'ml-0'} transition-all duration-300`}>
           <div className="p-6">
-            {/* Debug Info */}
-            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mb-4">
-              <p className="text-yellow-800 text-sm">🔍 Debug: Active Tab = {activeTab}</p>
-            </div>
+            {/* Notification System */}
+        {notificationMessage && (
+          <div className="fixed top-20 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 flex items-center space-x-2">
+            <CheckCircle className="h-4 w-4" />
+            <span>{notificationMessage}</span>
+            <button onClick={clearNotification} className="ml-2">
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+        )}
+
+        {/* Debug Info */}
+        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mb-4">
+          <p className="text-yellow-800 text-sm">🔍 Debug: Active Tab = {activeTab}</p>
+        </div>
             
             {/* Dashboard Tab Content */}
             {activeTab === 'dashboard' && (
@@ -506,15 +613,24 @@ export default function FigmaAdminDashboard() {
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-2xl font-bold text-gray-900">User Management</h2>
                     <div className="flex space-x-2">
-                      <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center space-x-2">
+                      <button 
+                        onClick={handleAddUser}
+                        className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center space-x-2"
+                      >
                         <Plus className="h-4 w-4" />
                         <span>Add User</span>
                       </button>
-                      <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2">
+                      <button 
+                        onClick={handleBulkImport}
+                        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2"
+                      >
                         <Upload className="h-4 w-4" />
                         <span>Bulk Import</span>
                       </button>
-                      <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 flex items-center space-x-2">
+                      <button 
+                        onClick={handleExportUsers}
+                        className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 flex items-center space-x-2"
+                      >
                         <Download className="h-4 w-4" />
                         <span>Export Users</span>
                       </button>
@@ -661,7 +777,10 @@ export default function FigmaAdminDashboard() {
                       <h3 className="text-lg font-semibold text-gray-900">Academic Grouping</h3>
                     </div>
                     <div className="space-y-3">
-                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                      <button 
+                        onClick={handleEnrollStudent}
+                        className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                      >
                         <div className="flex items-center justify-between">
                           <div>
                             <p className="font-medium text-gray-900">Enroll Student</p>
@@ -670,7 +789,10 @@ export default function FigmaAdminDashboard() {
                           <ChevronRight className="h-4 w-4 text-gray-400" />
                         </div>
                       </button>
-                      <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                      <button 
+                        onClick={handleChangeClass}
+                        className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                      >
                         <div className="flex items-center justify-between">
                           <div>
                             <p className="font-medium text-gray-900">Change Class/Grade</p>
@@ -820,9 +942,24 @@ export default function FigmaAdminDashboard() {
                           <td className="px-4 py-4 text-sm text-gray-600">2 hours ago</td>
                           <td className="px-4 py-4 text-sm">
                             <div className="flex space-x-2">
-                              <button className="text-blue-600 hover:text-blue-700">View</button>
-                              <button className="text-green-600 hover:text-green-700">Edit</button>
-                              <button className="text-red-600 hover:text-red-700">Archive</button>
+                              <button 
+                                onClick={() => handleViewUser('kofi-asante', 'Kofi Asante')}
+                                className="text-blue-600 hover:text-blue-700"
+                              >
+                                View
+                              </button>
+                              <button 
+                                onClick={() => handleEditUser('kofi-asante')}
+                                className="text-green-600 hover:text-green-700"
+                              >
+                                Edit
+                              </button>
+                              <button 
+                                onClick={() => handleArchiveUser('kofi-asante', 'Kofi Asante')}
+                                className="text-red-600 hover:text-red-700"
+                              >
+                                Archive
+                              </button>
                             </div>
                           </td>
                         </tr>
@@ -851,9 +988,24 @@ export default function FigmaAdminDashboard() {
                           <td className="px-4 py-4 text-sm text-gray-600">1 day ago</td>
                           <td className="px-4 py-4 text-sm">
                             <div className="flex space-x-2">
-                              <button className="text-blue-600 hover:text-blue-700">View</button>
-                              <button className="text-green-600 hover:text-green-700">Edit</button>
-                              <button className="text-red-600 hover:text-red-700">Archive</button>
+                              <button 
+                                onClick={() => handleViewUser('ama-mensah', 'Mrs. Ama Mensah')}
+                                className="text-blue-600 hover:text-blue-700"
+                              >
+                                View
+                              </button>
+                              <button 
+                                onClick={() => handleEditUser('ama-mensah')}
+                                className="text-green-600 hover:text-green-700"
+                              >
+                                Edit
+                              </button>
+                              <button 
+                                onClick={() => handleArchiveUser('ama-mensah', 'Mrs. Ama Mensah')}
+                                className="text-red-600 hover:text-red-700"
+                              >
+                                Archive
+                              </button>
                             </div>
                           </td>
                         </tr>
@@ -1773,11 +1925,17 @@ export default function FigmaAdminDashboard() {
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-2xl font-bold text-gray-900">Financial Management</h2>
                     <div className="flex space-x-2">
-                      <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center space-x-2">
+                      <button 
+                        onClick={handleCreateInvoice}
+                        className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center space-x-2"
+                      >
                         <Plus className="h-4 w-4" />
                         <span>Create Bill</span>
                       </button>
-                      <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2">
+                      <button 
+                        onClick={handleGenerateReport}
+                        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2"
+                      >
                         <Download className="h-4 w-4" />
                         <span>Export Report</span>
                       </button>
