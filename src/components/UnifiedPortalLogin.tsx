@@ -94,6 +94,16 @@ export default function UnifiedPortalLogin() {
         // Store authentication in localStorage
         localStorage.setItem(`portal_auth_${selectedPortal}`, 'true');
         localStorage.setItem('current_user_type', selectedPortal);
+        localStorage.setItem(`current_user_${selectedPortal}`, JSON.stringify({
+          id: `${selectedPortal}1`,
+          username: formData.username,
+          role: selectedPortal,
+          name: selectedPortal === 'admin' ? 'Super Admin' : 
+                selectedPortal === 'teacher' ? 'Mr. Johnson' : 
+                selectedPortal === 'student' ? 'Kofi Asante' : 'Mr. Asante',
+          assignedClasses: selectedPortal === 'teacher' ? ['Grade 7A', 'Grade 7B'] : [],
+          assignedSubjects: selectedPortal === 'teacher' ? ['Mathematics'] : []
+        }));
         localStorage.setItem('login_timestamp', new Date().toISOString());
         
         toast.success("Login successful!", {
